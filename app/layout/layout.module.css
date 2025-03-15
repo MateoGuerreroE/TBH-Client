@@ -1,0 +1,23 @@
+.blurEffect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(30px);
+  z-index: -1;
+}
+
+.searchBar {
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.searchBarVisible {
+  opacity: 1;
+  visibility: visible;
+}

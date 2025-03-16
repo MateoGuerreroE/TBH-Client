@@ -35,7 +35,7 @@ export default function ProductCard({
       />
       {discount && (
         <div
-          className={`absolute rounded-bl-lg shadow-inner right-0 bg-${discount < 20 ? "green" : discount < 50 ? "orange" : "red"}-600 font-poppins font-bold text-xl p-2`}
+          className={`absolute rounded-bl-lg shadow-inner right-0 bg-orange-600 font-poppins font-bold text-xl p-2`}
         >
           {"- " + discount + "%"}
         </div>

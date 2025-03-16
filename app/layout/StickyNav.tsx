@@ -15,6 +15,7 @@ import { useForm } from "@/hooks/useForm";
 import { LoginFormData } from "../../hooks/data";
 import { ExecAction } from "@/types/form";
 import { useAuthentication } from "@/hooks/useAuthentication";
+import CartDrawer from "./CartDrawer";
 
 export default function StickyNav() {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -87,13 +88,7 @@ export default function StickyNav() {
               })
             }
           />
-          <Image
-            src="/icons/cart.svg"
-            alt="cart_icon"
-            width={30}
-            height={30}
-            className="hover:cursor-pointer"
-          />
+          <CartDrawer />
         </div>
       </div>
     </div>

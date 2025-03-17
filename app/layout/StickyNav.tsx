@@ -10,6 +10,11 @@ import {
   ModalBody,
   useDisclosure,
   addToast,
+  Dropdown,
+  DropdownMenu,
+  DropdownTrigger,
+  DropdownItem,
+  DropdownSection,
 } from "@heroui/react";
 import { useForm } from "@/hooks/useForm";
 import { LoginFormData } from "../../hooks/data";
@@ -54,6 +59,31 @@ export default function StickyNav() {
         <div className="flex flex-row gap-9 py-4 items-center">
           <SelectOption label="Inicio" font="font-geist" />
           <SelectOption label="Productos" font="font-geist" />
+          <Dropdown className="">
+            <DropdownTrigger className="hover:cursor-pointer hover:scale-105 font-poppins text-md font-semibold">
+              Categorias
+            </DropdownTrigger>
+            <DropdownMenu
+              className="flex flex-row gap-7"
+              classNames={{ list: ["flex flex-row font-poppins"] }}
+            >
+              <DropdownSection title={"Hogar"}>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+              </DropdownSection>
+              <DropdownSection title={"Electronicos"}>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+                <DropdownItem key={"cat1"}>Categoria1</DropdownItem>
+              </DropdownSection>
+            </DropdownMenu>
+          </Dropdown>
           <SelectOption label="Nosotros" font="font-geist" />
           <SelectOption label="Contacto" font="font-geist" />
         </div>

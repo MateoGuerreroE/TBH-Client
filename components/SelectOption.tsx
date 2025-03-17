@@ -10,7 +10,7 @@ type Props = {
 export default function SelectOption({ action, label, font }: Props) {
   return (
     <a
-      className={`no-underline hover:cursor-pointer hover:scale-105 transition-transform duration-100 ${font}`}
+      className={`no-underline hover:cursor-pointer text-medium hover:scale-105 transition-transform duration-100 ${font}`}
       onClick={() => action && action()}
     >
       {label}

@@ -29,3 +29,7 @@ export interface ProductInfo {
   image: string;
   discount?: number;
 }
+
+export interface ServerResponse<T> {
+  data: T;
+}

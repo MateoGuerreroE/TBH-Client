@@ -3,7 +3,6 @@ import SliderComponent from "@/components/Carousel/SliderComponent";
 import { sampleHomeData } from "@/test/sampleData";
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import React from "react";
 
 export default function StartSection() {
   return (

@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { useAppStore } from "@/app/context/zustand";
+import AccountDropdown from "./AccountDropdown";
 
 export default function MobileDropDown() {
   const [loginModalOpen, isLoginModalOpen] = useState<boolean>(false);
@@ -18,6 +19,14 @@ export default function MobileDropDown() {
 
   return (
     <>
+      <div
+        className={`${user ? "flex" : "hidden"} lg:hidden flex-row font-poppins w-32 items-center gap-0`}
+      >
+        <AccountDropdown
+          type="mobile"
+          userName={user?.fullName.split(" ")[0] ?? ""}
+        />
+      </div>
       <div className={`${user ? "hidden" : "block"} h-[40px] aspect-square`}>
         <Dropdown className="font-poppins">
           <DropdownTrigger className="lg:hidden">

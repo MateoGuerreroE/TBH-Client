@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Form from "./base/Form";
 import { UserRegister } from "@/types/Auth.types";
 import createUserAction from "@/server/createUser.action";
+import { useAppStore } from "@/app/context/zustand";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -11,6 +12,7 @@ type LoginModalProps = {
 
 export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
   const [modalOpen, isModalOpen] = useState<boolean>(false);
+  const { setGlobalAlert } = useAppStore();
   useEffect(() => {
     if (isOpen) {
       isModalOpen(true);
@@ -23,8 +25,27 @@ export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
   };
 
   const handleSubmit = async (values: UserRegister) => {
-    const result = await createUserAction(values);
-    console.log(result);
+    const { data } = await createUserAction(values);
+    if (data) {
+      setGlobalAlert({
+        isOpen: true,
+        title: "¡Has creado tu cuenta!",
+        timeout: 6000,
+        content: (
+          <div className="flex flex-col gap-3">
+            <p>
+              Para facilitar tu experiencia, ya puedes acceder y actualizar tus
+              datos, o ver tus compras.
+            </p>
+            <p>
+              <b>Se ha enviado un correo de verificación.</b> A la hora del pago
+              o en el próximo inicio de sesión, tu correo debe estar confirmado
+              para poder continuar.
+            </p>
+          </div>
+        ),
+      });
+    }
     handleClose();
     addToast({
       title: "Bienvenido",

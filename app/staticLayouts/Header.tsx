@@ -3,10 +3,14 @@
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import React from "react";
+import { useAppStore } from "../context/zustand";
+import GlobalAlert from "@/components/GlobalAlert";
 
 export default function Header() {
+  const { globalAlert } = useAppStore();
   return (
     <div className="flex flex-col w-full relative z-50">
+      <GlobalAlert {...globalAlert} />
       <div className="flex justify-center w-full bg-[#017392] shadow-lg">
         <div className="flex flex-row max-w-[1400px] w-full">
           <Image

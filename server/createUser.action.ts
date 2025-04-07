@@ -4,10 +4,11 @@ import axios, { AxiosError } from "axios";
 import app from "@/utils/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
+import { ServerResponse } from "@/types/Data.types";
 
 export default async function createUserAction(
   userForm: UserRegister
-): Promise<void> {
+): Promise<ServerResponse<string>> {
   try {
     const { password_confirmation, ...userData } = userForm;
     if (userData.password !== password_confirmation) {

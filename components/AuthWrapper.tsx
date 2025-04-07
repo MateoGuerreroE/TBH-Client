@@ -4,6 +4,7 @@ import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { Button } from "@heroui/react";
 import { useAppStore } from "@/app/context/zustand";
+import AccountDropdown from "./AccountDropdown";
 
 type AuthWrapperProps = {
   variation: "mobile" | "desktop";
@@ -19,7 +20,14 @@ export default function AuthWrapper({ orientation }: AuthWrapperProps) {
 
   return (
     <>
-      <div className="flex flex-row"></div>
+      <div
+        className={`${user ? "flex" : "hidden"} flex-row font-poppins w-40 items-center gap-0`}
+      >
+        <AccountDropdown
+          type="desktop"
+          userName={user?.fullName.split(" ")[0] ?? ""}
+        />
+      </div>
       <div
         className={`${orientation === "horizontal" ? "flex-row" : "flex-col"} ${user ? "hidden" : "flex"} gap-5 items-center`}
       >

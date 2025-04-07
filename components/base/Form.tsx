@@ -46,8 +46,6 @@ export default function Form<T>({
   const [ready, setReady] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
 
-  console.log(formError);
-
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     isLoading(true);
@@ -55,7 +53,6 @@ export default function Form<T>({
       await submitAction(formValues);
     } catch (e) {
       if (e instanceof Error) {
-        console.log(e);
         addToast({
           title: "Server error",
           description: (e.cause as string) || e.message,

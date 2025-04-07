@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { Button } from "@heroui/react";
+import { useAppStore } from "@/app/context/zustand";
 
 type AuthWrapperProps = {
   variation: "mobile" | "desktop";
@@ -14,10 +15,13 @@ export default function AuthWrapper({ orientation }: AuthWrapperProps) {
   const [loginModalOpen, isLoginModalOpen] = useState<boolean>(false);
   const [registerModalOpen, isRegisterModalOpen] = useState<boolean>(false);
 
+  const { user } = useAppStore();
+
   return (
     <>
+      <div className="flex flex-row"></div>
       <div
-        className={`flex ${orientation === "horizontal" ? "flex-row" : "flex-col"} gap-5 items-center`}
+        className={`${orientation === "horizontal" ? "flex-row" : "flex-col"} ${user ? "hidden" : "flex"} gap-5 items-center`}
       >
         <Button
           onPress={() => isLoginModalOpen(true)}

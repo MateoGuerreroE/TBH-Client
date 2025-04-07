@@ -24,7 +24,7 @@ export async function loginUserAction(
     } else if (token) {
       userToken = token;
     } else {
-      throw new ClientError("Insufficient data to login user");
+      throw new ClientError("No hay sufientes datos para iniciar sesión");
     }
     const { data: response } = await axios.post<ServerResponse<UserLogin>>(
       `${process.env.NEXT_PUBLIC_API_URL}/access/login`,
@@ -41,7 +41,7 @@ export async function loginUserAction(
     if (e instanceof AxiosError) {
       message = e.response?.data.error;
     }
-    message = message || (e as Error).message || "Error de servidor";
-    throw new ClientError(message);
+    message = message || (e as Error).message || "Server error";
+    throw new ClientError("Credenciales incorrectas", message);
   }
 }

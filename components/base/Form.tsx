@@ -28,6 +28,7 @@ interface FormProps<T> {
   submitText: string;
   inputs: InputValues[];
   submitAction: (value: T) => void | Promise<void>;
+  defaultError?: string;
 }
 
 export default function Form<T>({
@@ -57,11 +58,15 @@ export default function Form<T>({
         console.log(e);
         addToast({
           title: "Server error",
-          description: e.message,
+          description: (e.cause as string) || e.message,
           color: "warning",
         });
+        let message = "Ha ocurrido un error. Intenta nuevamente";
+        if (e.name === "ClientError") {
+          message = e.message;
+        }
+        setFormError(message);
       }
-      setFormError("Credenciales inválidas");
     } finally {
       isLoading(false);
     }

@@ -14,6 +14,7 @@ import { LoginForm } from "@/types/Auth.types";
 import Image from "next/image";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "@/utils/firebase";
+import { useAppStore } from "@/app/context/zustand";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -23,6 +24,7 @@ type LoginModalProps = {
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [modalOpen, isModalOpen] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
+  const { setUser } = useAppStore();
   useEffect(() => {
     if (isOpen) {
       isModalOpen(true);
@@ -41,6 +43,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       description: `Hola ${result.fullName}, bienvenido de vuelta`,
       color: "success",
     });
+    setUser(result);
     handleClose();
   };
 
@@ -57,7 +60,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       handleClose();
       addToast({
         title: "Bienvenido",
-        description: `Hola ${result.fullName}, bienvenido de vuelta`,
+        description: `Hola ${result.fullName.split(" ")[0]}, bienvenido de vuelta`,
         color: "success",
       });
     } catch (e) {
@@ -82,7 +85,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         ) : (
           <></>
         )}
-        <ModalBody className="flex flex-col gap-5 p-5 relative">
+        <ModalBody className="flex flex-col gap-5 p-5">
           <h4 className="font-poppins text-3xl font-semibold text-center py-3">
             Inicia Sesion
           </h4>

@@ -12,7 +12,7 @@ type RegexpValidation = {
 
 export type BooleanFormState<T> = Record<keyof T, boolean>;
 
-type CustomValidation = {
+export type CustomValidation = {
   type: "custom";
   validation: (value: string) => boolean;
   errorMessage: string;

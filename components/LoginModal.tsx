@@ -15,6 +15,7 @@ import Image from "next/image";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "@/utils/firebase";
 import { useAppStore } from "@/app/context/zustand";
+import { LoginFormData } from "@/utils/authForms.data";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -57,6 +58,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         undefined,
         await externalResult.user.getIdToken()
       );
+      setUser(result);
       handleClose();
       addToast({
         title: "Bienvenido",
@@ -64,7 +66,11 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         color: "success",
       });
     } catch (e) {
-      alert(e);
+      addToast({
+        title: "Ha ocurrido un error",
+        description: (e as Error).message || "Intenta nuevamente más tarde",
+        color: "danger",
+      });
     } finally {
       isLoading(false);
     }
@@ -91,39 +97,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           </h4>
           <Form
             submitText="Ingresar"
-            inputs={[
-              {
-                validations: [
-                  {
-                    type: "regexp",
-                    regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    errorMessage: "Usuario invalido",
-                  },
-                ],
-                label: "Usuario",
-                attribute: "email",
-                inputOptions: {
-                  isRequired: true,
-                  type: "inside",
-                },
-              },
-              {
-                validations: [
-                  {
-                    type: "custom",
-                    errorMessage: "Contraseña invalida",
-                    validation: (val: string) => val.length > 5,
-                  },
-                ],
-                label: "Contraseña",
-                attribute: "password",
-                inputOptions: {
-                  isRequired: true,
-                  type: "inside",
-                  isHidden: true,
-                },
-              },
-            ]}
+            inputs={LoginFormData}
             submitAction={handleFormLogin}
           />
           <Divider />

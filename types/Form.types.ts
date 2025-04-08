@@ -2,6 +2,7 @@ export interface InputValues {
   validations: InputValidation[];
   attribute: string;
   label: string;
+  inputOptions: InputVisualOptions;
 }
 
 type RegexpValidation = {

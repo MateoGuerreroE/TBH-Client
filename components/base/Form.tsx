@@ -5,25 +5,13 @@ import {
   Form as FormComponent,
   Spinner,
 } from "@heroui/react";
-import {
-  BooleanFormState,
-  InputValidation,
-  InputVisualOptions,
-} from "@/types/Form.types";
+import { BooleanFormState, InputValues } from "@/types/Form.types";
 import FormInput from "./FormInput";
 import {
   initializeBooleanFormState,
   initializeStringFormState,
   isFormValid,
 } from "@/utils/form";
-
-interface InputValues {
-  label: string;
-  attribute: string;
-  validations: InputValidation[];
-  inputOptions: InputVisualOptions;
-}
-
 interface FormProps<T> {
   submitText: string;
   inputs: InputValues[];

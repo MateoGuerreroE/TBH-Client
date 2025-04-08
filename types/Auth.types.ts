@@ -18,4 +18,5 @@ export type UserRegister = {
   email: string;
   password: string;
   password_confirmation: string;
+  firebase_id?: string;
 };

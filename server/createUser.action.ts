@@ -11,22 +11,21 @@ export default async function createUserAction(
 ): Promise<ServerResponse<string>> {
   try {
     const { password_confirmation, ...userData } = userForm;
-    if (userData.password !== password_confirmation) {
-      throw new ClientError("Las contraseñas no coinciden");
+    if (!userData.firebase_id) {
+      if (userData.password !== password_confirmation) {
+        throw new ClientError("Las contraseñas no coinciden");
+      }
+      const auth = getAuth(app);
+      const firebaseUser = await createUserWithEmailAndPassword(
+        auth,
+        userForm.email,
+        userForm.password
+      );
+      userData.firebase_id = firebaseUser.user.uid;
     }
-    const auth = getAuth(app);
-    const firebaseUser = await createUserWithEmailAndPassword(
-      auth,
-      userForm.email,
-      userForm.password
-    );
-    const userId = firebaseUser.user.uid;
     const { data: response } = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/access/create_user`,
-      {
-        ...userData,
-        firebase_id: userId,
-      }
+      userData
     );
     return response;
   } catch (e) {

@@ -1,11 +1,10 @@
 "use server";
 
 import { LoginForm, UserLogin } from "@/types/Auth.types";
-import { ServerResponse } from "@/types/Data.types";
-import axios, { AxiosError } from "axios";
 import app from "@/utils/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ClientError } from "@/types/Exceptions.types";
+import { postResource } from "./fetch";
 
 export async function loginUserAction(
   formData?: LoginForm,
@@ -26,22 +25,15 @@ export async function loginUserAction(
     } else {
       throw new ClientError("No hay sufientes datos para iniciar sesión");
     }
-    const { data: response } = await axios.post<ServerResponse<UserLogin>>(
+    const { data: response } = await postResource<UserLogin>(
       `${process.env.NEXT_PUBLIC_API_URL}/access/login`,
       { token: userToken },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      undefined,
+      { next: { revalidate: 1800 } }
     );
-    return response.data;
+    return response;
   } catch (e) {
-    let message = "";
-    if (e instanceof AxiosError) {
-      message = e.response?.data.error;
-    }
-    message = message || (e as Error).message || "Server error";
+    const message = (e as Error).message || "Server error";
     throw new ClientError("Credenciales incorrectas", message);
   }
 }

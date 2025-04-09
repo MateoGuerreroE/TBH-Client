@@ -1,0 +1,35 @@
+@keyframes slide {
+  0% {
+    left: -130px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.shine::before {
+  position: absolute;
+  content: "";
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 220px;
+  z-index: 10;
+  width: 60px;
+  left: -130px;
+  transform: skewX(-30deg);
+}
+
+.shine:hover::before {
+  animation: slide 0.7s;
+}
+
+.shine:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: transform 0.3s ease-in-out;
+}

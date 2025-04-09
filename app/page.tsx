@@ -1,12 +1,14 @@
 import StartSection from "@/app/sections/home/StartSection";
 import Footer from "./sections/shared/Footer";
 import Trending from "./sections/home/Trending";
+import CategoriesSection from "./sections/home/CategoriesSection";
 
 export default function Home() {
   return (
     <main className="max-w-screen">
       <StartSection />
       <Trending />
+      <CategoriesSection />
       <Footer />
     </main>
   );

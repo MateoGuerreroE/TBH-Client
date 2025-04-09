@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       screens: {
         "2xl": "1536px",
+        xs: "400px",
       },
       fontFamily: {
         poppins: "var(--font-poppins)",

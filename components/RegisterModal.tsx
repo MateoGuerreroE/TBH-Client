@@ -38,8 +38,8 @@ export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
   };
 
   const handleSubmit = async (values: UserRegister) => {
-    const { data } = await createUserAction(values);
-    if (data) {
+    const result = await createUserAction(values);
+    if (result) {
       setGlobalAlert({
         isOpen: true,
         title: "¡Has creado tu cuenta!",

@@ -27,7 +27,8 @@ export default function NavBar() {
                 {menuList.map((item, index) => (
                   <SelectLink
                     key={index}
-                    label={item}
+                    label={item.label}
+                    uri={item.uri}
                     fontSize="sm"
                     customClass="md:text-md"
                   />

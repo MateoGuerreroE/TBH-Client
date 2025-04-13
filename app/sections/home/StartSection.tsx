@@ -12,7 +12,7 @@ export default function StartSection() {
           <SliderComponent>
             {sampleHomeData.map((data, index) => (
               <div
-                className="flex items-center justify-center flex-col-reverse md:flex-row md:gap-7 lg:gap-24 z-0"
+                className="flex h-full items-center justify-center flex-col-reverse md:flex-row md:gap-7 lg:gap-24 z-0"
                 key={index}
               >
                 <div className="flex flex-col max-w-full md:max-w-[300px] lg:max-w-[400px] gap-5">

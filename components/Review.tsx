@@ -1,0 +1,38 @@
+import Image from "next/image";
+import React from "react";
+
+export type ReviewProps = {
+  authorName: string;
+  content?: string;
+};
+
+//! TESTING, REMOVE:
+const sample =
+  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus autem eveniet. Lorem ipsum dolor sit amet, consectetur adipisicing elit.";
+
+export default function Review({ authorName, content = sample }: ReviewProps) {
+  return (
+    <div className="w-full flex gap-8 h-full max-h-32">
+      <div className="rounded-full h-32 w-32 bg-black"></div>
+      <div className="flex flex-col flex-1">
+        <div className="flex gap-3 items-center">
+          {[1, 2, 3, 4, 5].map((item) => (
+            <div key={item}>
+              <Image
+                src="/icons/empty-star.svg"
+                alt="empty_star"
+                className="h-full"
+                height={22}
+                width={22}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col mt-0.5 md:mt-1 font-poppins flex-1 max-h-[2/3] overflow-hidden">
+          <p className="font-semibold">{authorName}</p>
+          <p className="text-justify text-sm lg:text-medium">{content}</p>
+        </div>
+      </div>
+    </div>
+  );
+}

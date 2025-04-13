@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="h-[400px] md:h-[450px] lg:h-[500px] bg-[#9AD8EB] w-full flex flex-col p-5">
-      <div className="flex flex-col max-w-[1500px] w-full">
+    <footer className="h-[400px] md:h-[450px] lg:h-[500px] w-full bg-[#68c2dd] flex flex-col">
+      <div className="flex flex-col self-center max-w-[1500px] w-full p-5 md:p-7 lg:p-10">
         <h2 className="font-poppins text-left text-2xl md:text-3xl py-2 md:py-6 lg:text-4xl font-bold">
           Enlaces rápidos
         </h2>

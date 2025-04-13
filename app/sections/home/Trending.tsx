@@ -5,7 +5,7 @@ import React from "react";
 export default async function Trending() {
   const sampleData = sampleProductData;
   return (
-    <div className="h-[1200px] md:h-[900px] w-full bg-gradient-to-tr to-[#FFEAE2] from-[#68c2dd] flex flex-col gap-5 items-center">
+    <section className="h-[1200px] md:h-[900px] w-full bg-gradient-to-tr to-[#FFEAE2] from-[#68c2dd] flex flex-col gap-5 items-center">
       <h2 className="pt-5 md:pt-0 font-poppins text-3xl md:text-4xl lg:pt-5 font-bold text-center">
         Tendencias 🔥
       </h2>
@@ -31,6 +31,6 @@ export default async function Trending() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

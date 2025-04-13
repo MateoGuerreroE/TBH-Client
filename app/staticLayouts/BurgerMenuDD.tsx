@@ -19,7 +19,12 @@ export default function BurgerMenuDD() {
         <DropdownMenu>
           {menuList.map((item, index) => (
             <DropdownItem key={index}>
-              <SelectLink key={index} label={item} fontSize="sm" />
+              <SelectLink
+                key={index}
+                label={item.label}
+                uri={item.uri}
+                fontSize="sm"
+              />
             </DropdownItem>
           ))}
         </DropdownMenu>

@@ -8,12 +8,12 @@ export type CategoriesInfo = {
 };
 
 const categoryList: CategoriesInfo[] = [
-  { name: "Tecnología", img: "/icons/tech-bg.png", color: "#9967CE" },
-  { name: "Entretenimiento", img: "/icons/ent-bg.png", color: "#ED7745" },
-  { name: "Automotriz", img: "/icons/wheel-bg.png", color: "#F5A1C3" },
-  { name: "Hogar", img: "/icons/home-bg.png", color: "#2B885C" },
-  { name: "Cuidado Personal", img: "/icons/health-bg.png", color: "#FFD84F" },
-  { name: "Accesorios & otros", img: "/icons/misc-bg.png", color: "#B8CEFF" },
+  { name: "Tecnología", img: "/icons/tech-bg.png", color: "#628ECB" },
+  { name: "Entretenimiento", img: "/icons/ent-bg.png", color: "#8AAEE0" },
+  { name: "Automotriz", img: "/icons/wheel-bg.png", color: "#B1C9EF" }, // B1C9EF
+  { name: "Hogar", img: "/icons/home-bg.png", color: "#6192A4" },
+  { name: "Cuidado Personal", img: "/icons/health-bg.png", color: "#8BC1D1" },
+  { name: "Accesorios & otros", img: "/icons/misc-bg.png", color: "#B3D3DA" },
 ];
 
 export default async function CategoriesSection() {

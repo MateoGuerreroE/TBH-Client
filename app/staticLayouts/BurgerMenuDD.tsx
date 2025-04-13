@@ -8,8 +8,11 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import { menuList } from "../data/MenuItems";
+import { useRouter } from "next/navigation";
 
 export default function BurgerMenuDD() {
+  const router = useRouter();
+
   return (
     <>
       <Dropdown className="font-poppins">
@@ -18,13 +21,8 @@ export default function BurgerMenuDD() {
         </DropdownTrigger>
         <DropdownMenu>
           {menuList.map((item, index) => (
-            <DropdownItem key={index}>
-              <SelectLink
-                key={index}
-                label={item.label}
-                uri={item.uri}
-                fontSize="sm"
-              />
+            <DropdownItem key={index} onPress={() => router.push(item.uri)}>
+              <SelectLink key={index} label={item.label} fontSize="sm" />
             </DropdownItem>
           ))}
         </DropdownMenu>

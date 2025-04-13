@@ -18,6 +18,7 @@ export default function WrappedMainReview() {
         ref={ref}
       >
         <motion.div
+          className="w-full h-full flex flex-col justify-center"
           initial={{ opacity: 0, x: 200 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{
@@ -27,7 +28,7 @@ export default function WrappedMainReview() {
           <div className="absolute right-0 top-0 p-7 opacity-30">
             <p>24 Mar. 2025</p>
           </div>
-          <CardHeader className="flex flex-row gap-5 m-5 relative">
+          <CardHeader className="flex flex-row gap-5 m-5 pt-7 relative">
             <div className="bg-black rounded-full h-24 w-24"></div>
             <div className="flex flex-1 flex-col gap-2">
               <h3 className="font-poppins text-xl xl:text-2xl font-bold">
@@ -48,19 +49,15 @@ export default function WrappedMainReview() {
               </div>
             </div>
           </CardHeader>
-          <CardBody className="px-10 flex flex-col gap-5">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius
-              consequuntur aperiam quasi amet quidem. Voluptas laborum excepturi
-              obcaecati quibusdam? Odit alias cum quidem fugiat magnam labore
-              distinctio, eaque reprehenderit cupiditate!
-            </p>
-            <p className="hidden xl:block">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
-              eaque cupiditate :)
+          <CardBody className="px-10 py-2 flex flex-col gap-5">
+            <p className="text-lg">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi,
+              alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus
+              autem eveniet. Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit.
             </p>
           </CardBody>
-          <CardFooter className="flex flex-row justify-end gap-5 opacity-40 px-7">
+          <CardFooter className="flex flex-row justify-end gap-5 opacity-40 px-7 mb-2">
             <p>Bogotá</p>
           </CardFooter>
         </motion.div>

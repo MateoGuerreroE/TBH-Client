@@ -25,7 +25,7 @@ export default function StartSection() {
                         size="md"
                         radius="full"
                         key={index}
-                        className={`${button.type === "primary" ? "font-semibold" : "font-normal bg-opacity-60"}`}
+                        className={`${button.type === "primary" ? "font-semibold bg-[#628ECB]" : "font-normal bg-[#8BC1D1] bg-opacity-80"}`}
                       >
                         {button.text}
                       </Button>

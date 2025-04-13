@@ -50,46 +50,46 @@ export const sampleProductData: ProductInfo[] = [
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 38500,
     image:
-      "https://welpix.com/wp-content/uploads/2024/06/A-guide-to-skincare-product-photography.webp",
+      "https://www.pngitem.com/pimgs/m/43-434027_product-beauty-skin-care-personal-care-liquid-tree.png",
   },
   {
-    productName: "Termo los naranjos lindos",
+    productName: "Bolso rojo de pasión",
     description:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 193500,
     image:
-      "https://images.pexels.com/photos/3766180/pexels-photo-3766180.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://cdn.fstoppers.com/styles/full/s3/media/2015/12/07/white_background_bag_after.jpg",
   },
   {
-    productName: "Camara super profesional",
+    productName: "Loción antibacterial",
     description:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 45000,
     image:
-      "https://www.prophotostudio.net/wp-content/uploads/2021/07/mirrorless-digital-camera-on-desk.jpg",
+      "https://static.pietrastudio.com/public/file_uploads/e724b86799813931e2a835ea38839bf5.jpeg",
   },
   {
-    productName: "Tennis casi blancos FILA",
+    productName: "Tennis coloridos",
     description:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 389000,
     image:
-      "https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg",
+      "https://backend.orbitvu.com/sites/default/files/image/product-mask.jpeg",
   },
   {
-    productName: "Gafas de sol de lujo",
+    productName: "Audifonos Beats",
     description:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 78900,
     image:
-      "https://www.prophotostudio.net/wp-content/uploads/elementor/thumbs/a-picture-of-sunglasses-on-photography-props-q528azw0mjygzizxa0y7eg2qllpnmobv7qbe0z9ll4.webp",
+      "https://cdn-bjpdk.nitrocdn.com/dyjDRTumiVVFLKEpXMADzKdEUUbypNrL/assets/images/optimized/rev-b19053f/www.visualeducation.com/wp-content/uploads/2020/05/Beats_headphones-2-1558px.jpg",
   },
   {
-    productName: "Tetera 'La mejor del mundo'",
+    productName: "Kit de café anti dormidas",
     description:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 50000,
     image:
-      "https://b2861582.smushcdn.com/2861582/wp-content/uploads/2024/06/Hero-Image-023-scaled.jpg",
+      "https://i0.wp.com/www.splento.com/blog/wp-content/uploads/2021/04/Perfect-white-backgrounds-for-products.jpg?ssl=1",
   },
 ];

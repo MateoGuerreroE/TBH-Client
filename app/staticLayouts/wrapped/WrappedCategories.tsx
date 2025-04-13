@@ -60,7 +60,11 @@ export default function WrappedCategories({
             delay: delayController(idx),
           }}
         >
-          <CategoryCard name={category.name} img={category.img} />
+          <CategoryCard
+            name={category.name}
+            img={category.img}
+            color={category.color}
+          />
         </motion.div>
       ))}
     </div>

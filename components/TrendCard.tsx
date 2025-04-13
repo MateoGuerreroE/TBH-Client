@@ -5,11 +5,11 @@ import { Button, Card, CardFooter } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 
-type ProductCardProps = {
+type TrendCarProps = {
   product: ProductInfo;
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function TrendCard({ product }: TrendCarProps) {
   const [descVisible, isDescVisible] = useState<boolean>(false);
   return (
     <Card

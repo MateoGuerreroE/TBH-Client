@@ -6,14 +6,20 @@ import Image from "next/image";
 type CategoryCardProps = {
   img: string;
   name: string;
+  color?: string;
 };
 
-export default function CategoryCard({ name, img }: CategoryCardProps) {
+export default function CategoryCard({
+  name,
+  img,
+  color = "#ffffff",
+}: CategoryCardProps) {
   return (
     <div className={`w-full h-full ${shine.shine} shadow-lg`}>
       <Card
-        className={`border-none relative bg-blue-400 aspect-[2/1] w-full h-full overflow-hidden hover:contrast-125`}
+        className={`border-none relative  aspect-[2/1] w-full h-full overflow-hidden hover:contrast-125`}
         radius="lg"
+        style={{ backgroundColor: color }}
         key={`${name}_card`}
       >
         <Image

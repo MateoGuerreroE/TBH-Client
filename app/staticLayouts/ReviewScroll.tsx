@@ -13,7 +13,7 @@ export default function ReviewScroll({ reviews }: ReviewScrollProps) {
   const isInView = useInView(ref, { once: true });
   return (
     <ScrollShadow hideScrollBar className="h-full w-full mb-8">
-      <div className="flex flex-col gap-14" ref={ref}>
+      <div className="flex flex-col gap-5 md:gap-14" ref={ref}>
         {reviews.map((r, idx) => (
           <motion.div
             key={r.authorName}

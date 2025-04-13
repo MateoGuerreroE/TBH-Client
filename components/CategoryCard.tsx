@@ -5,16 +5,15 @@ import shine from "./styles/ShineEffect.module.css";
 type CategoryCardProps = {
   img: string;
   name: string;
-  color: string;
 };
 
-export default function CategoryCard({ name, color }: CategoryCardProps) {
+export default function CategoryCard({ name }: CategoryCardProps) {
   return (
     <div className={`w-full h-full ${shine.shine} shadow-lg`}>
       <Card
-        className={`border-none aspect-[2/1] w-full h-full overflow-hidden`}
+        className={`border-none aspect-[2/1] w-full h-full overflow-hidden bg-black/10 hover:bg-black/30`}
         radius="lg"
-        style={{ backgroundColor: color }}
+        isBlurred
         key={`${name}_card`}
       >
         <div className="p-1 xs:p-3 sm:p-5 md:max-w-[90%] self-center w-full h-full flex flex-row justify-between items-center gap-2">

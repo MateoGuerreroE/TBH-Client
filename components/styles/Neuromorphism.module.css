@@ -1,7 +1,7 @@
 .neuromorph_card {
   border-radius: 50px;
-  background: #e0e0e0;
+  background: linear-gradient(145deg, rgb(164, 198, 209), #d7f6ff);
   box-shadow:
-    inset 20px 20px 60px #bebebe,
-    inset -20px -20px 60px #ffffff;
+    20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
 }

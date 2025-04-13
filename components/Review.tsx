@@ -13,23 +13,23 @@ const sample =
 export default function Review({ authorName, content = sample }: ReviewProps) {
   return (
     <div className="w-full flex gap-8 h-full max-h-32">
-      <div className="rounded-full h-32 w-32 bg-black"></div>
-      <div className="flex flex-col flex-1">
-        <div className="flex gap-3 items-center">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <div key={item}>
-              <Image
-                src="/icons/empty-star.svg"
-                alt="empty_star"
-                className="h-full"
-                height={22}
-                width={22}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-col mt-0.5 md:mt-1 font-poppins flex-1 max-h-[2/3] overflow-hidden">
-          <p className="font-semibold">{authorName}</p>
+      <div className="rounded-full h-24 w-24 sm:h-32 sm:w-32 self-center bg-black"></div>
+      <div className="flex flex-col flex-1 md:gap-2">
+        <p className="font-semibold font-poppins md:text-xl">{authorName}</p>
+        <div className="flex flex-col font-poppins flex-1 max-h-[2/3] overflow-hidden">
+          <div className="flex gap-3 items-center">
+            {[1, 2, 3, 4, 5].map((item) => (
+              <div key={item}>
+                <Image
+                  src="/icons/empty-star.svg"
+                  alt="empty_star"
+                  className="h-full"
+                  height={22}
+                  width={22}
+                />
+              </div>
+            ))}
+          </div>
           <p className="text-justify text-sm lg:text-medium">{content}</p>
         </div>
       </div>

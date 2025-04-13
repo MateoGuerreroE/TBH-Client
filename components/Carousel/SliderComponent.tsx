@@ -1,6 +1,7 @@
 "use client";
 import useEmblaCarousel from "embla-carousel-react";
 import { DotButton, useDotButton } from "./DotButton";
+import AutoPlay from "embla-carousel-autoplay";
 
 export default function SliderComponent({
   children,
@@ -9,7 +10,7 @@ export default function SliderComponent({
   children: React.ReactNode[];
   showDots?: boolean;
 }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [AutoPlay()]);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
     emblaApi!
   );

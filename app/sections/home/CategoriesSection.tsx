@@ -1,4 +1,20 @@
-import CategoryCard from "@/components/CategoryCard";
+import WrappedCategories from "@/app/staticLayouts/wrapped/WrappedCategories";
+
+export type CategoriesInfo = {
+  name: string;
+  img: string;
+  color?: string;
+  redirection?: string;
+};
+
+const categoryList: CategoriesInfo[] = [
+  { name: "Tecnología", img: "/icons/tech-bg.png" },
+  { name: "Entretenimiento", img: "/icons/ent-bg.png" },
+  { name: "Automotriz", img: "/icons/wheel-bg.png" },
+  { name: "Hogar", img: "/icons/home-bg.png" },
+  { name: "Cuidado Personal", img: "/icons/health-bg.png" },
+  { name: "Accesorios & otros", img: "/icons/misc-bg.png" },
+];
 
 export default async function CategoriesSection() {
   return (
@@ -6,14 +22,7 @@ export default async function CategoriesSection() {
       <h2 className="font-poppins text-3xl   md:text-4xl pt-6 font-bold text-center">
         Categorías
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 w-full max-h-[800px] max-w-[1500px] p-5 md:p-7 lg:p-10 gap-3 md:gap-4 lg:gap-6">
-        <CategoryCard name="Tecnología" img="/icons/tech.png" />
-        <CategoryCard name="Entretenimiento" img="/icons/entertainment.png" />
-        <CategoryCard name="Automotriz" img="/icons/wheel.png" />
-        <CategoryCard name="Hogar" img="/icons/home.png" />
-        <CategoryCard name="Cuidado Personal" img="/icons/health.png" />
-        <CategoryCard name="Accesorios & otros" img="/icons/misc.png" />
-      </div>
+      <WrappedCategories categories={categoryList} />
     </section>
   );
 }

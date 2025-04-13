@@ -1,23 +1,30 @@
 "use client";
 import { Card } from "@heroui/react";
 import shine from "./styles/ShineEffect.module.css";
+import Image from "next/image";
 
 type CategoryCardProps = {
   img: string;
   name: string;
 };
 
-export default function CategoryCard({ name }: CategoryCardProps) {
+export default function CategoryCard({ name, img }: CategoryCardProps) {
   return (
     <div className={`w-full h-full ${shine.shine} shadow-lg`}>
       <Card
-        className={`border-none aspect-[2/1] w-full h-full overflow-hidden bg-black/10 hover:bg-black/30`}
+        className={`border-none relative bg-blue-400 aspect-[2/1] w-full h-full overflow-hidden hover:contrast-125`}
         radius="lg"
-        isBlurred
         key={`${name}_card`}
       >
-        <div className="p-1 xs:p-3 sm:p-5 md:max-w-[90%] self-center w-full h-full flex flex-row justify-between items-center gap-2">
-          <h5 className="w-full xs:max-w-[80%] font-poppins text-center text-xs xs:text-left xs:text-lg sm:text-xl lg:text-2xl 2xl:text-3xl font-bold">
+        <Image
+          src={img}
+          alt={`${name}_image`}
+          width={1000}
+          height={500}
+          className="absolute w-full h-full object-cover"
+        />
+        <div className="z-10 p-1 xs:p-3 sm:p-5 md:max-w-[90%] self-center w-full h-full flex flex-row justify-between items-center gap-2">
+          <h5 className="w-full xs:max-w-[80%] text-black font-poppins text-center text-xs xs:text-left xs:text-lg sm:text-xl lg:text-2xl 2xl:text-3xl font-bold">
             {name}
           </h5>
         </div>

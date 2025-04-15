@@ -1,0 +1,102 @@
+.carousel_adapt {
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-spacing-sm: 1.6rem;
+  --slide-size-sm: 50%;
+  --slide-spacing-md: 1.8rem;
+  --slide-size-md: calc(100% / 3);
+  --slide-spacing-lg: 2rem;
+  --slide-size-lg: calc(100% / 4);
+}
+
+.carousel {
+  max-width: 1500px;
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  --slide-spacing: 1rem;
+}
+
+.carousel__viewport {
+  overflow: hidden;
+}
+
+.carousel__container {
+  display: flex;
+  height: 100%;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.carousel__container__adapt {
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+@media (width >= 40rem) {
+  .carousel__container__adapt {
+    margin-left: calc(var(--slide-spacing-sm) * -1);
+  }
+}
+
+@media (width >= 48rem) {
+  .carousel__container__adapt {
+    margin-left: calc(var(--slide-spacing-md) * -1);
+  }
+}
+
+@media (min-width: 1280px) {
+  .carousel__container__adapt {
+    margin-left: calc(var(--slide-spacing-lg) * -1);
+  }
+}
+
+.carousel__slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+}
+
+.carousel__slide__adapt {
+  min-width: 0;
+  flex: 0 0 var(--slide-size);
+  padding-left: var(--slide-spacing);
+}
+
+@media (width >= 40rem) {
+  .carousel__slide__adapt {
+    flex: 0 0 var(--slide-size-sm);
+    padding-left: var(--slide-spacing-sm);
+  }
+}
+
+@media (width >= 48rem) {
+  .carousel__slide__adapt {
+    flex: 0 0 var(--slide-size-md);
+    padding-left: var(--slide-spacing-md);
+  }
+}
+@media (min-width: 1280px) {
+  .carousel__slide__adapt {
+    flex: 0 0 var(--slide-size-lg);
+    padding-left: var(--slide-spacing-lg);
+  }
+}
+
+.carousel__slide__number {
+  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+  border-radius: 1.8rem;
+  font-size: 4rem;
+  height: 100%;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}

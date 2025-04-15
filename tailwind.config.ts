@@ -1,5 +1,4 @@
 import { heroui } from "@heroui/react";
-import flowbiteReact from "flowbite-react/plugin/tailwindcss";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -23,5 +22,5 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [heroui(), flowbiteReact],
+  plugins: [heroui()],
 };

@@ -39,7 +39,10 @@ export default function DesktopMenu() {
         <Divider className="my-4" />
         <div className="flex flex-col gap-2">
           <p className="text-black/50 font-semibold">Categoria</p>
-          <Select>
+          <Select
+            classNames={{ trigger: "bg-slate-50" }}
+            aria-label="Category Select"
+          >
             <SelectItem key="tech">Tecnología</SelectItem>
           </Select>
         </div>
@@ -47,9 +50,9 @@ export default function DesktopMenu() {
         <div className="flex flex-col gap-2">
           <p className="text-black/50 font-semibold">Precio</p>
           <div className="flex flex-row items-center gap-2">
-            <Input type="number" />
+            <Input type="number" classNames={{ inputWrapper: "bg-slate-50" }} />
             <p>-</p>
-            <Input type="number" />
+            <Input type="number" classNames={{ inputWrapper: "bg-slate-50" }} />
           </div>
         </div>
       </AccordionItem>

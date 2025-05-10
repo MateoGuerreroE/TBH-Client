@@ -25,7 +25,7 @@ export default function ContactMain() {
             <p>O escríbenos por nuestras redes sociales.</p>
           </div>
         </div>
-        <div className="w-full md:w-1/2 flex items-center justify-center pr-10">
+        <div className="w-full md:w-1/2 flex items-center justify-center lg:pr-10">
           <div
             className={`${Style.neuromorph_internal} aspect-square w-full md:h-[550px] p-7 md:p-10 xl:p-16 flex flex-col justify-center`}
           >

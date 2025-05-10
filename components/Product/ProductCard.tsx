@@ -14,7 +14,7 @@ export type ProductProps = {
 
 export default function ProductCard({ name, images, price }: ProductProps) {
   return (
-    <div className="py-2 p-1">
+    <div className="py-2 px-2.5 hover:cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out">
       <Card
         radius="sm"
         className="font-poppins max-w-[320px] lg:max-w-max h-full bg-white/30 backdrop-blur-md shadow-black/10 shadow-[0px_0px_14px_0px_rgba(0,_0,_0,_0.1)]
@@ -48,11 +48,11 @@ export default function ProductCard({ name, images, price }: ProductProps) {
           </div>
         </CardBody>
         <CardFooter className="flex flex-row justify-between">
-          <p className="font-bold text-medium text-orange-600">{`${formatPrice(price)}`}</p>
+          <p className="ml-1 font-bold text-lg text-slate-800">{`${formatPrice(price)}`}</p>
           <Button
             radius="full"
             size="sm"
-            className="bg-orange-600 text-white font-semibold"
+            className="bg-[#68c2dd] text-slate-800 text-sm font-semibold"
           >
             Agregar al carrito
           </Button>

@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${poppins.variable} text-[#292828] w-screen overflow-x-hidden`}
+        className={`${geistSans.variable} ${poppins.variable} text-[#292828]`}
       >
         <Providers>
           <NavBar />

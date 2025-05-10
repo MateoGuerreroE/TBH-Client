@@ -23,7 +23,9 @@ export default function Productos() {
           <Divider className="my-3" />
         </div>
         <div className="flex flex-col h-full w-full lg:w-3/4 px-5 lg:p-5">
-          <div className="bg-black hidden lg:block h-32 w-full"></div>
+          <div className="bg-black hidden lg:flex h-32 w-full text-center justify-center text-white items-center">
+            Products banner
+          </div>
           <PaginationComponent totalPages={1} currentPage={1} />
           <div className="flex flex-col md:pl-5 md:pt-5">
             <h3 className="font-poppins text-2xl font-bold mb-3">Tecnología</h3>

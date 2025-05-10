@@ -33,8 +33,8 @@ export default function AuthWrapper({ orientation }: AuthWrapperProps) {
       >
         <Button
           onPress={() => isLoginModalOpen(true)}
-          variant="shadow"
-          className="hover:cursor-pointer font-poppins font-semibold"
+          variant="solid"
+          className="hover:cursor-pointer font-poppins font-semibold bg-[#68c2dd]"
         >
           Ingresar
         </Button>

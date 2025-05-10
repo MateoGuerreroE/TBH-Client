@@ -121,6 +121,7 @@ export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
       backdrop="blur"
       onClose={handleClose}
       placement="center"
+      className="mx-5 bg-slate-200"
     >
       <ModalContent>
         {loading ? (
@@ -142,7 +143,7 @@ export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
           <Divider />
           <Button
             onPress={handleExternalRegister}
-            className="font-poppins font-semibold"
+            className="font-poppins font-semibold bg-[#017392] text-slate-100"
             endContent={
               <Image
                 alt="google"

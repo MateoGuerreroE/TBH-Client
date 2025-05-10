@@ -1,5 +1,4 @@
 "use client";
-import SelectLink from "@/components/SelectLink";
 import {
   Dropdown,
   DropdownItem,
@@ -22,7 +21,7 @@ export default function BurgerMenuDD() {
         <DropdownMenu>
           {menuList.map((item, index) => (
             <DropdownItem key={index} onPress={() => router.push(item.uri)}>
-              <SelectLink key={index} label={item.label} fontSize="sm" />
+              <p key={index}>{item.label}</p>
             </DropdownItem>
           ))}
         </DropdownMenu>

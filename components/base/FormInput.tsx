@@ -37,6 +37,7 @@ export default function FormInput({
       errorMessage={error}
       classNames={{
         input: "text-md",
+        inputWrapper: ["bg-slate-50", "data-[hover=true]:bg-slate-100"],
       }}
       isInvalid={error !== ""}
       value={value}
@@ -44,7 +45,7 @@ export default function FormInput({
       label={label}
       placeholder={options.placeholder}
       required={options.isRequired}
-      labelPlacement={options.type}
+      labelPlacement={options.visualType}
       type={options.isHidden ? "password" : "text"}
       variant={options.variant}
       description={options.description}

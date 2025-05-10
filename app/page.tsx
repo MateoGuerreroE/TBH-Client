@@ -6,7 +6,7 @@ import Ratings from "./sections/home/Ratings";
 
 export default function Home() {
   return (
-    <main className="max-w-screen">
+    <main className="overflow-x-hidden">
       <StartSection />
       <Trending />
       <CategoriesSection />

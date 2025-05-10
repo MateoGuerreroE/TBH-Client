@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="h-[400px] md:h-[450px] lg:h-[500px] w-full bg-[#68c2dd] flex flex-col">
+    <footer className="h-[400px] md:h-[450px] lg:h-[500px] w-full bg-[#017392] flex flex-col text-slate-100">
       <div className="flex flex-col self-center max-w-[1500px] w-full p-5 md:p-7 lg:p-10">
         <h2 className="font-poppins text-left text-2xl md:text-3xl py-2 md:py-6 lg:text-4xl font-bold">
           Enlaces rápidos

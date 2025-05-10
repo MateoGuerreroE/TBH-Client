@@ -2,6 +2,7 @@ export interface InputValues {
   validations: InputValidation[];
   attribute: string;
   label: string;
+  type?: "input" | "textarea";
   inputOptions: InputVisualOptions;
 }
 
@@ -26,6 +27,6 @@ export type InputVisualOptions = {
   placeholder?: string;
   isHidden?: boolean;
   description?: string;
-  type?: "inside" | "outside-left";
+  visualType?: "inside" | "outside-left";
   variant?: "bordered" | "underlined" | "faded" | "flat";
 };

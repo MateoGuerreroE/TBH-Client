@@ -13,7 +13,7 @@ export const LoginFormData: InputValues[] = [
     attribute: "email",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
     },
   },
   {
@@ -28,7 +28,7 @@ export const LoginFormData: InputValues[] = [
     attribute: "password",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
       isHidden: true,
     },
   },
@@ -40,7 +40,7 @@ export const RegisterFormData: InputValues[] = [
     attribute: "first_name",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
     },
     validations: [
       {
@@ -55,7 +55,7 @@ export const RegisterFormData: InputValues[] = [
     attribute: "last_name",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
     },
     validations: [
       {
@@ -70,7 +70,7 @@ export const RegisterFormData: InputValues[] = [
     attribute: "email",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
     },
     validations: [
       {
@@ -85,7 +85,7 @@ export const RegisterFormData: InputValues[] = [
     attribute: "password",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
       isHidden: true,
     },
     validations: [
@@ -101,9 +101,59 @@ export const RegisterFormData: InputValues[] = [
     attribute: "password_confirmation",
     inputOptions: {
       isRequired: true,
-      type: "inside",
+      visualType: "inside",
       isHidden: true,
     },
     validations: [],
+  },
+];
+
+export const ContactFormData: InputValues[] = [
+  {
+    label: "Nombre",
+    attribute: "name",
+    inputOptions: {
+      isRequired: true,
+      visualType: "inside",
+    },
+    validations: [
+      {
+        type: "regexp",
+        regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+        errorMessage: "Nombre invalido",
+      },
+    ],
+  },
+  {
+    label: "Correo",
+    attribute: "email",
+    inputOptions: {
+      isRequired: true,
+      visualType: "inside",
+    },
+    validations: [
+      {
+        type: "regexp",
+        regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        errorMessage: "Correo invalido",
+      },
+    ],
+  },
+  {
+    label: "Mensaje",
+    attribute: "message",
+    type: "textarea",
+    inputOptions: {
+      isRequired: true,
+      visualType: "inside",
+      isHidden: true,
+    },
+    validations: [
+      {
+        type: "custom",
+        errorMessage: "Mensaje muy corto",
+        validation: (val: string) => val.length > 5,
+      },
+    ],
   },
 ];

@@ -17,7 +17,8 @@ export default function ProductCard({ name, images, price }: ProductProps) {
     <div className="py-2 p-1">
       <Card
         radius="sm"
-        className="font-poppins h-full bg-white/20 my-2"
+        className="font-poppins max-w-[320px] lg:max-w-max h-full bg-white/30 backdrop-blur-md shadow-black/10 shadow-[0px_0px_14px_0px_rgba(0,_0,_0,_0.1)]
+ my-2"
         shadow="none"
       >
         <CardHeader className=" w-full flex justify-center items-center">
@@ -26,7 +27,11 @@ export default function ProductCard({ name, images, price }: ProductProps) {
         <CardBody className="flex flex-col p-7 gap-5">
           <div className="">
             <Carousel
-              options={{ autoPlay: false, watchDrag: false, dotButton: true }}
+              options={{
+                autoPlay: false,
+                watchDrag: false,
+                dotButton: images.length > 1,
+              }}
             >
               {images.map((image, index) => (
                 <div key={`${index}_${image}`} className="h-44">
@@ -43,9 +48,10 @@ export default function ProductCard({ name, images, price }: ProductProps) {
           </div>
         </CardBody>
         <CardFooter className="flex flex-row justify-between">
-          <p className="font-bold text-lg text-orange-600">{`${formatPrice(price)}`}</p>
+          <p className="font-bold text-medium text-orange-600">{`${formatPrice(price)}`}</p>
           <Button
             radius="full"
+            size="sm"
             className="bg-orange-600 text-white font-semibold"
           >
             Agregar al carrito

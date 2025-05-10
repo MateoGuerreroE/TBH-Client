@@ -82,6 +82,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       backdrop="blur"
       onClose={handleClose}
       placement="center"
+      className="mx-5 bg-slate-200"
     >
       <ModalContent>
         {loading ? (
@@ -103,7 +104,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           <Divider />
           <Button
             onPress={handleExternalLogin}
-            className="font-poppins font-semibold"
+            className="font-poppins font-semibold bg-[#017392] text-slate-100"
             endContent={
               <Image
                 alt="google"

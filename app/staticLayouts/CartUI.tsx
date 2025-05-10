@@ -20,7 +20,7 @@ export default function CartUI() {
         <Image
           src="/icons/cart.svg"
           alt="cart"
-          className="h-12 w-12 lg:h-14 lg:w-14 hover:cursor-pointer bg-[#017392] rounded-full p-3 shadow-md"
+          className="h-12 w-12 lg:h-14 lg:w-14 hover:cursor-pointer bg-[#68c2dd] rounded-full p-3 shadow-md"
           onClick={onOpen}
           width={40}
           height={40}

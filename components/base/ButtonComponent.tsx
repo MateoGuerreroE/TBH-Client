@@ -28,7 +28,7 @@ export default function ButtonComponent({
   return (
     <Button
       size={size}
-      className={`${custom} font-semibold ${label.length < 2 || image ? "min-w-0 px-3" : "p-6"} text-medium ${color === "primary" ? "text-white bg-[#017392]" : "bg-[#68c2dd]"}`}
+      className={`${custom} min-w-10 font-semibold ${label.length < 2 || image ? "px-3" : "p-6"} text-medium ${color === "primary" ? "bg-[#017392] text-slate-50" : "bg-[#68c2dd] text-slate-800"}`}
       onPress={() => {
         if (redirectTo) router.push(redirectTo);
         if (action) action();

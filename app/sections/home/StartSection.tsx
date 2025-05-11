@@ -1,7 +1,7 @@
 "use client";
+import ButtonComponent from "@/components/base/ButtonComponent";
 import Carousel from "@/components/Carousel/Carousel";
 import { sampleHomeData } from "@/test/sampleData";
-import { Button } from "@heroui/react";
 import Image from "next/image";
 
 export default function StartSection() {
@@ -21,14 +21,11 @@ export default function StartSection() {
                   </h3>
                   <div className="flex flex-col gap-2 lg:flex-row justify-evenly font-poppins w-full">
                     {data.buttons.map((button, index) => (
-                      <Button
-                        size="md"
-                        radius="full"
+                      <ButtonComponent
+                        label={button.text}
                         key={index}
-                        className={`${button.type === "primary" ? "font-semibold bg-[#628ECB]" : "font-normal bg-[#8BC1D1] bg-opacity-80"}`}
-                      >
-                        {button.text}
-                      </Button>
+                        color={button.type}
+                      />
                     ))}
                   </div>
                 </div>

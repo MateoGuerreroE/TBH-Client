@@ -29,7 +29,7 @@ export default function CategoryCard({
           height={500}
           className="absolute w-full h-full object-cover"
         />
-        <div className="z-10 p-1 xs:p-3 sm:p-5 md:max-w-[90%] self-center w-full h-full flex flex-row justify-between items-center gap-2">
+        <div className=" p-1 xs:p-3 sm:p-5 md:max-w-[90%] self-center w-full h-full flex flex-row justify-between items-center gap-2">
           <h5 className="w-full xs:max-w-[70%]  font-poppins text-center text-xs xs:text-left xs:text-lg sm:text-xl lg:text-2xl 2xl:text-3xl font-bold">
             {name}
           </h5>

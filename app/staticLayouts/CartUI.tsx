@@ -18,7 +18,7 @@ export default function CartUI() {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const { userCart } = useNPStore();
   const totalPrice = userCart.reduce(
-    (prev, next) => prev + next.productPrice,
+    (prev, next) => prev + next.productPrice * next.amount,
     0
   );
   return (
@@ -66,12 +66,12 @@ export default function CartUI() {
                         <div className="flex flex-row gap-1">
                           <ButtonComponent
                             color="secondary"
-                            label="+"
+                            label="-"
                             custom="py-0"
                           />
                           <ButtonComponent
                             color="secondary"
-                            label="-"
+                            label="+"
                             custom="py-0"
                           />
                         </div>

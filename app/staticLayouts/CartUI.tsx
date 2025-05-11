@@ -1,6 +1,6 @@
 "use client";
+import ButtonComponent from "@/components/base/ButtonComponent";
 import {
-  Button,
   Divider,
   Drawer,
   DrawerBody,
@@ -11,9 +11,16 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
+import { useNPStore } from "../context/zustand";
+import { formatPrice } from "@/utils";
 
 export default function CartUI() {
   const { onClose, onOpen, isOpen } = useDisclosure();
+  const { userCart } = useNPStore();
+  const totalPrice = userCart.reduce(
+    (prev, next) => prev + next.productPrice,
+    0
+  );
   return (
     <>
       <div className="fixed right-5 bottom-5 hover:scale-105">
@@ -27,7 +34,7 @@ export default function CartUI() {
         />
         <div className="absolute top-0 flex h-4 w-4 rounded-full bg-red-600 items-center justify-center">
           <p className="font-bold font-poppins text-[9px] text-center text-white h-[10px]">
-            1
+            {userCart.length}
           </p>
         </div>
       </div>
@@ -35,7 +42,7 @@ export default function CartUI() {
         isOpen={isOpen}
         onClose={onClose}
         placement="right"
-        size="sm"
+        size="md"
         backdrop="blur"
       >
         <DrawerContent className="font-poppins bg-slate-200">
@@ -47,18 +54,51 @@ export default function CartUI() {
               <Divider />
               <DrawerBody className="p-5 flex flex-col">
                 <div className="flex flex-col">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Sequi id magni dolor tempore reiciendis expedita aliquam totam
-                  nostrum assumenda laboriosam. Suscipit maiores impedit laborum
-                  quae. Porro aliquid quas vel odit!
+                  {userCart.map((product, idx) => (
+                    <div key={idx} className="flex flex-col h-20">
+                      <div className="flex flex-row justify-between h-full items-center">
+                        <p className="font-semibold max-w-[50%] text-sm">
+                          {product.productName}
+                        </p>
+                        <p className="font-semibold max-w-[50%] text-sm">
+                          {product.amount} x {formatPrice(product.productPrice)}
+                        </p>
+                        <div className="flex flex-row gap-1">
+                          <ButtonComponent
+                            color="secondary"
+                            label="+"
+                            custom="py-0"
+                          />
+                          <ButtonComponent
+                            color="secondary"
+                            label="-"
+                            custom="py-0"
+                          />
+                        </div>
+                      </div>
+                      <Divider />
+                    </div>
+                  ))}
                 </div>
               </DrawerBody>
               <Divider />
               <DrawerFooter className="flex flex-row justify-between items-center">
-                <h3 className="text-md lg:text-xl">Total: $0.0</h3>
+                <h3 className="text-lg lg:text-xl font-bold">
+                  Total: {formatPrice(totalPrice)}
+                </h3>
                 <div className="flex flex-row gap-3">
-                  <Button className="font-semibold">Checkout</Button>
-                  <Button>Limpiar</Button>
+                  <ButtonComponent
+                    label="Ir a pagar"
+                    redirectTo="/cart"
+                    action={() => onClose()}
+                  />
+                  <ButtonComponent
+                    custom="py-6"
+                    size="sm"
+                    label=""
+                    color="secondary"
+                    image="/icons/trash.svg"
+                  />
                 </div>
               </DrawerFooter>
             </>

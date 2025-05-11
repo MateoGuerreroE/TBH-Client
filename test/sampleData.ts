@@ -1,3 +1,4 @@
+import { CartProduct } from "@/types/Context.types";
 import { HomeSectionInfo, ProductInfo } from "@/types/Data.types";
 
 export const sampleHomeData: HomeSectionInfo[] = [
@@ -91,5 +92,43 @@ export const sampleProductData: ProductInfo[] = [
     price: 50000,
     image:
       "https://i0.wp.com/www.splento.com/blog/wp-content/uploads/2021/04/Perfect-white-backgrounds-for-products.jpg?ssl=1",
+  },
+];
+
+export const testUserCart: CartProduct[] = [
+  {
+    productId: "1",
+    productName: "Lavadora de platos multiuso con 5 funciones",
+    productPrice: 17800,
+    amount: 1,
+    productCup: "Taza 1",
+  },
+  {
+    productId: "2",
+    productName: "Kit esencial de limpieza para el hogar",
+    productPrice: 55200,
+    amount: 2,
+    productCup: "Taza 2",
+  },
+  {
+    productId: "3",
+    amount: 1,
+    productName: "Set de 3 tazas de cerámica color azúl con diseño",
+    productPrice: 23400,
+    productCup: "Taza 3",
+  },
+  {
+    productId: "4",
+    productName: "Vajilla de acero inoxidable de 5 piezas con mango",
+    productPrice: 98000,
+    amount: 1,
+    productCup: "Taza 4",
+  },
+  {
+    productId: "5",
+    productName: "Juego de cubiertos de acero inoxidable de 24 piezas",
+    productPrice: 120000,
+    amount: 1,
+    productCup: "Taza 5",
   },
 ];

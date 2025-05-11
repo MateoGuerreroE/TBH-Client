@@ -1,5 +1,7 @@
 import { GlobalAlertProps } from "@/components/GlobalAlert";
+import { testUserCart } from "@/test/sampleData";
 import { UserLogin } from "@/types/Auth.types";
+import { CartProduct } from "@/types/Context.types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -8,6 +10,11 @@ export type GlobalState = {
   globalAlert: GlobalAlertProps;
   setGlobalAlert: (vals: GlobalAlertProps) => void;
   setUser: (user: UserLogin | null) => void;
+};
+
+export type GlobalNPState = {
+  userCart: CartProduct[];
+  setUserCart: (cart: CartProduct[]) => void;
 };
 
 export const useAppStore = create<GlobalState>()(
@@ -25,3 +32,8 @@ export const useAppStore = create<GlobalState>()(
     }
   )
 );
+
+export const useNPStore = create<GlobalNPState>((set) => ({
+  userCart: testUserCart,
+  setUserCart: (cart: CartProduct[]) => set(() => ({ userCart: cart })),
+}));

@@ -8,7 +8,7 @@ import {
   Spinner,
 } from "@heroui/react";
 import React, { useEffect, useState } from "react";
-import Form from "./base/Form";
+import Form from "./form/Form";
 import { UserRegister } from "@/types/Auth.types";
 import createUserAction from "@/server/createUser.action";
 import { useAppStore } from "@/app/context/zustand";

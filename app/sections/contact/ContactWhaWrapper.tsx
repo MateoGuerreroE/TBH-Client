@@ -9,7 +9,7 @@ export default function ContactWhaWrapper() {
       onClick={() => window.open("https://wa.me/573115801692", "_blank")}
     >
       <Image
-        src="/icons/wha-black.svg"
+        src="/icons/wha-green.svg"
         alt="wha_icon"
         width={100}
         height={100}

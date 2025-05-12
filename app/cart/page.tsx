@@ -21,7 +21,7 @@ export default function Cart() {
             Tu carrito ({userCart.length} productos)
           </h2>
           <div className="flex flex-col lg:flex-row w-full gap-6 lg:px-10">
-            <div className="flex flex-col w-full lg:w-2/3 py-4 max-h-[450px] lg:max-h-[650px] overflow-y-auto pt-7 bg-sky-50">
+            <div className="flex flex-col w-full lg:w-2/3 py-4 max-h-[450px] lg:max-h-[650px] overflow-y-auto pt-7 bg-sky-50 rounded-lg">
               {userCart.map((product, idx) => (
                 <div key={idx} className="flex flex-col gap-2 px-5">
                   <div className="flex flex-row justify-between">
@@ -84,7 +84,7 @@ export default function Cart() {
                 <p>Total</p>
                 <p className="font-bold text-2xl">{formatPrice(totalPrice)}</p>
               </div>
-              <ButtonComponent label="Pagar" />
+              <ButtonComponent label="Pagar" redirectTo="/checkout" />
               <p>
                 * Podrás ver el costo de envío en el siguiente paso junto con la
                 información de pago.

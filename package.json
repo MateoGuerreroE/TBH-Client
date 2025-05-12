@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroui/react": "^2.7.5",
+    "@mercadopago/sdk-react": "^1.0.3",
     "embla-carousel": "8.6.0",
     "embla-carousel-autoplay": "8.6.0",
     "embla-carousel-react": "8.6.0",

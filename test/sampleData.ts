@@ -1,3 +1,4 @@
+import { ReviewProps } from "@/app/components/Review";
 import { CartProduct } from "@/types/Context.types";
 import { HomeSectionInfo, ProductInfo } from "@/types/Data.types";
 
@@ -130,5 +131,48 @@ export const testUserCart: CartProduct[] = [
     productPrice: 120000,
     amount: 1,
     productCup: "Taza 5",
+  },
+];
+
+export const testReviews: ReviewProps[] = [
+  {
+    authorName: "Michael Scott",
+    rating: 5,
+    date: "24 Mar. 2025",
+    location: "Scranton, PA",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus autem eveniet.",
+  },
+  {
+    authorName: "Jim Halpert",
+    rating: 5,
+    date: "24 Mar. 2025",
+    location: "Scranton, PA",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus autem eveniet.",
+  },
+  {
+    authorName: "Stanley Hudson",
+    rating: 5,
+    date: "24 Mar. 2025",
+    location: "Scranton, PA",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus autem eveniet.",
+  },
+  {
+    authorName: "Dwight Schrute",
+    rating: 4,
+    date: "24 Mar. 2025",
+    location: "Scranton, PA",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus autem eveniet.",
+  },
+  {
+    authorName: "Pam Beesly",
+    rating: 4,
+    date: "24 Mar. 2025",
+    location: "Scranton, PA",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, alias! At saepe fuga minus culpa aspernatur, eaque voluptatibus autem eveniet.",
   },
 ];

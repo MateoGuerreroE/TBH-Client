@@ -1,6 +1,6 @@
 "use client";
-import ButtonComponent from "@/components/base/ButtonComponent";
-import Carousel from "@/components/Carousel/Carousel";
+import ButtonComponent from "@/baseComponents/ButtonComponent";
+import Carousel from "@/baseComponents/Carousel/Carousel";
 import { sampleHomeData } from "@/test/sampleData";
 import Image from "next/image";
 
@@ -24,7 +24,10 @@ export default function StartSection() {
                       <ButtonComponent
                         label={button.text}
                         key={index}
-                        color={button.type}
+                        visualOpts={{
+                          color: button.type,
+                          bold: button.type === "primary",
+                        }}
                       />
                     ))}
                   </div>

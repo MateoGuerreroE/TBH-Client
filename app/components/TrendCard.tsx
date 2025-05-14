@@ -1,7 +1,8 @@
 "use client";
+import ButtonComponent from "@/baseComponents/ButtonComponent";
 import { ProductInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
-import { Button, Card, CardFooter } from "@heroui/react";
+import { Card, CardFooter } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -53,8 +54,22 @@ export default function TrendCard({ product }: TrendCarProps) {
         >
           <p className="text-xs md:text-sm">{product.description}</p>
           <div className="flex flex-row gap-3">
-            <Button className="h-6 lg:h-7">Comprar</Button>
-            <Button className="h-6 lg:h-7">Ver</Button>
+            <ButtonComponent
+              label="Comprar"
+              visualOpts={{
+                color: "primary",
+                className: "h-6 lg:h-7",
+                bold: true,
+              }}
+            />
+            <ButtonComponent
+              label="Ver"
+              visualOpts={{
+                color: "secondary",
+                className: "h-6 lg:h-7",
+                bold: true,
+              }}
+            />
           </div>
         </div>
       </CardFooter>

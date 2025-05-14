@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./Wrapped.module.css";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/app/components/SearchBar";
 
 export default function WrappedSearchBar() {
   const [visibleSearch, isSearchVisible] = useState(false);

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Poppins } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import NavBar from "./staticLayouts/NavBar";
-import CartUI from "@/app/staticLayouts/CartUI";
-import ContactTrigger from "./staticLayouts/ContactTrigger";
+import NavBar from "./components/static/NavBar";
+import CartUI from "@/app/components/static/CartUI";
+import ContactTrigger from "./components/ContactTrigger";
 
 const geistSans = Geist({
   variable: "--font-geist",

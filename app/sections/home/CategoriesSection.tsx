@@ -1,4 +1,4 @@
-import WrappedCategories from "@/app/staticLayouts/wrapped/WrappedCategories";
+import WrappedCategories from "@/app/components/wrapped/WrappedCategories";
 
 export type CategoriesInfo = {
   name: string;

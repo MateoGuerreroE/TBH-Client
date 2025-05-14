@@ -1,10 +1,10 @@
 "use client";
 
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/app/components/SearchBar";
 import Image from "next/image";
 import React from "react";
-import { useAppStore } from "../context/zustand";
-import GlobalAlert from "@/components/GlobalAlert";
+import { useAppStore } from "../../context/zustand";
+import GlobalAlert from "@/baseComponents/GlobalAlert";
 
 export default function Header() {
   const { globalAlert } = useAppStore();

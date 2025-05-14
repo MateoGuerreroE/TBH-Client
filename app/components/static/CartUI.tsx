@@ -1,5 +1,5 @@
 "use client";
-import ButtonComponent from "@/components/base/ButtonComponent";
+import ButtonComponent from "@/baseComponents/ButtonComponent";
 import {
   Divider,
   Drawer,
@@ -11,7 +11,7 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
-import { useNPStore } from "../context/zustand";
+import { useNPStore } from "../../context/zustand";
 import { formatPrice } from "@/utils";
 
 export default function CartUI() {
@@ -63,16 +63,24 @@ export default function CartUI() {
                         <p className="font-semibold max-w-[50%] text-sm">
                           {product.amount} x {formatPrice(product.productPrice)}
                         </p>
-                        <div className="flex flex-row gap-1">
+                        <div className="flex flex-row gap-2">
                           <ButtonComponent
-                            color="secondary"
                             label="-"
-                            custom="py-0"
+                            visualOpts={{
+                              color: "secondary",
+                              bold: true,
+                              size: "md",
+                              className: "rounded-full min-w-0",
+                            }}
                           />
                           <ButtonComponent
-                            color="secondary"
                             label="+"
-                            custom="py-0"
+                            visualOpts={{
+                              bold: true,
+                              color: "secondary",
+                              size: "md",
+                              className: "rounded-full min-w-0",
+                            }}
                           />
                         </div>
                       </div>
@@ -90,14 +98,22 @@ export default function CartUI() {
                   <ButtonComponent
                     label="Ir a pagar"
                     redirectTo="/cart"
+                    visualOpts={{
+                      color: "primary",
+                      bold: true,
+                      size: "lg",
+                      className: "min-w-0",
+                    }}
                     action={() => onClose()}
                   />
                   <ButtonComponent
-                    custom="py-6"
-                    size="sm"
                     label=""
-                    color="secondary"
-                    image="/icons/trash.svg"
+                    visualOpts={{
+                      color: "secondary",
+                      size: "lg",
+                      className: "min-w-0",
+                      startingIcon: "/icons/trash.svg",
+                    }}
                   />
                 </div>
               </DrawerFooter>

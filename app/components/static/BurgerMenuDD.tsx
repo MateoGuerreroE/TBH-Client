@@ -6,7 +6,7 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import Image from "next/image";
-import { menuList } from "../data/MenuItems";
+import { menuList } from "../../data/MenuItems";
 import { useRouter } from "next/navigation";
 
 export default function BurgerMenuDD() {

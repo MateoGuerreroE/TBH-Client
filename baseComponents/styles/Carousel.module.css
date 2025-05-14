@@ -22,6 +22,7 @@
 
 .carousel__viewport {
   overflow: hidden;
+  height: 100%;
 }
 
 .carousel__container {

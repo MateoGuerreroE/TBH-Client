@@ -3,7 +3,7 @@ import React from "react";
 import { useNPStore } from "../context/zustand";
 import { Divider, Input } from "@heroui/react";
 import { formatPrice } from "@/utils";
-import ButtonComponent from "@/components/base/ButtonComponent";
+import ButtonComponent from "@/baseComponents/ButtonComponent";
 import Footer from "../sections/shared/Footer";
 
 export default function Cart() {
@@ -69,7 +69,14 @@ export default function Cart() {
               <div className="border-0.5 border-slate-200 rounded-lg flex flex-col gap-1 py-3">
                 <div className="flex flex-row gap-5">
                   <Input
-                    classNames={{ label: "font-semibold text-medium" }}
+                    classNames={{
+                      label: "font-semibold text-medium",
+                      input: "text-md",
+                      inputWrapper: [
+                        "bg-slate-50",
+                        "data-[hover=true]:bg-slate-100",
+                      ],
+                    }}
                     label="Cupón:"
                     labelPlacement="outside-left"
                   />

@@ -1,4 +1,4 @@
-import TrendCard from "@/components/TrendCard";
+import TrendCard from "@/app/components/TrendCard";
 import { sampleProductData } from "@/test/sampleData";
 import React from "react";
 

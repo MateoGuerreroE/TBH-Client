@@ -1,5 +1,5 @@
 "use client";
-import Review, { ReviewProps } from "@/components/Review";
+import Review, { ReviewProps } from "@/app/components/Review";
 import { ScrollShadow } from "@heroui/react";
 import { useInView, motion } from "framer-motion";
 import React, { useRef } from "react";
@@ -25,6 +25,9 @@ export default function ReviewScroll({ reviews }: ReviewScrollProps) {
             }}
           >
             <Review
+              rating={r.rating}
+              date={r.date}
+              location={r.location}
               key={r.authorName}
               authorName={r.authorName}
               content={r.content}

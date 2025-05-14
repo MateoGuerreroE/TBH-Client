@@ -8,7 +8,6 @@ export const getMpInitialization = (amount: number): TPaymentType => {
     customization: {
       paymentMethods: {
         bankTransfer: "all",
-        ticket: "all",
         creditCard: "all",
         debitCard: "all",
       },

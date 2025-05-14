@@ -1,4 +1,4 @@
-import { GlobalAlertProps } from "@/components/GlobalAlert";
+import { GlobalAlertProps } from "@/baseComponents/GlobalAlert";
 import { testUserCart } from "@/test/sampleData";
 import { UserLogin } from "@/types/Auth.types";
 import { CartProduct } from "@/types/Context.types";

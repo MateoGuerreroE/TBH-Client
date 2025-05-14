@@ -1,10 +1,10 @@
-import Carousel from "@/components/Carousel/Carousel";
-import ProductCard from "@/components/Product/ProductCard";
-import DesktopMenu from "@/components/Shop/DesktopMenu";
-import MobileMenu from "@/components/Shop/MobileMenu";
-import PaginationComponent from "@/components/Shop/Pagination";
+import Carousel from "@/baseComponents/Carousel/Carousel";
 import { Divider } from "@heroui/react";
 import Footer from "../sections/shared/Footer";
+import DesktopMenu from "./components/DesktopMenu";
+import MobileMenu from "./components/MobileMenu";
+import PaginationComponent from "@/baseComponents/Pagination";
+import ProductCard from "./components/ProductCard";
 
 export default function Productos() {
   return (

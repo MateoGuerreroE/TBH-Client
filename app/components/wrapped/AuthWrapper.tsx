@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import LoginModal from "./LoginModal";
-import RegisterModal from "./RegisterModal";
+import LoginModal from "../static/LoginModal";
+import RegisterModal from "../static/RegisterModal";
 import { Button } from "@heroui/react";
 import { useAppStore } from "@/app/context/zustand";
-import AccountDropdown from "./AccountDropdown";
+import AccountDropdown from "../static/AccountDropdown";
 
 type AuthWrapperProps = {
   variation: "mobile" | "desktop";
@@ -39,9 +39,9 @@ export default function AuthWrapper({ orientation }: AuthWrapperProps) {
           Ingresar
         </Button>
         <Button
-          variant="light"
+          variant="ghost"
           onPress={() => isRegisterModalOpen(true)}
-          className="hover:cursor-pointer font-poppins font-semibold"
+          className="hover:cursor-pointer font-poppins font-semibold border-slate-400"
         >
           Crear cuenta
         </Button>

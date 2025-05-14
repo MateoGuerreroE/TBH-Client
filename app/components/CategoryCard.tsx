@@ -1,6 +1,6 @@
 "use client";
 import { Card } from "@heroui/react";
-import shine from "./styles/ShineEffect.module.css";
+import shine from "@/baseComponents/styles/ShineEffect.module.css";
 import Image from "next/image";
 
 type CategoryCardProps = {

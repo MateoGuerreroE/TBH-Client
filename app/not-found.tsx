@@ -1,4 +1,4 @@
-import ButtonComponent from "@/components/base/ButtonComponent";
+import ButtonComponent from "@/baseComponents/ButtonComponent";
 import React from "react";
 
 export default function NotFoundPage() {
@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         </p>
         <ButtonComponent
           label="Volver al inicio"
-          color="secondary"
+          visualOpts={{ color: "primary" }}
           redirectTo="/"
         />
       </div>

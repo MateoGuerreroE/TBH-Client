@@ -3,7 +3,7 @@ import { formatPrice } from "@/utils";
 import { Button, Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
-import Carousel from "../Carousel/Carousel";
+import Carousel from "../../../baseComponents/Carousel/Carousel";
 
 export type ProductProps = {
   name: string;

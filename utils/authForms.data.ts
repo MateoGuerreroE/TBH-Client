@@ -10,6 +10,7 @@ export const LoginFormData: InputValues[] = [
       },
     ],
     label: "Usuario",
+    type: "text",
     attribute: "email",
     inputOptions: {
       isRequired: true,
@@ -24,6 +25,7 @@ export const LoginFormData: InputValues[] = [
         validation: (val: string) => val.length > 5,
       },
     ],
+    type: "text",
     label: "Contraseña",
     attribute: "password",
     inputOptions: {
@@ -42,6 +44,7 @@ export const RegisterFormData: InputValues[] = [
       isRequired: true,
       visualType: "inside",
     },
+    type: "text",
     validations: [
       {
         type: "regexp",
@@ -57,6 +60,7 @@ export const RegisterFormData: InputValues[] = [
       isRequired: true,
       visualType: "inside",
     },
+    type: "text",
     validations: [
       {
         type: "regexp",
@@ -72,6 +76,7 @@ export const RegisterFormData: InputValues[] = [
       isRequired: true,
       visualType: "inside",
     },
+    type: "text",
     validations: [
       {
         type: "regexp",
@@ -88,6 +93,7 @@ export const RegisterFormData: InputValues[] = [
       visualType: "inside",
       isHidden: true,
     },
+    type: "text",
     validations: [
       {
         type: "custom",
@@ -98,6 +104,7 @@ export const RegisterFormData: InputValues[] = [
   },
   {
     label: "Confirmar contraseña",
+    type: "text",
     attribute: "password_confirmation",
     inputOptions: {
       isRequired: true,
@@ -111,6 +118,7 @@ export const RegisterFormData: InputValues[] = [
 export const ContactFormData: InputValues[] = [
   {
     label: "Nombre",
+    type: "text",
     attribute: "name",
     inputOptions: {
       isRequired: true,
@@ -126,6 +134,7 @@ export const ContactFormData: InputValues[] = [
   },
   {
     label: "Correo",
+    type: "text",
     attribute: "email",
     inputOptions: {
       isRequired: true,
@@ -142,7 +151,7 @@ export const ContactFormData: InputValues[] = [
   {
     label: "Mensaje",
     attribute: "message",
-    type: "textarea",
+    type: "area",
     inputOptions: {
       isRequired: true,
       visualType: "inside",

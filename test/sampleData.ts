@@ -9,7 +9,7 @@ export const sampleHomeData: HomeSectionInfo[] = [
     productImage:
       "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
     buttons: [
-      { text: "Comprar ahora", type: "primary" },
+      { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
@@ -19,7 +19,7 @@ export const sampleHomeData: HomeSectionInfo[] = [
     productImage:
       "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
     buttons: [
-      { text: "Comprar ahora", type: "primary" },
+      { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
@@ -29,7 +29,7 @@ export const sampleHomeData: HomeSectionInfo[] = [
     productImage:
       "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
     buttons: [
-      { text: "Comprar ahora", type: "primary" },
+      { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
@@ -39,7 +39,7 @@ export const sampleHomeData: HomeSectionInfo[] = [
     productImage:
       "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
     buttons: [
-      { text: "Comprar ahora", type: "primary" },
+      { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
@@ -92,7 +92,7 @@ export const sampleProductData: ProductInfo[] = [
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     price: 50000,
     image:
-      "https://i0.wp.com/www.splento.com/blog/wp-content/uploads/2021/04/Perfect-white-backgrounds-for-products.jpg?ssl=1",
+      "https://blog.glassnow.com/wp-content/uploads/Choosing-the-Right-Sample-Packaging10-1.png",
   },
 ];
 

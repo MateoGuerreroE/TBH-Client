@@ -1,17 +1,52 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useNPStore } from "../context/zustand";
-import { Divider, Input } from "@heroui/react";
+import { Divider } from "@heroui/react";
 import { formatPrice } from "@/utils";
 import ButtonComponent from "@/baseComponents/ButtonComponent";
 import Footer from "../sections/shared/Footer";
+import { v4 as uuidv4 } from "uuid";
+import CouponSection from "./components/CouponSection";
+import { useRouter } from "next/navigation";
 
 export default function Cart() {
-  const { userCart } = useNPStore();
+  const { userCart, incrementProduct, decrementProduct, clearCart } =
+    useNPStore();
+  const router = useRouter();
+  const [loading, isLoading] = useState(false);
+  const [discount, setDiscount] = useState<number>(0);
+
   const totalPrice = userCart.reduce((prev, next) => {
     return prev + next.productPrice * next.amount;
   }, 0);
   const taxes = totalPrice * 0.19; // TODO HAVE THIS ENV
+
+  const handlePaymentRedirect = async () => {
+    const idempotency_key = uuidv4();
+    isLoading(true);
+    const result = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/payment/create",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          payment_amount: totalPrice + taxes,
+          receipt: userCart,
+          user_id: uuidv4(),
+          idempotency_key,
+        }),
+      }
+    );
+    if (result.ok) {
+      isLoading(false);
+      clearCart();
+      // Routes with internal metadata
+      sessionStorage.setItem("internalNav", "true");
+      router.push(`/checkout?payment_id=${idempotency_key}`);
+    } else {
+      isLoading(false);
+      throw new Error("Error al crear la transacción"); // TODO This should be a toast
+    }
+  };
 
   return (
     <>
@@ -36,11 +71,17 @@ export default function Cart() {
                       {product.productName}
                     </p>
                     <div className="flex flex-row text-lg font-semibold items-center bg-slate-50 rounded-md">
-                      <p className="px-2 border-r-1 border-slate-400 hover:bg-slate-300 hover:cursor-pointer hover:scale-105">
+                      <p
+                        onClick={() => decrementProduct(product.productId)}
+                        className="px-2 border-r-1 border-slate-400 hover:bg-slate-300 hover:cursor-pointer hover:scale-105"
+                      >
                         -
                       </p>
                       <p className="px-3">{product.amount}</p>
-                      <p className="px-2 border-l-1 border-slate-400 hover:bg-slate-300 hover:cursor-pointer hover:scale-105">
+                      <p
+                        onClick={() => incrementProduct(product.productId)}
+                        className="px-2 border-l-1 border-slate-400 hover:bg-slate-300 hover:cursor-pointer hover:scale-105"
+                      >
                         +
                       </p>
                     </div>
@@ -62,36 +103,23 @@ export default function Cart() {
                 <p>Impuestos</p>
                 <p>{formatPrice(taxes)}</p>
               </div>
-              <div className="flex flex-row items-center justify-between text-lg font-semibold text-red-400">
+              <div className="flex flex-row items-center justify-between text-lg font-semibold text-green-400">
                 <p>Descuentos</p>
-                <p>- {formatPrice(taxes)}</p>
+                <p>- {formatPrice(totalPrice * discount)}</p>
               </div>
-              <div className="border-0.5 border-slate-200 rounded-lg flex flex-col gap-1 py-3">
-                <div className="flex flex-row gap-5">
-                  <Input
-                    classNames={{
-                      label: "font-semibold text-medium",
-                      input: "text-md",
-                      inputWrapper: [
-                        "bg-slate-50",
-                        "data-[hover=true]:bg-slate-100",
-                      ],
-                    }}
-                    label="Cupón:"
-                    labelPlacement="outside-left"
-                  />
-                  <ButtonComponent label="Aplicar" />
-                </div>
-                <p>
-                  ✅ Cupón <b>IVA</b> aplicado
-                </p>
-              </div>
+              <CouponSection setDiscount={setDiscount} />
               <Divider />
               <div className="flex flex-row items-center justify-between text-xl font-semibold py-2">
                 <p>Total</p>
-                <p className="font-bold text-2xl">{formatPrice(totalPrice)}</p>
+                <p className="font-bold text-2xl">
+                  {formatPrice(totalPrice + taxes - totalPrice * discount)}
+                </p>
               </div>
-              <ButtonComponent label="Pagar" redirectTo="/checkout" />
+              <ButtonComponent
+                visualOpts={{ isLoading: loading }}
+                label="Pagar"
+                action={handlePaymentRedirect}
+              />
               <p>
                 * Podrás ver el costo de envío en el siguiente paso junto con la
                 información de pago.

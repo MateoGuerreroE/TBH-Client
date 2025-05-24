@@ -13,6 +13,7 @@ import {
   isFormValid,
 } from "@/utils/form";
 import FormTextArea from "./FormTextArea";
+import FormSelect from "./FormSelect";
 interface FormProps<T> {
   submitText: string;
   inputs: InputValues[];
@@ -72,42 +73,71 @@ export default function Form<T>({
       <FormComponent onSubmit={onSubmit}>
         <div className="flex flex-col gap-2 w-full">
           {inputs.map((inputInfo, index) => {
-            if (inputInfo.type === "textarea") {
-              return (
-                <FormTextArea
-                  key={index}
-                  label={inputInfo.label}
-                  options={inputInfo.inputOptions}
-                  validations={inputInfo.validations}
-                  parentState={(val: string) =>
-                    setFormValues({ ...formValues, [inputInfo.attribute]: val })
-                  }
-                  isValid={(valid: boolean) =>
-                    setFormValidations({
-                      ...formValidations,
-                      [inputInfo.attribute]: valid,
-                    })
-                  }
-                />
-              );
+            switch (inputInfo.type) {
+              case "text":
+                return (
+                  <FormInput
+                    key={index}
+                    label={inputInfo.label}
+                    options={inputInfo.inputOptions}
+                    validations={inputInfo.validations}
+                    parentState={(val: string) =>
+                      setFormValues({
+                        ...formValues,
+                        [inputInfo.attribute]: val,
+                      })
+                    }
+                    isValid={(valid: boolean) =>
+                      setFormValidations({
+                        ...formValidations,
+                        [inputInfo.attribute]: valid,
+                      })
+                    }
+                  />
+                );
+              case "area":
+                return (
+                  <FormTextArea
+                    key={index}
+                    label={inputInfo.label}
+                    options={inputInfo.inputOptions}
+                    validations={inputInfo.validations}
+                    parentState={(val: string) =>
+                      setFormValues({
+                        ...formValues,
+                        [inputInfo.attribute]: val,
+                      })
+                    }
+                    isValid={(valid: boolean) =>
+                      setFormValidations({
+                        ...formValidations,
+                        [inputInfo.attribute]: valid,
+                      })
+                    }
+                  />
+                );
+              case "select":
+                return (
+                  <FormSelect
+                    selections={inputInfo.selections}
+                    key={index}
+                    label={inputInfo.label}
+                    options={inputInfo.inputOptions}
+                    parentState={(val: string) => {
+                      setFormValues({
+                        ...formValues,
+                        [inputInfo.attribute]: val,
+                      });
+                    }}
+                    isValid={(valid: boolean) => {
+                      setFormValidations({
+                        ...formValidations,
+                        [inputInfo.attribute]: valid,
+                      });
+                    }}
+                  />
+                );
             }
-            return (
-              <FormInput
-                key={index}
-                label={inputInfo.label}
-                options={inputInfo.inputOptions}
-                validations={inputInfo.validations}
-                parentState={(val: string) =>
-                  setFormValues({ ...formValues, [inputInfo.attribute]: val })
-                }
-                isValid={(valid: boolean) =>
-                  setFormValidations({
-                    ...formValidations,
-                    [inputInfo.attribute]: valid,
-                  })
-                }
-              />
-            );
           })}
         </div>
         {formError.length ? (

@@ -19,7 +19,6 @@ export default function Review({
   content = sample,
   rating,
 }: ReviewProps) {
-  console.log(rating);
   return (
     <div className="w-full flex gap-8 h-full max-h-32">
       <Image

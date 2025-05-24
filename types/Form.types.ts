@@ -1,10 +1,28 @@
-export interface InputValues {
+export interface SelectInput {
+  attribute: string;
+  label: string;
+  type: "select";
+  inputOptions: InputVisualOptions;
+  selections: string[];
+}
+
+export interface AreaInput {
   validations: InputValidation[];
   attribute: string;
   label: string;
-  type?: "input" | "textarea";
+  type: "area";
   inputOptions: InputVisualOptions;
 }
+
+export interface TextInput {
+  validations: InputValidation[];
+  attribute: string;
+  label: string;
+  type: "text";
+  inputOptions: InputVisualOptions;
+}
+
+export type InputValues = SelectInput | AreaInput | TextInput;
 
 type RegexpValidation = {
   type: "regexp";

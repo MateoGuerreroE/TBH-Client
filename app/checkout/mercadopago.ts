@@ -1,6 +1,11 @@
 import { TPaymentType } from "@mercadopago/sdk-react/esm/bricks/payment/type";
 
-export const getMpInitialization = (amount: number): TPaymentType => {
+export const getMpInitialization = (
+  payment_id: string,
+  amount: number,
+  loadingFunction: (val: boolean) => void,
+  setPayment: (val: string) => void
+): TPaymentType => {
   return {
     initialization: {
       amount,
@@ -12,13 +17,28 @@ export const getMpInitialization = (amount: number): TPaymentType => {
         debitCard: "all",
       },
     },
-    onSubmit: async ({ paymentType, selectedPaymentMethod }) => {
-      console.log(paymentType);
-      console.log(selectedPaymentMethod);
-      alert("Submitted");
+    onSubmit: ({ formData }) => {
+      return new Promise<void>((resolve, reject) => {
+        fetch(process.env.NEXT_PUBLIC_API_URL + "/payment/process", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payment: formData,
+            idempotency_key: payment_id,
+          }),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            setPayment(response.data);
+            resolve();
+          })
+          .catch(() => reject());
+      });
     },
     onReady: async () => {
-      alert("Ready");
+      loadingFunction(false);
     },
     onError: async (error) => {
       alert(error);

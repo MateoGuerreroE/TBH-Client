@@ -13,7 +13,9 @@ export function initializeBooleanFormState<T>(
 ): BooleanFormState<T> {
   const initialState: Record<string, boolean> = {};
   inputs.forEach((input) => {
-    initialState[input.attribute] = false;
+    initialState[input.attribute] = input.inputOptions.isRequired
+      ? false
+      : true;
   });
   return initialState as BooleanFormState<T>;
 }

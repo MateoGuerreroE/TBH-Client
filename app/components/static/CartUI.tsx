@@ -13,16 +13,24 @@ import Image from "next/image";
 import React from "react";
 import { useNPStore } from "../../context/zustand";
 import { formatPrice } from "@/utils";
+import ConfirmationModal from "./ConfirmationModal";
 
 export default function CartUI() {
   const { onClose, onOpen, isOpen } = useDisclosure();
-  const { userCart } = useNPStore();
+  const { userCart, incrementProduct, decrementProduct, clearCart } =
+    useNPStore();
+  const [confModalOpen, showConfModal] = React.useState(false);
   const totalPrice = userCart.reduce(
     (prev, next) => prev + next.productPrice * next.amount,
     0
   );
   return (
     <>
+      <ConfirmationModal
+        isOpen={confModalOpen}
+        action={() => clearCart()}
+        onClose={() => showConfModal(false)}
+      />
       <div className="fixed right-5 bottom-5 hover:scale-105">
         <Image
           src="/icons/cart.svg"
@@ -32,11 +40,15 @@ export default function CartUI() {
           width={40}
           height={40}
         />
-        <div className="absolute top-0 flex h-4 w-4 rounded-full bg-red-600 items-center justify-center">
-          <p className="font-bold font-poppins text-[9px] text-center text-white h-[10px]">
-            {userCart.length}
-          </p>
-        </div>
+        {userCart.length ? (
+          <div className="absolute top-0 flex h-4 w-4 rounded-full bg-red-600 items-center justify-center">
+            <p className="font-bold font-poppins text-[9px] text-center text-white h-[10px]">
+              {userCart.length}
+            </p>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <Drawer
         isOpen={isOpen}
@@ -72,6 +84,7 @@ export default function CartUI() {
                               size: "md",
                               className: "rounded-full min-w-0",
                             }}
+                            action={() => decrementProduct(product.productId)}
                           />
                           <ButtonComponent
                             label="+"
@@ -81,6 +94,7 @@ export default function CartUI() {
                               size: "md",
                               className: "rounded-full min-w-0",
                             }}
+                            action={() => incrementProduct(product.productId)}
                           />
                         </div>
                       </div>
@@ -108,12 +122,14 @@ export default function CartUI() {
                   />
                   <ButtonComponent
                     label=""
+                    disabled={userCart.length === 0}
                     visualOpts={{
                       color: "secondary",
                       size: "lg",
                       className: "min-w-0",
                       startingIcon: "/icons/trash.svg",
                     }}
+                    action={() => showConfModal(true)}
                   />
                 </div>
               </DrawerFooter>

@@ -1,7 +1,7 @@
 import Footer from "../sections/shared/Footer";
-import ClientWrapper from "./layouts/ClientWrapper";
+import PaymentSummary from "./PaymentSummary";
 
-export default async function Checkout({
+export default async function Payment({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string }>;
@@ -17,7 +17,8 @@ export default async function Checkout({
 
   return (
     <main className="bg-sky-100 pt-14">
-      <ClientWrapper payment={payment} />
+      {/* <ClientWrapper payment={payment} /> */}
+      <PaymentSummary payment={payment} />
       <Footer />
     </main>
   );

@@ -5,6 +5,7 @@ import { formatPrice } from "@/utils";
 import { Card, CardFooter } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useNPStore } from "../context/zustand";
 
 type TrendCarProps = {
   product: ProductInfo;
@@ -12,6 +13,7 @@ type TrendCarProps = {
 
 export default function TrendCard({ product }: TrendCarProps) {
   const [descVisible, isDescVisible] = useState<boolean>(false);
+  const { addToCart } = useNPStore();
   return (
     <Card
       key={product.productName}
@@ -55,12 +57,21 @@ export default function TrendCard({ product }: TrendCarProps) {
           <p className="text-xs md:text-sm">{product.description}</p>
           <div className="flex flex-row gap-3">
             <ButtonComponent
-              label="Comprar"
+              label="Agregar"
               visualOpts={{
                 color: "primary",
                 className: "h-6 lg:h-7",
                 bold: true,
               }}
+              action={() =>
+                addToCart({
+                  productName: product.productName,
+                  productPrice: product.price,
+                  amount: 1,
+                  productCup: product.productName,
+                  productId: product.productName,
+                })
+              }
             />
             <ButtonComponent
               label="Ver"

@@ -9,6 +9,7 @@ type ButtonVisualOpts = {
   color?: "primary" | "secondary";
   startingIcon?: string;
   bold?: boolean;
+  isLoading?: boolean;
   endingIcon?: string;
   rounded?: "full" | "sm" | "md" | "lg";
   size?: "sm" | "md" | "lg";
@@ -17,14 +18,16 @@ type ButtonVisualOpts = {
 
 type ButtonComponentProps = {
   label: string;
+  disabled?: boolean;
   visualOpts?: ButtonVisualOpts;
-  action?: (...args: unknown[]) => void;
+  action?: (...args: unknown[]) => void | Promise<void>;
   redirectTo?: string;
 };
 
 export default function ButtonComponent({
   label,
   visualOpts,
+  disabled = false,
   action,
   redirectTo,
 }: ButtonComponentProps) {
@@ -32,6 +35,7 @@ export default function ButtonComponent({
   const {
     color = "primary",
     startingIcon,
+    isLoading = false,
     bold = false,
     rounded = "lg",
     endingIcon,
@@ -40,6 +44,8 @@ export default function ButtonComponent({
   } = visualOpts || {};
   return (
     <Button
+      isDisabled={disabled}
+      isLoading={isLoading}
       size={size}
       color={color}
       radius={rounded}
@@ -64,9 +70,15 @@ export default function ButtonComponent({
         )
       }
       className={`font-poppins ${bold ? "font-semibold" : "font-medium"} ${color === "primary" ? "text-slate-100" : "text-slate-800"} ${className}`}
-      onPress={() => {
-        if (redirectTo) router.push(redirectTo);
-        if (action) action();
+      onPress={async () => {
+        if (action) {
+          try {
+            await action();
+            if (redirectTo) router.push(redirectTo);
+          } catch (e) {
+            console.error(e);
+          }
+        }
       }}
     >
       {label.length > 0 ? label : undefined}

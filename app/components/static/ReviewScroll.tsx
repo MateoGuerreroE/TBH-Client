@@ -1,5 +1,5 @@
 "use client";
-import Review, { ReviewProps } from "@/app/components/Review";
+import Review, { ReviewProps } from "@/app/components/static/Review";
 import { ScrollShadow } from "@heroui/react";
 import { useInView, motion } from "framer-motion";
 import React, { useRef } from "react";

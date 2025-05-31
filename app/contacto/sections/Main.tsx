@@ -1,6 +1,6 @@
 import React from "react";
 import ContactForm from "./ContactForm";
-import Style from "@/baseComponents/styles/Neuromorphism.module.css";
+import Style from "@/app/components/shared/styles/Neuromorphism.module.css";
 import ContactWhaWrapper from "./ContactWhaWrapper";
 
 export default function ContactMain() {

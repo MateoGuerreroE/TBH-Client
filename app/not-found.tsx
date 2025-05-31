@@ -1,4 +1,4 @@
-import ButtonComponent from "@/baseComponents/ButtonComponent";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import React from "react";
 
 export default function NotFoundPage() {

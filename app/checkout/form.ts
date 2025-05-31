@@ -18,6 +18,22 @@ export const shipFormData: InputValues[] = [
     ],
   },
   {
+    type: "text",
+    label: "Correo electrónico",
+    attribute: "emailAddress",
+    inputOptions: {
+      isRequired: true,
+      visualType: "inside",
+    },
+    validations: [
+      {
+        type: "regexp",
+        regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        errorMessage: "El correo electrónico no es válido",
+      },
+    ],
+  },
+  {
     type: "select",
     attribute: "city",
     label: "Ciudad",

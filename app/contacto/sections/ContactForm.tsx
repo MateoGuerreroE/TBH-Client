@@ -1,5 +1,5 @@
 "use client";
-import Form from "@/baseComponents/form/Form";
+import Form from "@/app/components/shared/form/Form";
 import { ContactFormData } from "@/utils/authForms.data";
 import React from "react";
 

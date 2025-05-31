@@ -1,4 +1,4 @@
-import ReviewScroll from "@/app/components/ReviewScroll";
+import ReviewScroll from "@/app/components/static/ReviewScroll";
 import WrappedMainReview from "@/app/components/wrapped/WrappedMainReview";
 import { testReviews } from "@/test/sampleData";
 

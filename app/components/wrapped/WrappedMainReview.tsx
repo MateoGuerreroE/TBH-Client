@@ -1,10 +1,10 @@
 "use client";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import React, { useRef } from "react";
-import neuro_styles from "@/baseComponents/styles/Neuromorphism.module.css";
+import morp from "../shared/styles/Neuromorphism.module.css";
 import Image from "next/image";
 import { useInView, motion } from "framer-motion";
-import { ReviewProps } from "../Review";
+import { ReviewProps } from "../static/Review";
 
 type WrappedMainReviewProps = {
   review: ReviewProps;
@@ -16,7 +16,7 @@ export default function WrappedMainReview({ review }: WrappedMainReviewProps) {
   return (
     <>
       <Card
-        className={`w-[80%] h-[80%] bg-white/20 border-0 font-poppins ${neuro_styles.neuromorph_card}`}
+        className={`w-[80%] h-[80%] bg-white/20 border-0 font-poppins ${morp.neuromorph_card}`}
         radius="sm"
         shadow="lg"
         isBlurred={true}

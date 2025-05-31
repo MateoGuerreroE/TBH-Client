@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../sections/shared/Footer";
-import AboutMain from "../sections/about/Main";
+import Footer from "../components/shared/Footer";
+import AboutMain from "./sections/Main";
 
 export default function Page() {
   return (

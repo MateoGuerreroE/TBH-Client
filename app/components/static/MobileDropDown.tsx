@@ -7,10 +7,10 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
-import LoginModal from "./static/LoginModal";
-import RegisterModal from "./static/RegisterModal";
 import { useAppStore } from "@/app/context/zustand";
-import AccountDropdown from "./static/AccountDropdown";
+import AccountDropdown from "./AccountDropdown";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 export default function MobileDropDown() {
   const [loginModalOpen, isLoginModalOpen] = useState<boolean>(false);

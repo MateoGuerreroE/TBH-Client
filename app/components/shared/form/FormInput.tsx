@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Input } from "@heroui/react";
 import { validateInput } from "@/utils/validations";

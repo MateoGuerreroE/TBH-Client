@@ -1,10 +1,12 @@
-import Carousel from "@/baseComponents/Carousel/Carousel";
+"use client";
 import { Divider } from "@heroui/react";
-import Footer from "../sections/shared/Footer";
+import Footer from "../components/shared/Footer";
 import DesktopMenu from "./components/DesktopMenu";
 import MobileMenu from "./components/MobileMenu";
-import PaginationComponent from "@/baseComponents/Pagination";
-import ProductCard from "./components/ProductCard";
+import PaginationComponent from "@/app/components/shared/Pagination";
+import ProductCarousel from "./components/ProductCarousel";
+import { sampleProductData } from "@/test/sampleData";
+import ButtonComponent from "../components/shared/ButtonComponent";
 
 export default function Productos() {
   return (
@@ -22,70 +24,58 @@ export default function Productos() {
           </div>
           <Divider className="my-3" />
         </div>
-        <div className="flex flex-col h-full w-full lg:w-3/4 px-5 lg:p-5">
+        <div className="flex flex-col h-full w-full lg:w-3/4 ml px-5 lg:p-5">
           <div className="bg-black hidden lg:flex h-32 w-full text-center justify-center text-white items-center">
             Products banner
           </div>
           <PaginationComponent totalPages={1} currentPage={1} />
-          <div className="flex flex-col md:pl-5 md:pt-5">
-            <h3 className="font-poppins text-2xl font-bold mb-3">Tecnología</h3>
-            <Carousel
-              options={{
-                loop: false,
-                adapt: true,
-                dragFree: false,
-                slidesPerView: 3,
-              }}
-            >
-              <ProductCard
-                shortDescription="lorem"
-                name="Levanta pies, el santo giral"
-                images={[
-                  "https://www.productsamples.com/wp-content/uploads/2021/10/il-box.png",
-                ]}
-                price={85000}
-              />
-              <ProductCard
-                shortDescription="lorem"
-                name="Levanta pies, el santo giral"
-                images={[
-                  "https://www.productsamples.com/wp-content/uploads/2021/10/il-box.png",
-                ]}
-                price={17500.12}
-              />
-              <ProductCard
-                shortDescription="lorem"
-                name="Levanta pies, el santo giral"
-                images={[
-                  "https://www.productsamples.com/wp-content/uploads/2021/10/il-box.png",
-                ]}
-                price={17500.12}
-              />
-              <ProductCard
-                shortDescription="lorem"
-                name="Levanta pies, el santo giral"
-                images={[
-                  "https://www.productsamples.com/wp-content/uploads/2021/10/il-box.png",
-                ]}
-                price={17500.12}
-              />
-              <ProductCard
-                shortDescription="lorem"
-                name="Levanta pies, el santo giral"
-                images={[
-                  "https://www.productsamples.com/wp-content/uploads/2021/10/il-box.png",
-                ]}
-                price={17500.12}
-              />
-              <ProductCard
-                shortDescription="lorem"
-                name="Levanta pies, el santo giral"
-                images={[
-                  "https://www.productsamples.com/wp-content/uploads/2021/10/il-box.png",
-                ]}
-                price={17500.12}
-              />
-            </Carousel>
+          <div className="flex flex-col gap-5 ml-2">
+            <div className="flex flex-col md:pl-5 md:pt-5 gap-1">
+              <div className="flex gap-8">
+                <h3 className="font-poppins text-3xl font-bold mb-3">
+                  Tecnología
+                </h3>
+                <ButtonComponent
+                  label="Ver más"
+                  visualOpts={{
+                    color: "secondary",
+                    className: "font-semibold text-lg",
+                    size: "md",
+                  }}
+                />
+              </div>
+              <ProductCarousel productList={sampleProductData} />
+            </div>
+            <div className="flex flex-col md:pl-5 md:pt-5 gap-1">
+              <div className="flex gap-8">
+                <h3 className="font-poppins text-3xl font-bold mb-3">Hogar</h3>
+                <ButtonComponent
+                  label="Ver más"
+                  visualOpts={{
+                    color: "secondary",
+                    className: "font-semibold text-lg",
+                    size: "md",
+                  }}
+                />
+              </div>
+              <ProductCarousel productList={sampleProductData} />
+            </div>
+            <div className="flex flex-col md:pl-5 md:pt-5 gap-1">
+              <div className="flex gap-8">
+                <h3 className="font-poppins text-3xl font-bold mb-3">
+                  Automotriz
+                </h3>
+                <ButtonComponent
+                  label="Ver más"
+                  visualOpts={{
+                    color: "secondary",
+                    className: "font-semibold text-lg",
+                    size: "md",
+                  }}
+                />
+              </div>
+              <ProductCarousel productList={sampleProductData} />
+            </div>
           </div>
         </div>
       </section>

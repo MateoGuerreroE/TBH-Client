@@ -1,68 +1,116 @@
 "use client";
-
-import { useState } from "react";
 import PaymentSection from "./PaymentSection";
 import ShipForm from "./ShipForm";
-import { Divider } from "@heroui/react";
-import LoadingComponent from "@/app/components/LoadingComponent";
+import { useEffect, useState } from "react";
+import { Card, CardBody, CardFooter, CardHeader, Divider } from "@heroui/react";
+import LoadingComponent from "@/app/components/shared/LoadingComponent";
 import { formatPrice } from "@/utils";
-import ButtonComponent from "@/baseComponents/ButtonComponent";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
+import {
+  InternalPayment,
+  OrderData,
+  PaymentStatusEnum,
+} from "@/types/Payment.types";
+import { useRouter } from "next/navigation";
 
 type ClientWrapperProps = {
-  payment: Record<string, any>;
+  order: OrderData;
 };
 
-export default function ClientWrapper({ payment }: ClientWrapperProps) {
-  const [loading, isLoading] = useState(true);
+export default function ClientWrapper({ order }: ClientWrapperProps) {
+  const [loading, isLoading] = useState<boolean>(false);
   const [step, setStep] = useState<1 | 2>(1);
-  const [paymentResponse, setPaymentResponse] = useState<any>(null);
+  const [paymentResponse, setPaymentResponse] =
+    useState<InternalPayment | null>(null);
+  const [shipInfo, setShipInfo] = useState(null);
+
+  const router = useRouter();
+
+  const handleStepChange = (newStep: 1 | 2) => {
+    if (newStep === 2) {
+      isLoading(true);
+    }
+    setStep(newStep);
+  };
+
+  useEffect(() => {
+    if (order.paymentId) {
+      router.push(`/payment?payment_id=${order.paymentId}`);
+    }
+  }, [order]);
+
+  useEffect(() => {
+    if (paymentResponse !== null) {
+      setTimeout(
+        () => router.push(`/payment?payment_id=${paymentResponse.paymentId}`),
+        5000
+      );
+    }
+  }, [paymentResponse]);
 
   return (
     <div className="w-full flex justify-center p-5 min-h-[1000px]">
       <div className="w-full max-w-[1500px] flex flex-col lg:flex-row gap-7 font-poppins">
         <div className="lg:w-1/2 flex flex-col gap-5">
-          <div className="flex flex-col gap-2 p-5 ">
-            <h2 className="text-2xl font-semibold">Resumen</h2>
-            <Divider className="my-2" />
-            <div className="relative min-h-[100px]">
-              {Object.keys(payment).length > 0 ? (
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-col gap-1">
-                    {payment.receipt.map((item) => (
-                      <div
-                        key={item.productId}
-                        className="text-sm flex flex-row justify-between"
-                      >
-                        <p>{item.productName}</p>
-                        <p>x{item.amount}</p>
+          <Card className="mx-5 max-h-[600px]">
+            <CardHeader className="i">
+              <h2 className="text-2xl font-semibold">Resumen</h2>
+            </CardHeader>
+            <Divider />
+
+            <CardBody>
+              <div className="relative h-full">
+                {Object.keys(order).length > 0 ? (
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
+                      {order.items.map((item) => (
+                        <div
+                          key={item.productId}
+                          className="text-sm lg:text-medium flex flex-row justify-between"
+                        >
+                          <p>{item.product.productName}</p>
+                          <div className="flex flex-row gap-3">
+                            <p>x{item.amount}</p>
+                            <p>{formatPrice(item.product.productPrice)}</p>
+                          </div>
+                        </div>
+                      ))}
+                      <div className="flex flex-row justify-between font-poppins font-semibold py-3">
+                        <h5>Precio de envío</h5>
+                        <p>{formatPrice(0)}</p>
                       </div>
-                    ))}
-                    <Divider className="my-1" />
-                    <div className="flex flex-row justify-between font-poppins font-semibold">
-                      <h5>Precio de envío</h5>
-                      <p>{formatPrice(0)}</p>
                     </div>
                   </div>
-                  <div className="flex flex-row justify-between">
-                    <h5 className="text-2xl font-semibold">Total</h5>
-                    <p className="font-bold text-xl">
-                      {formatPrice(payment.payment_amount)}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <LoadingComponent />
-              )}
-            </div>
-          </div>
+                ) : (
+                  <LoadingComponent />
+                )}
+              </div>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              <div className=" w-full flex flex-row justify-between">
+                <h5 className="text-2xl font-semibold">Total</h5>
+                <p className="font-bold text-xl">
+                  {formatPrice(order.orderProductTotal)}
+                </p>
+              </div>
+            </CardFooter>
+          </Card>
+
           <div className="relative">
             {step === 2 && (
               <div className="absolute z-10 w-full h-full bg-sky-100/80"></div>
             )}
-            <ShipForm isLoading={loading} parentAction={() => setStep(2)} />
+            <ShipForm
+              isLoading={false}
+              parentAction={(val: any) => {
+                setShipInfo(val);
+                handleStepChange(2);
+              }}
+            />
           </div>
         </div>
-        <div className="lg:w-1/2 mt-12">
+        <div className="lg:w-1/2 mt-5">
           <div className="flex flex-col gap-3 pb-3">
             <h3 className="text-2xl font-bold">Pagar</h3>
             <p>
@@ -70,15 +118,24 @@ export default function ClientWrapper({ payment }: ClientWrapperProps) {
             </p>
           </div>
           <div className="relative flex flex-col pb-12">
-            {step === 1 && (
+            {step === 1 ? (
               <div className="absolute z-10 w-full h-full bg-sky-100/80"></div>
+            ) : (
+              <>
+                {loading && (
+                  <div className="h-32 relative">
+                    <LoadingComponent />
+                  </div>
+                )}
+                <PaymentSection
+                  loadingParent={isLoading}
+                  shipInfo={shipInfo}
+                  orderId={order.orderId}
+                  setResult={setPaymentResponse}
+                  price={parseInt(order.orderProductTotal)}
+                />
+              </>
             )}
-            <PaymentSection
-              payment_id={payment.payment_id}
-              setResult={setPaymentResponse}
-              loadingParent={isLoading}
-              price={payment.payment_amount}
-            />
             {paymentResponse && paymentResponse.status === "approved" && (
               <p className="py-2">
                 <b>Pago aproado</b> ✅ Serás redirigido a la página de
@@ -90,7 +147,9 @@ export default function ClientWrapper({ payment }: ClientWrapperProps) {
               disabled={
                 step === 1 ||
                 loading ||
-                (paymentResponse && paymentResponse.status === "approved")
+                (paymentResponse
+                  ? paymentResponse.status === "approved"
+                  : false)
               }
               label="Regresar a datos de envío"
               visualOpts={{ className: "mt-5" }}

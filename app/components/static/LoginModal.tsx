@@ -1,3 +1,4 @@
+"use client";
 import {
   addToast,
   Button,
@@ -8,7 +9,7 @@ import {
   Spinner,
 } from "@heroui/react";
 import React, { useEffect, useState } from "react";
-import Form from "../../../baseComponents/form/Form";
+import Form from "../shared/form/Form";
 import { loginUserAction } from "@/server/loginUser.action";
 import { LoginForm } from "@/types/Auth.types";
 import Image from "next/image";

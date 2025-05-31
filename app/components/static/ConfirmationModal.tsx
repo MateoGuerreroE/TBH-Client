@@ -1,4 +1,5 @@
-import ButtonComponent from "@/baseComponents/ButtonComponent";
+"use client";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { Modal, ModalBody, ModalContent } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 

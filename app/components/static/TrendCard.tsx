@@ -1,11 +1,11 @@
 "use client";
-import ButtonComponent from "@/baseComponents/ButtonComponent";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { ProductInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
 import { Card, CardFooter } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useNPStore } from "../context/zustand";
+import { useNPStore } from "../../context/zustand";
 
 type TrendCarProps = {
   product: ProductInfo;
@@ -24,7 +24,7 @@ export default function TrendCard({ product }: TrendCarProps) {
       className="border-none w-full h-full relative flex flex-col hover:cursor-pointer hover:scale-[1.03] lg:hover:scale-105 overflow-hidden"
     >
       <Image
-        src={product.image}
+        src={product.productImages[0]}
         alt={product.productName}
         className="object-cover w-full h-full"
         width={1000}
@@ -45,7 +45,7 @@ export default function TrendCard({ product }: TrendCarProps) {
             {product.productName}
           </h4>
           <p className="font-geist font-bold text-md hover:block">
-            {formatPrice(product.price)}
+            {formatPrice(product.productPrice)}
           </p>
         </div>
         <div
@@ -54,7 +54,7 @@ export default function TrendCard({ product }: TrendCarProps) {
             maxHeight: descVisible ? "120px" : "0",
           }}
         >
-          <p className="text-xs md:text-sm">{product.description}</p>
+          <p className="text-xs md:text-sm">{product.productDescription}</p>
           <div className="flex flex-row gap-3">
             <ButtonComponent
               label="Agregar"
@@ -65,11 +65,8 @@ export default function TrendCard({ product }: TrendCarProps) {
               }}
               action={() =>
                 addToCart({
-                  productName: product.productName,
-                  productPrice: product.price,
                   amount: 1,
-                  productCup: product.productName,
-                  productId: product.productName,
+                  product,
                 })
               }
             />

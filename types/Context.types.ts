@@ -1,7 +1,6 @@
+import { ProductInfo } from "./Data.types";
+
 export type CartProduct = {
-  productId: string;
   amount: number;
-  productName: string;
-  productPrice: number;
-  productCup: string;
+  product: ProductInfo;
 };

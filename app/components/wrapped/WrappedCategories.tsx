@@ -1,6 +1,6 @@
 "use client";
-import { CategoriesInfo } from "@/app/sections/home/CategoriesSection";
-import CategoryCard from "@/app/components/CategoryCard";
+import { CategoriesInfo } from "@/app/home/sections/CategoriesSection";
+import CategoryCard from "@/app/components/static/CategoryCard";
 import { useInView, motion } from "framer-motion";
 import React, { useRef } from "react";
 

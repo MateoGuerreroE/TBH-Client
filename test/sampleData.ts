@@ -1,43 +1,115 @@
-import { ReviewProps } from "@/app/components/Review";
+import { ReviewProps } from "@/app/components/static/Review";
 import { CartProduct } from "@/types/Context.types";
 import { HomeSectionInfo, ProductInfo } from "@/types/Data.types";
 
 export const sampleHomeData: HomeSectionInfo[] = [
   {
+    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
     isProduct: true,
-    title: "Apple AirPods\nMax | Sky Blue",
-    productImage:
-      "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+    product: {
+      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
+      productName: "Apple AirPods Max | Sky Blue",
+      productImages: [
+        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+      ],
+      productDescription:
+        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
+      productCup: "2",
+      productPrice: 134800,
+      productEan: null,
+      productVideos: [],
+      isEnabled: false,
+      isActive: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      subCategoryId: "",
+      discount: 0,
+    },
     buttons: [
       { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
   {
+    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
     isProduct: true,
-    title: "Apple AirPods\nMax | Sky Blue",
-    productImage:
-      "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+    product: {
+      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
+      productName: "Apple AirPods Max | Sky Blue",
+      productImages: [
+        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+      ],
+      productDescription:
+        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
+      productCup: "2",
+      productPrice: 134800,
+      productEan: null,
+      productVideos: [],
+      isEnabled: false,
+      isActive: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      subCategoryId: "",
+      discount: 0,
+    },
     buttons: [
       { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
   {
+    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
     isProduct: true,
-    title: "Apple AirPods\nMax | Sky Blue",
-    productImage:
-      "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+    product: {
+      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
+      productName: "Apple AirPods Max | Sky Blue",
+      productImages: [
+        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+      ],
+      productDescription:
+        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
+      productCup: "2",
+      productPrice: 134800,
+      productEan: null,
+      productVideos: [],
+      isEnabled: false,
+      isActive: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      subCategoryId: "",
+      discount: 0,
+    },
     buttons: [
       { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
     ],
   },
   {
+    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
     isProduct: true,
-    title: "Apple AirPods\nMax | Sky Blue",
-    productImage:
-      "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+    product: {
+      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
+      productName: "Apple AirPods Max | Sky Blue",
+      productImages: [
+        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+      ],
+      productDescription:
+        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
+      productCup: "2",
+      productPrice: 134800,
+      productEan: null,
+      productVideos: [],
+      isEnabled: false,
+      isActive: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      subCategoryId: "",
+      discount: 0,
+    },
     buttons: [
       { text: "Agregar al carrito", type: "primary" },
       { text: "Ver productos similares", type: "secondary" },
@@ -48,89 +120,138 @@ export const sampleHomeData: HomeSectionInfo[] = [
 export const sampleProductData: ProductInfo[] = [
   {
     productName: "Kit Esencial de prueba",
-    description:
+    productDescription:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
-    price: 38500,
-    image:
+    productPrice: 38500,
+    productImages: [
       "https://www.pngitem.com/pimgs/m/43-434027_product-beauty-skin-care-personal-care-liquid-tree.png",
+    ],
+    productId: "378a64c9-0d0c-44df-be20-0c7c36f0b846",
+    productCup: "123",
+    productEan: null,
+    productVideos: [],
+    isEnabled: true,
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
+    discount: 0,
   },
   {
     productName: "Bolso rojo de pasión",
-    description:
+    productDescription:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
-    price: 193500,
-    image:
+    productPrice: 193500,
+    productImages: [
       "https://cdn.fstoppers.com/styles/full/s3/media/2015/12/07/white_background_bag_after.jpg",
+    ],
+    productId: "74c4761f-20b7-48ee-816e-7f4ec78ee906",
+    productCup: "123",
+    productEan: null,
+    productVideos: [],
+    isEnabled: true,
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
+    discount: 0,
   },
   {
     productName: "Loción antibacterial",
-    description:
+    productDescription:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
-    price: 45000,
-    image:
+    productPrice: 45000,
+    productImages: [
       "https://static.pietrastudio.com/public/file_uploads/e724b86799813931e2a835ea38839bf5.jpeg",
+    ],
+    productId: "b29cc2e4-d529-440e-8f30-56114a66b93d",
+    productCup: "123",
+    productEan: null,
+    productVideos: [],
+    isEnabled: true,
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
+    discount: 0,
   },
   {
     productName: "Tennis coloridos",
-    description:
+    productDescription:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
-    price: 389000,
-    image:
+    productPrice: 389000,
+    productImages: [
       "https://backend.orbitvu.com/sites/default/files/image/product-mask.jpeg",
+    ],
+    productId: "b9b75dec-1ac4-46ed-97e0-dc7939cefdd6",
+    productCup: "123",
+    productEan: null,
+    productVideos: [],
+    isEnabled: true,
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
+    discount: 0,
   },
   {
     productName: "Audifonos Beats",
-    description:
+    productDescription:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
-    price: 78900,
-    image:
+    productPrice: 78900,
+    productImages: [
       "https://cdn-bjpdk.nitrocdn.com/dyjDRTumiVVFLKEpXMADzKdEUUbypNrL/assets/images/optimized/rev-b19053f/www.visualeducation.com/wp-content/uploads/2020/05/Beats_headphones-2-1558px.jpg",
+    ],
+    productId: "8191d509-c998-4e48-8bfc-c69b72e18602",
+    productCup: "123",
+    productEan: null,
+    productVideos: [],
+    isEnabled: true,
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
+    discount: 0,
   },
   {
     productName: "Kit de café anti dormidas",
-    description:
+    productDescription:
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
-    price: 50000,
-    image:
+    productPrice: 50000,
+    productImages: [
       "https://blog.glassnow.com/wp-content/uploads/Choosing-the-Right-Sample-Packaging10-1.png",
+    ],
+    productId: "32400a8c-7ad0-4678-a136-9214a6fcdf64",
+    productCup: "123",
+    productEan: null,
+    productVideos: [],
+    isEnabled: true,
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: null,
+    subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
+    discount: 0,
   },
 ];
 
 export const testUserCart: CartProduct[] = [
   {
-    productId: "1",
-    productName: "Lavadora de platos multiuso con 5 funciones",
-    productPrice: 17800,
     amount: 1,
-    productCup: "Taza 1",
+    product: sampleProductData[0],
   },
   {
-    productId: "2",
-    productName: "Kit esencial de limpieza para el hogar",
-    productPrice: 55200,
-    amount: 2,
-    productCup: "Taza 2",
+    amount: 1,
+    product: sampleProductData[1],
   },
   {
-    productId: "3",
-    amount: 1,
-    productName: "Set de 3 tazas de cerámica color azúl con diseño",
-    productPrice: 23400,
-    productCup: "Taza 3",
-  },
-  {
-    productId: "4",
-    productName: "Vajilla de acero inoxidable de 5 piezas con mango",
-    productPrice: 98000,
-    amount: 1,
-    productCup: "Taza 4",
-  },
-  {
-    productId: "5",
-    productName: "Juego de cubiertos de acero inoxidable de 24 piezas",
-    productPrice: 120000,
-    amount: 1,
-    productCup: "Taza 5",
+    amount: 3,
+    product: sampleProductData[2],
   },
 ];
 

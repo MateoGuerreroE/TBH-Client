@@ -1,23 +1,19 @@
-import Footer from "../sections/shared/Footer";
+import { OrderData } from "@/types/Payment.types";
+import Footer from "../components/shared/Footer";
 import ClientWrapper from "./layouts/ClientWrapper";
+import { getResource } from "@/server/fetch";
 
 export default async function Checkout({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string }>;
 }) {
-  const { payment_id } = await searchParams;
-  let payment = {};
-  const request = await fetch(
-    process.env.NEXT_PUBLIC_API_URL + "/payment?payment_id=" + payment_id
-  );
-
-  const { data } = await request.json();
-  payment = data;
+  const { order_id } = await searchParams;
+  const { data } = await getResource<OrderData>(`order/${order_id}`);
 
   return (
     <main className="bg-sky-100 pt-14">
-      <ClientWrapper payment={payment} />
+      <ClientWrapper order={data} />
       <Footer />
     </main>
   );

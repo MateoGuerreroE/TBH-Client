@@ -4,7 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import NavBar from "./components/static/NavBar";
 import CartUI from "@/app/components/static/CartUI";
-import ContactTrigger from "./components/ContactTrigger";
+import ContactTrigger from "./components/static/ContactTrigger";
 
 const geistSans = Geist({
   variable: "--font-geist",

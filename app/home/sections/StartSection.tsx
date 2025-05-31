@@ -1,12 +1,14 @@
 "use client";
-import ButtonComponent from "@/baseComponents/ButtonComponent";
-import Carousel from "@/baseComponents/Carousel/Carousel";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
+import Carousel from "@/app/components/shared/Carousel/Carousel";
+import { useNPStore } from "@/app/context/zustand";
 import { sampleHomeData } from "@/test/sampleData";
 import Image from "next/image";
 
 export default function StartSection() {
+  const { addToCart } = useNPStore();
   return (
-    <section className="h-[550px] md:h-[600px] 2xl:h-[850px] w-full bg-gradient-to-tl from-[#FFEAE2] to-[#68c2dd] flex justify-center pt-14 relative">
+    <section className="h-[550px] md:h-[600px] lg:h-[640px] 2xl:h-[850px] w-full bg-gradient-to-tl from-[#FFEAE2] to-[#68c2dd] flex justify-center pt-14 relative">
       <div className="flex flex-col items-center justify-center w-full h-full md:p-8 md:px-12 p-4 max-w-[1500px] overflow-hidden">
         <div className="h-full w-full flex items-center justify-center">
           <Carousel options={{ loop: true, autoPlay: true, dotButton: true }}>
@@ -22,6 +24,11 @@ export default function StartSection() {
                   <div className="flex flex-col gap-2 lg:flex-row justify-evenly font-poppins w-full">
                     {data.buttons.map((button, index) => (
                       <ButtonComponent
+                        action={() => {
+                          if (data.isProduct) {
+                            addToCart({ product: data.product, amount: 1 });
+                          }
+                        }}
                         label={button.text}
                         key={index}
                         visualOpts={{
@@ -34,7 +41,7 @@ export default function StartSection() {
                 </div>
                 <div className="h-[280px] md:h-full aspect-square flex items-center justify-center">
                   <Image
-                    src={data.isProduct ? data.productImage : ""}
+                    src={data.isProduct ? data.product.productImages[0] : ""}
                     alt="product_image"
                     width={800}
                     height={800}

@@ -1,5 +1,5 @@
 "use client";
-import ButtonComponent from "@/baseComponents/ButtonComponent";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import {
   Divider,
   Drawer,
@@ -21,7 +21,7 @@ export default function CartUI() {
     useNPStore();
   const [confModalOpen, showConfModal] = React.useState(false);
   const totalPrice = userCart.reduce(
-    (prev, next) => prev + next.productPrice * next.amount,
+    (prev, next) => prev + next.product.productPrice * next.amount,
     0
   );
   return (
@@ -66,14 +66,15 @@ export default function CartUI() {
               <Divider />
               <DrawerBody className="p-5 flex flex-col">
                 <div className="flex flex-col">
-                  {userCart.map((product, idx) => (
+                  {userCart.map((item, idx) => (
                     <div key={idx} className="flex flex-col h-20">
                       <div className="flex flex-row justify-between h-full items-center">
                         <p className="font-semibold max-w-[50%] text-sm">
-                          {product.productName}
+                          {item.product.productName}
                         </p>
                         <p className="font-semibold max-w-[50%] text-sm">
-                          {product.amount} x {formatPrice(product.productPrice)}
+                          {item.amount} x{" "}
+                          {formatPrice(item.product.productPrice)}
                         </p>
                         <div className="flex flex-row gap-2">
                           <ButtonComponent
@@ -84,7 +85,9 @@ export default function CartUI() {
                               size: "md",
                               className: "rounded-full min-w-0",
                             }}
-                            action={() => decrementProduct(product.productId)}
+                            action={() =>
+                              decrementProduct(item.product.productId)
+                            }
                           />
                           <ButtonComponent
                             label="+"
@@ -94,7 +97,9 @@ export default function CartUI() {
                               size: "md",
                               className: "rounded-full min-w-0",
                             }}
-                            action={() => incrementProduct(product.productId)}
+                            action={() =>
+                              incrementProduct(item.product.productId)
+                            }
                           />
                         </div>
                       </div>

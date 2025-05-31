@@ -1,3 +1,4 @@
+"use client";
 import { useAppStore } from "@/app/context/zustand";
 import {
   Modal,
@@ -34,6 +35,7 @@ export default function GlobalAlert({
       onClose();
     }, timeout);
   }, [isOpen]);
+
   return (
     <Modal
       isOpen={isOpen}

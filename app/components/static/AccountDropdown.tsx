@@ -12,7 +12,7 @@ import {
 import { getAuth } from "firebase/auth";
 import Image from "next/image";
 import React, { useState } from "react";
-import Confirmation from "../../../baseComponents/Confirmation";
+import Confirmation from "../shared/Confirmation";
 
 export type AccountDropdownProps = {
   type: "desktop" | "mobile";

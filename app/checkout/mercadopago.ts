@@ -1,8 +1,9 @@
 import { TPaymentType } from "@mercadopago/sdk-react/esm/bricks/payment/type";
 
 export const getMpInitialization = (
-  payment_id: string,
+  orderId: string,
   amount: number,
+  payer: any,
   loadingFunction: (val: boolean) => void,
   setPayment: (val: string) => void
 ): TPaymentType => {
@@ -26,7 +27,8 @@ export const getMpInitialization = (
           },
           body: JSON.stringify({
             payment: formData,
-            idempotency_key: payment_id,
+            orderId,
+            shipping: payer,
           }),
         })
           .then((response) => response.json())

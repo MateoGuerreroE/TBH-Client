@@ -6,8 +6,7 @@ type ButtonDefinition = {
 interface ProductSectionInfo {
   title: string;
   isProduct: true;
-  description?: string;
-  productImage: string;
+  product: ProductInfo;
   buttons: ButtonDefinition[];
 }
 
@@ -22,12 +21,21 @@ interface PromoSectionInfo {
 export type HomeSectionInfo = ProductSectionInfo | PromoSectionInfo;
 
 export interface ProductInfo {
+  productId: string;
+  productCup: string;
   productName: string;
-  description: string;
-  shortDescription?: string;
-  price: number;
-  image: string;
-  discount?: number;
+  productDescription: string;
+  productPrice: number;
+  productEan: string | null;
+  productImages: string[];
+  productVideos: string[];
+  isEnabled: boolean;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  subCategoryId: string;
+  discount: number;
 }
 
 export interface ServerResponse<T> {

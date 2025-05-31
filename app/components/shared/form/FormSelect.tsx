@@ -1,3 +1,4 @@
+"use client";
 import { InputVisualOptions } from "@/types/Form.types";
 import { Select, SelectItem } from "@heroui/react";
 import type { Selection } from "@heroui/react";

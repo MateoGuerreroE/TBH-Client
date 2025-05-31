@@ -6,14 +6,16 @@ import StatusSection from "./StatusSection";
 import React from "react";
 
 type PaymentSectionProps = {
-  payment_id: string;
+  orderId: string;
   setResult: (val: any) => void;
   loadingParent: (val: boolean) => void;
   price: number;
+  shipInfo: any;
 };
 
 const PaymentSection = ({
-  payment_id,
+  orderId,
+  shipInfo: payer,
   setResult,
   loadingParent,
   price,
@@ -35,11 +37,11 @@ const PaymentSection = ({
 
   const initialization = useMemo(
     () =>
-      getMpInitialization(payment_id, price, loadingRef.current, (res) => {
+      getMpInitialization(orderId, price, payer, loadingRef.current, (res) => {
         resultRef.current(res);
         setPaymentResponse(res);
       }),
-    [price, payment_id]
+    [price, orderId]
   );
 
   return (
@@ -48,7 +50,7 @@ const PaymentSection = ({
         <Payment {...initialization} />
       ) : (
         <div className="flex flex-col h-full w-full gap-3">
-          <StatusSection paymentId={paymentResponse.id} />
+          <StatusSection paymentId={paymentResponse.externalPaymentId} />
         </div>
       )}
     </>

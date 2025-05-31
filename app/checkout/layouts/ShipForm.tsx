@@ -1,18 +1,14 @@
 "use client";
-import Form from "@/baseComponents/form/Form";
+import Form from "@/app/components/shared/form/Form";
 import { shipFormData } from "../form";
-import LoadingComponent from "@/app/components/LoadingComponent";
-import { useState } from "react";
+import LoadingComponent from "@/app/components/shared/LoadingComponent";
 
 export type ShipFormProps = {
   isLoading: boolean;
-  parentAction: () => void;
+  parentAction: (state: any) => void;
 };
 
 export default function ShipForm({ isLoading, parentAction }: ShipFormProps) {
-  const [formData, setFormData] = useState<any>(null);
-
-  console.log(formData);
   return (
     <div className="relative">
       {isLoading && <LoadingComponent />}
@@ -21,8 +17,7 @@ export default function ShipForm({ isLoading, parentAction }: ShipFormProps) {
         <Form
           inputs={shipFormData}
           submitAction={(values) => {
-            setFormData(values);
-            parentAction();
+            parentAction(values);
           }}
           submitText="Siguiente"
         />

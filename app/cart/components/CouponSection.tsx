@@ -1,6 +1,7 @@
 "use client";
 
-import ButtonComponent from "@/baseComponents/ButtonComponent";
+import ButtonComponent from "@/app/components/shared/ButtonComponent";
+import { getResource } from "@/server/fetch";
 import { Input } from "@heroui/react";
 import { useState } from "react";
 
@@ -16,19 +17,14 @@ export default function CouponSection({ setDiscount }: CouponSectionProps) {
   const checkCoupon = async () => {
     setLoading(true);
     try {
-      const result = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + `/payment/coupon?coupon_code=${value}`
+      const { data } = await getResource<any>(
+        `coupon/validate?couponCode=${value}`
       );
-      if (result.status === 200) {
-        const { data } = await result.json();
-        setDiscount(data);
-        setMessage(value);
-      } else {
-        setMessage("ERROR: Cupón invalido");
-        setDiscount(0);
-      }
-    } catch (e) {
-      console.error(e);
+
+      setDiscount(parseFloat(data.discountAmount));
+      setMessage(value + ` (-${data.discountAmount * 100}%)`);
+    } catch {
+      setDiscount(0);
       setMessage("ERROR: Cupón invalido");
     } finally {
       setLoading(false);

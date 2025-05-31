@@ -1,4 +1,4 @@
-import { GlobalAlertProps } from "@/baseComponents/GlobalAlert";
+import { GlobalAlertProps } from "@/app/components/shared/GlobalAlert";
 import { testUserCart } from "@/test/sampleData";
 import { UserLogin } from "@/types/Auth.types";
 import { CartProduct } from "@/types/Context.types";
@@ -39,23 +39,23 @@ export const useAppStore = create<GlobalState>()(
 
 export const useNPStore = create<GlobalNPState>((set) => ({
   userCart: testUserCart,
-  addToCart: (product: CartProduct) =>
+  addToCart: (cartItem: CartProduct) =>
     set((state) => {
       const productIndex = state.userCart.findIndex(
-        (item) => item.productId === product.productId
+        (item) => item.product.productId === cartItem.product.productId
       );
       if (productIndex !== -1) {
         const updatedCart = [...state.userCart];
-        updatedCart[productIndex].amount += product.amount;
+        updatedCart[productIndex].amount += cartItem.amount;
         return { userCart: updatedCart };
       } else {
-        return { userCart: [...state.userCart, product] };
+        return { userCart: [...state.userCart, cartItem] };
       }
     }),
   incrementProduct: (productId: string) =>
     set((state) => {
       const productIndex = state.userCart.findIndex(
-        (product) => product.productId === productId
+        (item) => item.product.productId === productId
       );
       if (productIndex !== -1) {
         const updatedCart = [...state.userCart];
@@ -66,7 +66,7 @@ export const useNPStore = create<GlobalNPState>((set) => ({
   decrementProduct: (productId: string) =>
     set((state) => {
       const productIndex = state.userCart.findIndex(
-        (product) => product.productId === productId
+        (item) => item.product.productId === productId
       );
       if (productIndex !== -1) {
         const updatedCart = [...state.userCart];

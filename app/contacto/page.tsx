@@ -1,5 +1,5 @@
-import Footer from "../sections/shared/Footer";
-import ContactMain from "../sections/contact/Main";
+import Footer from "../components/shared/Footer";
+import ContactMain from "./sections/Main";
 
 export default function Page() {
   return (

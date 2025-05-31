@@ -1,10 +1,10 @@
 import Header from "./Header";
 import WrappedSearchBar from "../wrapped/WrappedSearchBar";
-import SelectLink from "@/baseComponents/SelectLink";
+import SelectLink from "@/app/components/shared/SelectLink";
 import AuthWrapper from "@/app/components/wrapped/AuthWrapper";
-import MobileDropDown from "@/app/components/MobileDropDown";
 import BurgerMenuDD from "./BurgerMenuDD";
-import { menuList } from "../../data/MenuItems";
+import { menuList } from "../../../data/MenuItems";
+import MobileDropDown from "./MobileDropDown";
 
 export default function NavBar() {
   return (

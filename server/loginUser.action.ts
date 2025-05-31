@@ -26,7 +26,7 @@ export async function loginUserAction(
       throw new ClientError("No hay sufientes datos para iniciar sesión");
     }
     const { data: response } = await postResource<UserLogin>(
-      `${process.env.NEXT_PUBLIC_API_URL}/access/login`,
+      `user/login`,
       { token: userToken },
       undefined,
       { next: { revalidate: 1800 } }

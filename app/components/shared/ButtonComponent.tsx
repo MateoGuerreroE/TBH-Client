@@ -71,10 +71,12 @@ export default function ButtonComponent({
       }
       className={`font-poppins ${bold ? "font-semibold" : "font-medium"} ${color === "primary" ? "text-slate-100" : "text-slate-800"} ${className}`}
       onPress={async () => {
+        if (redirectTo) {
+          router.push(redirectTo);
+        }
         if (action) {
           try {
             await action();
-            if (redirectTo) router.push(redirectTo);
           } catch (e) {
             console.error(e);
           }

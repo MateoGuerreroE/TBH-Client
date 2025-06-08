@@ -6,6 +6,7 @@ import React from "react";
 import { useNPStore } from "@/app/context/zustand";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { ProductInfo } from "@/types/Data.types";
+import { useRouter } from "next/navigation";
 
 export type ProductProps = {
   productInfo: ProductInfo;
@@ -13,9 +14,13 @@ export type ProductProps = {
 
 export default function ProductCard({ productInfo }: ProductProps) {
   const { addToCart } = useNPStore();
+  const router = useRouter();
 
   return (
-    <div className="py-2 px-2.5 hover:cursor-pointer hover:scale-[103%] transition-all duration-200 ease-in-out">
+    <div
+      onClick={() => router.push(`/producto/${productInfo.productId}`)}
+      className="py-2 px-2.5 hover:cursor-pointer hover:scale-[103%] transition-all duration-200 ease-in-out"
+    >
       <Card
         radius="sm"
         className="font-poppins w-[300px] h-full bg-[#FFFFF0]/30 backdrop-blur-md shadow-black/10 shadow-[0px_0px_14px_0px_rgba(0,_0,_0,_0.1)] my-2"

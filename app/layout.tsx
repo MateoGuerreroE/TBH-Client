@@ -5,6 +5,7 @@ import Providers from "./providers";
 import NavBar from "./components/static/NavBar";
 import CartUI from "@/app/components/static/CartUI";
 import ContactTrigger from "./components/static/ContactTrigger";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 
 const geistSans = Geist({
   variable: "--font-geist",
@@ -16,6 +17,8 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
+
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 export const metadata: Metadata = {
   title: "Tu Hogar Boreal",

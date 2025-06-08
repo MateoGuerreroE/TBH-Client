@@ -32,6 +32,7 @@ export async function serverFetch<T>(
   });
   if (!res.ok) {
     const { error } = await res.json();
+    console.log(error);
     throw new ClientError(
       "Error del servidor. Intente nuevamente más tarde",
       error || res.statusText

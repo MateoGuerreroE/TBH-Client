@@ -36,6 +36,7 @@ export interface ProductInfo {
   deletedAt: Date | null;
   subCategoryId: string;
   discount: number;
+  subCategory: any; //! TODO TYPE THIS
 }
 
 export interface ServerResponse<T> {

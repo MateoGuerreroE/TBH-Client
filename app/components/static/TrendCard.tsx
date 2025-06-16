@@ -30,13 +30,6 @@ export default function TrendCard({ product }: TrendCarProps) {
         width={1000}
         height={1000}
       />
-      {product.discount && (
-        <div
-          className={`absolute rounded-bl-lg shadow-inner right-0 bg-orange-600 font-poppins font-bold text-xl p-2`}
-        >
-          {"- " + product.discount + "%"}
-        </div>
-      )}
       <CardFooter
         className={`absolute bg-black/40 md:p-2 lg:gap-0 md:gap-1lg:p-3 self-end text-white bottom-0 w-full flex flex-col items-start`}
       >

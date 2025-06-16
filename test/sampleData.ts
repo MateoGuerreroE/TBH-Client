@@ -204,7 +204,7 @@ export const sampleProductData: ProductInfo[] = [
       "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
     productPrice: 78900,
     productImages: [
-      "https://cdn-bjpdk.nitrocdn.com/dyjDRTumiVVFLKEpXMADzKdEUUbypNrL/assets/images/optimized/rev-b19053f/www.visualeducation.com/wp-content/uploads/2020/05/Beats_headphones-2-1558px.jpg",
+      "https://www.beatsbydre.com/content/dam/beats/web/product/headphones/solo4-wireless/pdp/product-carousel/cloud-pink/pink-01-solo4.jpg",
     ],
     productId: "8191d509-c998-4e48-8bfc-c69b72e18602",
     productCup: "123",

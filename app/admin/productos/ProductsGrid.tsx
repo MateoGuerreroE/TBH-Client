@@ -28,7 +28,7 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       subCategoryName: p.subCategory?.subCategoryName || "",
     }))
   );
-  const { setChanges, changes } = useProdAdminContext();
+  const { setChanges } = useProdAdminContext();
 
   const [rowData, setRowData] = useState(
     products.map((p) => ({
@@ -61,11 +61,12 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
             : row
         )
       );
-      setChanges((prev) => ({ ...prev, [productId]: {} }));
+      setChanges((prev) => {
+        delete prev[productId];
+        return { ...prev };
+      });
     }
   };
-
-  console.log(changes);
 
   // Column Definitions: Defines the columns to be displayed.
   const [colDefs] = useState<ColDef[]>([

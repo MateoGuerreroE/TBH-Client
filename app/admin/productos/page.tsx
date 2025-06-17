@@ -3,7 +3,8 @@ import ProductTabs from "./ProductTabs";
 import { ProductInfo } from "@/types/Data.types";
 
 export default async function AdminProduct() {
-  const { data } = await getResource<ProductInfo[]>("product", {});
+  const { data: productList } = await getResource<ProductInfo[]>("product", {});
+  const { data: categoryList } = await getResource("category", {});
 
   return (
     <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md">
@@ -22,7 +23,7 @@ export default async function AdminProduct() {
         </p>
       </div>
       <div className="flex flex-col justify-between">
-        <ProductTabs productList={data} />
+        <ProductTabs productList={productList} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
-import { ProductInfo } from "@/types/Data.types";
+import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
 import {
   AllCommunityModule,
@@ -15,12 +15,17 @@ import React, { useRef, useState } from "react";
 import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
 import ImagesModal from "./Grid/ImagesModal";
+import { Chip } from "@heroui/react";
 
 type ProductsGridProps = {
   products: ProductInfo[];
+  subCategories: SubCategoryInfo[];
 };
 
-export default function ProductsGrid({ products }: ProductsGridProps) {
+export default function ProductsGrid({
+  products,
+  subCategories,
+}: ProductsGridProps) {
   ModuleRegistry.registerModules([AllCommunityModule]);
   const initialRowData = useRef(
     products.map((p) => ({
@@ -91,9 +96,45 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       headerClass: "font-poppins",
       width: 150,
       headerName: "Etiquetas",
-      valueFormatter: (params) => params.value.join(", "),
-      valueParser: (params) =>
-        params.newValue.split(",").map((tag: string) => tag.trim()),
+      cellRenderer: (val: ICellRendererParams) => {
+        return (
+          <div className="flex flex-row gap-2 h-full items-center">
+            {val.value.map((tag: string, index: number) => (
+              <Chip
+                color="secondary"
+                className=""
+                size="sm"
+                key={index}
+                onClose={() => {
+                  handleRowChange(val.data.productId, {
+                    productTags: val.data.productTags.filter(
+                      (t: string) => t !== tag
+                    ),
+                    hasChanged: true,
+                  });
+                  setChanges((prev) => ({
+                    ...prev,
+                    [val.data.productId]: {
+                      ...prev[val.data.productId],
+                      productTags: val.data.productTags.filter(
+                        (t: string) => t !== tag
+                      ),
+                    },
+                  }));
+                }}
+              >
+                {tag}
+              </Chip>
+            ))}
+            <Chip
+              className="hover:cursor-pointer text-white font-bold"
+              color="primary"
+            >
+              +
+            </Chip>
+          </div>
+        );
+      },
       editable: true,
     },
     {
@@ -149,7 +190,19 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       headerName: "Categoría",
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
-        values: ["Electronics", "Clothing", "Books", "Home Appliances"],
+        values: subCategories.map((sub) => sub.subCategoryName),
+      },
+      onCellValueChanged: (cell) => {
+        setChanges((prev) => ({
+          ...prev,
+          [cell.data.productId]: {
+            ...prev[cell.data.productId],
+            subCategoryId: subCategories.find(
+              (sub) => sub.subCategoryName === cell.newValue
+            )?.subCategoryId,
+          },
+        }));
+        handleRowChange(cell.data.productId, { hasChanged: true });
       },
       editable: true,
       width: 120,
@@ -189,14 +242,16 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
   return (
     <AgGridReact
       onCellValueChanged={(cell) => {
-        setChanges((prev) => ({
-          ...prev,
-          [cell.data.productId]: {
-            ...prev[cell.data.productId],
-            [cell.colDef.field as keyof ProductInfo]: cell.newValue,
-          },
-        }));
-        handleRowChange(cell.data.productId, { hasChanged: true });
+        if (cell.colDef.field !== "subCategoryName") {
+          setChanges((prev) => ({
+            ...prev,
+            [cell.data.productId]: {
+              ...prev[cell.data.productId],
+              [cell.colDef.field as keyof ProductInfo]: cell.newValue,
+            },
+          }));
+          handleRowChange(cell.data.productId, { hasChanged: true });
+        }
       }}
       rowData={rowData}
       rowClass={"font-poppins"}

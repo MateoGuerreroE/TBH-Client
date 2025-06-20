@@ -1,10 +1,14 @@
 import { getResource } from "@/server/fetch";
 import ProductTabs from "./ProductTabs";
-import { ProductInfo } from "@/types/Data.types";
+import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 
 export default async function AdminProduct() {
   const { data: productList } = await getResource<ProductInfo[]>("product", {});
-  const { data: categoryList } = await getResource("category", {});
+  const { data: categoryList } = await getResource<unknown[]>("category", {});
+  const { data: subcategoryList } = await getResource<SubCategoryInfo[]>(
+    "subCategory",
+    {}
+  );
 
   return (
     <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md">
@@ -23,7 +27,10 @@ export default async function AdminProduct() {
         </p>
       </div>
       <div className="flex flex-col justify-between">
-        <ProductTabs productList={productList} />
+        <ProductTabs
+          productList={productList}
+          subCategories={subcategoryList}
+        />
       </div>
     </div>
   );

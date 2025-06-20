@@ -1,5 +1,5 @@
 "use client";
-import { ProductInfo } from "@/types/Data.types";
+import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 import { addToast, Tab, Tabs } from "@heroui/react";
 import React, { useState } from "react";
 import ProductsGrid from "./ProductsGrid";
@@ -11,9 +11,10 @@ import LoadingComponent from "@/app/components/shared/LoadingComponent";
 
 type TabProps = {
   productList: ProductInfo[];
+  subCategories: SubCategoryInfo[];
 };
 
-export default function ProductTabs({ productList }: TabProps) {
+export default function ProductTabs({ productList, subCategories }: TabProps) {
   const [loading, isLoading] = useState(false);
   const [changeType, setChangeType] = useState<
     "product" | "category" | "subcategory"
@@ -55,6 +56,8 @@ export default function ProductTabs({ productList }: TabProps) {
     }
   };
 
+  console.log(changes);
+
   return (
     <ProductAdminContext.Provider
       value={{
@@ -79,8 +82,15 @@ export default function ProductTabs({ productList }: TabProps) {
             visualOpts={{ className: "absolute right-2 -top-9" }}
             action={handleProductChangesSave}
           />
+          <ButtonComponent
+            label="Crear Nuevo"
+            visualOpts={{ className: "absolute right-52 -top-9" }}
+          />
           <div className="h-[800px] w-full">
-            <ProductsGrid products={productList} />
+            <ProductsGrid
+              products={productList}
+              subCategories={subCategories}
+            />
           </div>
         </Tab>
         <Tab key="categories" title="Categorías"></Tab>

@@ -8,6 +8,7 @@ type ProductAdministrationContext = {
   setChanges: React.Dispatch<
     React.SetStateAction<Record<string, Partial<ProductInfo>>>
   >;
+  setProducts: React.Dispatch<React.SetStateAction<ProductInfo[]>>;
 };
 
 export const ProductAdminContext = createContext<

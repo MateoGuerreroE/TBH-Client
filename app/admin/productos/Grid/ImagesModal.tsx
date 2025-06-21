@@ -1,39 +1,51 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import {
   addToast,
+  Checkbox,
   Divider,
   Input,
   Modal,
   ModalBody,
   ModalContent,
   ModalHeader,
+  Tooltip,
   useDisclosure,
 } from "@heroui/react";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import React, { useState } from "react";
-
+import { ImageType, ProductImage } from "@/types/Data.types";
 export interface ImagesModalProps {
   productId: string;
-  images: any[];
+  images: ProductImage[];
 }
+
+type FormData = {
+  file: File | null;
+  url: string;
+  color: string;
+  isPrimary: boolean;
+  type: ImageType;
+};
 
 export default function ImagesModal({ images, productId }: ImagesModalProps) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [colValues, setColValues] = useState(images);
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormData>({
+    file: null,
     url: "",
     color: "",
+    isPrimary: false,
+    type: "color",
   });
 
   const handleRemoveImage = (imageUrl: string) => {
-    console.log(imageUrl);
     setColValues((prev) => prev.filter((img) => img.url !== imageUrl));
   };
   const [colDefs] = useState<ColDef[]>([
     { field: "url", headerName: "Imagen", width: 200 },
     { field: "color", headerName: "Color", width: 120 },
-    { field: "status", headerName: "Estado", width: 110 },
+    { field: "isPrimary", headerName: "Principal", width: 110 },
     {
       field: "action",
       headerName: "Eliminar",
@@ -55,11 +67,41 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
     },
   ]);
 
-  const addImageFromForm = () => {
-    const newImage = {
-      ...formValues,
-      status: "active", // Default status, can be changed as needed
+  const addImageFromForm = async () => {
+    const { file, ...values } = formValues;
+    const newImage: ProductImage = {
+      ...values,
     };
+
+    if (file !== null) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "tbh-uploads");
+      formData.append(
+        "api_key",
+        process.env.NEXT_PUBLIC_CLOUDINARY_SECRET || ""
+      );
+
+      const result = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!result.ok) {
+        console.error("Error uploading image:", result.statusText);
+        addToast({
+          title: "Error al subir imagen",
+          description: "No se pudo subir la imagen al servidor.",
+          color: "danger",
+        });
+      }
+
+      const data = await result.json();
+      newImage.url = data.secure_url;
+    }
     setColValues((prev) => [...prev, newImage]);
   };
 
@@ -147,7 +189,26 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                           label: "font-semibold",
                         }}
                         fullWidth={true}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0] || null;
+                          setFormValues((prev) => ({ ...prev, file }));
+                        }}
                       />
+                      <div className="flex flex-row gap-3">
+                        <Checkbox
+                          isSelected={formValues.isPrimary}
+                          onValueChange={(value) =>
+                            setFormValues((p) => ({ ...p, isPrimary: value }))
+                          }
+                        >
+                          Imagen Principal
+                        </Checkbox>
+                        <Tooltip content="Si existe otra imagen marcada como principal, esta se reemplazará.">
+                          <div className="font-semibold font-poppins hover:cursor-pointer rounded-full aspect-square w-5 flex items-center justify-center h-5 bg-transparent border-2 border-slate-600 text-slate-600">
+                            ?
+                          </div>
+                        </Tooltip>
+                      </div>
 
                       <Input
                         label="Enlace externo"

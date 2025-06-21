@@ -11,11 +11,13 @@ import {
 } from "ag-grid-community";
 import { ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
 import ImagesModal from "./Grid/ImagesModal";
 import { Chip } from "@heroui/react";
+import TagsModal from "./Grid/TagsModal";
+import ProductDeletionModal from "./Grid/ProductDeletionModal";
 
 type ProductsGridProps = {
   products: ProductInfo[];
@@ -27,21 +29,29 @@ export default function ProductsGrid({
   subCategories,
 }: ProductsGridProps) {
   ModuleRegistry.registerModules([AllCommunityModule]);
-  const initialRowData = useRef(
-    products.map((p) => ({
-      ...p,
-      subCategoryName: p.subCategory?.subCategoryName || "",
-    }))
-  );
-  const { setChanges } = useProdAdminContext();
-
+  const { setChanges, changes } = useProdAdminContext();
   const [rowData, setRowData] = useState(
     products.map((p) => ({
       ...p,
-      subCategoryName: p.subCategory?.subCategoryName || "",
       hasChanged: false,
     }))
   );
+  const initialRowData = useRef(structuredClone(products));
+
+  useEffect(() => {
+    if (Object.keys(changes).length === 0) {
+      setRowData((p) => p.map((c) => ({ ...c, hasChanged: false })));
+    }
+  }, [changes]);
+
+  useEffect(() => {
+    setRowData(
+      products.map((p) => ({
+        ...p,
+        hasChanged: false,
+      }))
+    );
+  }, [products]);
 
   const handleRowChange = (
     rowId: string,
@@ -52,6 +62,33 @@ export default function ProductsGrid({
         row.productId === rowId ? { ...row, ...change, hasChanged: true } : row
       )
     );
+  };
+
+  const handleTagCreation = (productId: string, tag: string) => {
+    setRowData((prevData) =>
+      prevData.map((row) =>
+        row.productId === productId
+          ? {
+              ...row,
+              productTags: [...(row.productTags || []), tag],
+              hasChanged: true,
+            }
+          : row
+      )
+    );
+    setChanges((prev) => {
+      const updatedRow = rowData.find((row) => row.productId === productId);
+      const currentTags = updatedRow
+        ? [...(updatedRow.productTags || []), tag]
+        : [tag];
+      return {
+        ...prev,
+        [productId]: {
+          ...prev[productId],
+          productTags: currentTags,
+        },
+      };
+    });
   };
 
   const redoChanges = (productId: string) => {
@@ -126,12 +163,10 @@ export default function ProductsGrid({
                 {tag}
               </Chip>
             ))}
-            <Chip
-              className="hover:cursor-pointer text-white font-bold"
-              color="primary"
-            >
-              +
-            </Chip>
+            <TagsModal
+              productId={val.data.productId}
+              tagSetter={handleTagCreation}
+            />
           </div>
         );
       },
@@ -185,7 +220,7 @@ export default function ProductsGrid({
       width: 120,
     },
     {
-      field: "subCategoryName",
+      field: "subCategory.subCategoryName",
       headerClass: "font-poppins",
       headerName: "Categoría",
       cellEditor: "agSelectCellEditor",
@@ -193,16 +228,20 @@ export default function ProductsGrid({
         values: subCategories.map((sub) => sub.subCategoryName),
       },
       onCellValueChanged: (cell) => {
+        const targetSubCategory = subCategories.find(
+          (sub) => sub.subCategoryName === cell.newValue
+        );
         setChanges((prev) => ({
           ...prev,
           [cell.data.productId]: {
             ...prev[cell.data.productId],
-            subCategoryId: subCategories.find(
-              (sub) => sub.subCategoryName === cell.newValue
-            )?.subCategoryId,
+            subCategoryId: targetSubCategory?.subCategoryId,
           },
         }));
-        handleRowChange(cell.data.productId, { hasChanged: true });
+        handleRowChange(cell.data.productId, {
+          subCategory: targetSubCategory,
+          hasChanged: true,
+        });
       },
       editable: true,
       width: 120,
@@ -227,12 +266,9 @@ export default function ProductsGrid({
             width={25}
             height={25}
           />
-          <Image
-            src="/icons/trash.svg"
-            className="hover:cursor-pointer"
-            alt="delete"
-            width={25}
-            height={25}
+          <ProductDeletionModal
+            productId={param.data.productId}
+            setRowData={setRowData}
           />
         </div>
       ),
@@ -242,7 +278,7 @@ export default function ProductsGrid({
   return (
     <AgGridReact
       onCellValueChanged={(cell) => {
-        if (cell.colDef.field !== "subCategoryName") {
+        if (cell.colDef.field !== "subCategory.subCategoryName") {
           setChanges((prev) => ({
             ...prev,
             [cell.data.productId]: {

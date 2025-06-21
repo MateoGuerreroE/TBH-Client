@@ -12,6 +12,7 @@
     "@heroui/react": "^2.7.5",
     "@mercadopago/sdk-react": "^1.0.3",
     "ag-grid-react": "^33.3.1",
+    "cloudinary": "^2.7.0",
     "embla-carousel": "8.6.0",
     "embla-carousel-autoplay": "8.6.0",
     "embla-carousel-react": "8.6.0",

@@ -41,6 +41,7 @@ export default function FormTextArea({
       }}
       isInvalid={error !== ""}
       value={value}
+      isRequired={options.isRequired}
       onValueChange={handleChange}
       label={label}
       placeholder={options.placeholder}

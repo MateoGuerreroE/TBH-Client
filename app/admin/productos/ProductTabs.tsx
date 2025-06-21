@@ -8,6 +8,8 @@ import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { cleanEmptyObjects } from "@/utils";
 import { postResource } from "@/server/fetch";
 import LoadingComponent from "@/app/components/shared/LoadingComponent";
+import { useRouter } from "next/navigation";
+import ProductCreationModal from "./Grid/ProductCreationModal";
 
 type TabProps = {
   productList: ProductInfo[];
@@ -22,6 +24,8 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
   const [changes, setChanges] = useState<Record<string, Partial<ProductInfo>>>(
     {}
   );
+  const [products, setProducts] = useState<ProductInfo[]>(productList);
+  const router = useRouter();
 
   const handleProductChangesSave = async () => {
     isLoading(true);
@@ -43,7 +47,22 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
         description: `Has realizado ${changesToSave.length} cambios`,
         color: "success",
       });
-      setChanges({});
+      setProducts((prev) => {
+        const updatedProducts = [...prev];
+        changesToSave.forEach((change) => {
+          const index = updatedProducts.findIndex(
+            (p) => p.productId === change.productId
+          );
+          if (index !== -1) {
+            updatedProducts[index] = {
+              ...updatedProducts[index],
+              ...change,
+            };
+          }
+        });
+        setChanges({});
+        return updatedProducts;
+      });
     } catch (error) {
       console.error("Error saving changes:", error);
       addToast({
@@ -52,11 +71,10 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
         color: "danger",
       });
     } finally {
+      router.push("/admin/productos");
       isLoading(false);
     }
   };
-
-  console.log(changes);
 
   return (
     <ProductAdminContext.Provider
@@ -65,6 +83,7 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
         changeType: setChangeType,
         changes,
         setChanges,
+        setProducts: setProducts,
       }}
     >
       <Tabs
@@ -82,15 +101,14 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
             visualOpts={{ className: "absolute right-2 -top-9" }}
             action={handleProductChangesSave}
           />
-          <ButtonComponent
-            label="Crear Nuevo"
-            visualOpts={{ className: "absolute right-52 -top-9" }}
-          />
-          <div className="h-[800px] w-full">
-            <ProductsGrid
-              products={productList}
+          <div className="absolute right-44 -top-9">
+            <ProductCreationModal
               subCategories={subCategories}
+              setProducts={setProducts}
             />
+          </div>
+          <div className="h-[800px] w-full">
+            <ProductsGrid products={products} subCategories={subCategories} />
           </div>
         </Tab>
         <Tab key="categories" title="Categorías"></Tab>

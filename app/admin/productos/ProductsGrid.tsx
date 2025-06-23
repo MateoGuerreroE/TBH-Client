@@ -29,7 +29,7 @@ export default function ProductsGrid({
   subCategories,
 }: ProductsGridProps) {
   ModuleRegistry.registerModules([AllCommunityModule]);
-  const { setChanges, changes } = useProdAdminContext();
+  const { setChanges, changes, changeType, type } = useProdAdminContext();
   const [rowData, setRowData] = useState(
     products.map((p) => ({
       ...p,
@@ -43,6 +43,12 @@ export default function ProductsGrid({
       setRowData((p) => p.map((c) => ({ ...c, hasChanged: false })));
     }
   }, [changes]);
+
+  useEffect(() => {
+    if (type !== "product") {
+      changeType("product");
+    }
+  }, []);
 
   useEffect(() => {
     setRowData(
@@ -114,6 +120,7 @@ export default function ProductsGrid({
   const [colDefs] = useState<ColDef[]>([
     {
       field: "productName",
+      filter: true,
       headerName: "Nombre",
       headerClass: "font-poppins",
       width: 200,
@@ -126,6 +133,9 @@ export default function ProductsGrid({
       headerName: "Precio",
       editable: true,
       width: 100,
+      comparator: (valueA, valueB) => {
+        return parseFloat(valueA) - parseFloat(valueB);
+      },
       valueFormatter: (params) => `${formatPrice(params.value)}`,
     },
     {
@@ -175,6 +185,7 @@ export default function ProductsGrid({
     {
       field: "isActive",
       headerName: "Activo",
+      filter: true,
       width: 80,
       editable: true,
       headerClass: "font-poppins",
@@ -190,6 +201,8 @@ export default function ProductsGrid({
       field: "productImages",
       headerClass: "font-poppins",
       headerName: "Imagenes",
+      sortable: false,
+
       cellRenderer: (param: ICellRendererParams) => (
         <ImagesModal
           images={param.data.productImages}
@@ -203,6 +216,8 @@ export default function ProductsGrid({
       field: "productVideos",
       headerClass: "font-poppins",
       headerName: "Videos",
+      sortable: false,
+
       cellRenderer: () => (
         <ButtonComponent label="Editar" visualOpts={{ size: "sm" }} />
       ),
@@ -213,6 +228,7 @@ export default function ProductsGrid({
       field: "productDescription",
       headerClass: "font-poppins",
       headerName: "Descripción",
+      sortable: false,
       cellRenderer: () => (
         <ButtonComponent label="Editar" visualOpts={{ size: "sm" }} />
       ),
@@ -221,6 +237,7 @@ export default function ProductsGrid({
     },
     {
       field: "subCategory.subCategoryName",
+      filter: true,
       headerClass: "font-poppins",
       headerName: "Categoría",
       cellEditor: "agSelectCellEditor",
@@ -248,6 +265,8 @@ export default function ProductsGrid({
     },
     {
       field: "Changes",
+      sortable: false,
+
       headerClass: "font-poppins",
       headerName: "Cambios",
       width: 100,
@@ -277,6 +296,8 @@ export default function ProductsGrid({
   const theme = themeQuartz.withPart(colorSchemeLightCold);
   return (
     <AgGridReact
+      pagination={true}
+      paginationPageSize={20}
       onCellValueChanged={(cell) => {
         if (cell.colDef.field !== "subCategory.subCategoryName") {
           setChanges((prev) => ({

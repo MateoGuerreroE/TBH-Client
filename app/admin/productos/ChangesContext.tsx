@@ -1,14 +1,15 @@
-import { ProductInfo } from "@/types/Data.types";
+import { CategoryInfo, ProductInfo } from "@/types/Data.types";
 import { createContext, useContext } from "react";
 
 type ProductAdministrationContext = {
   type: "product" | "category" | "subcategory";
   changeType: (type: "product" | "category" | "subcategory") => void;
-  changes: Record<string, Partial<ProductInfo>>;
+  changes: Record<string, Partial<ProductInfo | CategoryInfo>>;
   setChanges: React.Dispatch<
-    React.SetStateAction<Record<string, Partial<ProductInfo>>>
+    React.SetStateAction<Record<string, Partial<ProductInfo | CategoryInfo>>>
   >;
   setProducts: React.Dispatch<React.SetStateAction<ProductInfo[]>>;
+  setCategories: React.Dispatch<React.SetStateAction<CategoryInfo[]>>;
 };
 
 export const ProductAdminContext = createContext<

@@ -8,6 +8,8 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
+  Select,
+  SelectItem,
   Tooltip,
   useDisclosure,
 } from "@heroui/react";
@@ -23,7 +25,6 @@ export interface ImagesModalProps {
 type FormData = {
   file: File | null;
   url: string;
-  color: string;
   isPrimary: boolean;
   type: ImageType;
 };
@@ -34,9 +35,8 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
   const [formValues, setFormValues] = useState<FormData>({
     file: null,
     url: "",
-    color: "",
     isPrimary: false,
-    type: "color",
+    type: "base",
   });
 
   const handleRemoveImage = (imageUrl: string) => {
@@ -44,7 +44,7 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
   };
   const [colDefs] = useState<ColDef[]>([
     { field: "url", headerName: "Imagen", width: 200 },
-    { field: "color", headerName: "Color", width: 120 },
+    { field: "type", headerName: "Tipo", width: 120 },
     { field: "isPrimary", headerName: "Principal", width: 110 },
     {
       field: "action",
@@ -141,6 +141,7 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
     }
   };
 
+  //! TODO VERIFY SELECT WORKS AS EXPECTED
   return (
     <>
       <ButtonComponent
@@ -162,23 +163,27 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                   <h4 className="text-xl font-bold my-2">Agregar una imagen</h4>
                   <div className="w-full flex flex-col gap-4">
                     <div className="flex flex-col gap-3">
-                      <Input
+                      <Select
                         isRequired
-                        onChange={(e) =>
-                          setFormValues({
-                            ...formValues,
-                            color: e.target.value,
-                          })
-                        }
-                        label="Color"
+                        selectedKeys={[formValues.type]}
+                        onSelectionChange={(selection) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            type: selection.currentKey as ImageType,
+                          }));
+                        }}
+                        label="Tipo de imagen"
                         labelPlacement="outside-left"
                         classNames={{
-                          inputWrapper: "bg-white",
+                          trigger: "bg-white",
                           mainWrapper: "w-full",
                           label: "font-semibold",
                         }}
                         fullWidth={true}
-                      />
+                      >
+                        <SelectItem key={"base"}>Base</SelectItem>
+                        <SelectItem key={"sizing"}>Medidas</SelectItem>
+                      </Select>
                       <Input
                         type="file"
                         label="Subir archivo"

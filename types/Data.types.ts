@@ -20,7 +20,7 @@ interface PromoSectionInfo {
 
 export type HomeSectionInfo = ProductSectionInfo | PromoSectionInfo;
 
-export type ImageType = "color" | "sizing";
+export type ImageType = "base" | "sizing";
 export type VideoType = "main" | "demo" | "setup" | "use";
 
 export interface ProductImage {
@@ -28,7 +28,6 @@ export interface ProductImage {
   isPrimary: boolean;
   altText?: string;
   type: ImageType;
-  color: string;
 }
 export type ProductVideo = {
   url: string;
@@ -72,6 +71,17 @@ export interface SubCategoryInfo {
   updatedBy: string;
 
   categoryId: string;
+}
+
+export interface CategoryInfo {
+  categoryId: string;
+  categoryName: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  createdBy: string;
+  updatedBy: string;
+  isEnabled: boolean;
 }
 
 export interface ServerResponse<T> {

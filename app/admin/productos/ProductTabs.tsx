@@ -1,5 +1,5 @@
 "use client";
-import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
+import { CategoryInfo, ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 import { addToast, Tab, Tabs } from "@heroui/react";
 import React, { useState } from "react";
 import ProductsGrid from "./ProductsGrid";
@@ -10,13 +10,20 @@ import { postResource } from "@/server/fetch";
 import LoadingComponent from "@/app/components/shared/LoadingComponent";
 import { useRouter } from "next/navigation";
 import ProductCreationModal from "./Grid/ProductCreationModal";
+import CategoryGrid from "./CategoryGrid";
+import CategoryCreationModal from "./Grid/CategoryCreationModal";
 
 type TabProps = {
   productList: ProductInfo[];
+  categories: CategoryInfo[];
   subCategories: SubCategoryInfo[];
 };
 
-export default function ProductTabs({ productList, subCategories }: TabProps) {
+export default function ProductTabs({
+  productList,
+  subCategories,
+  categories,
+}: TabProps) {
   const [loading, isLoading] = useState(false);
   const [changeType, setChangeType] = useState<
     "product" | "category" | "subcategory"
@@ -25,6 +32,7 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
     {}
   );
   const [products, setProducts] = useState<ProductInfo[]>(productList);
+  const [categoriesList, setCategories] = useState<CategoryInfo[]>(categories);
   const router = useRouter();
 
   const handleProductChangesSave = async () => {
@@ -80,6 +88,7 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
     <ProductAdminContext.Provider
       value={{
         type: changeType,
+        setCategories: setCategories,
         changeType: setChangeType,
         changes,
         setChanges,
@@ -111,7 +120,24 @@ export default function ProductTabs({ productList, subCategories }: TabProps) {
             <ProductsGrid products={products} subCategories={subCategories} />
           </div>
         </Tab>
-        <Tab key="categories" title="Categorías"></Tab>
+        <Tab key="categories" title="Categorías" className="relative">
+          {loading && <LoadingComponent />}
+          <ButtonComponent
+            label="Guardar cambios"
+            disabled={
+              Object.keys(cleanEmptyObjects(changes)).length === 0 &&
+              changeType === "category"
+            }
+            visualOpts={{ className: "absolute right-2 -top-9" }}
+            // action={}
+          />
+          <div className="absolute right-44 -top-9">
+            <CategoryCreationModal setCategories={setCategories} />
+          </div>
+          <div className="h-[800px] w-full">
+            <CategoryGrid categories={categoriesList} />
+          </div>
+        </Tab>
         <Tab key="subcategories" title="Subcategorías"></Tab>
       </Tabs>
     </ProductAdminContext.Provider>

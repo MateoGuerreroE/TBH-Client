@@ -1,10 +1,13 @@
 import { getResource } from "@/server/fetch";
 import ProductTabs from "./ProductTabs";
-import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
+import { CategoryInfo, ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 
 export default async function AdminProduct() {
   const { data: productList } = await getResource<ProductInfo[]>("product", {});
-  const { data: categoryList } = await getResource<unknown[]>("category", {});
+  const { data: categoryList } = await getResource<CategoryInfo[]>(
+    "category",
+    {}
+  );
   const { data: subcategoryList } = await getResource<SubCategoryInfo[]>(
     "subCategory",
     {}
@@ -28,6 +31,7 @@ export default async function AdminProduct() {
       </div>
       <div className="flex flex-col justify-between">
         <ProductTabs
+          categories={categoryList}
           productList={productList}
           subCategories={subcategoryList}
         />

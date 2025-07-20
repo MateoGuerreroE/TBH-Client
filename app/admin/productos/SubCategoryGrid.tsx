@@ -1,4 +1,3 @@
-import { CategoryInfo, SubCategoryInfo } from "@/types/Data.types";
 import {
   AllCommunityModule,
   ColDef,
@@ -12,10 +11,11 @@ import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
 import SubCategoryDeletionModal from "./Grid/SubCategoryDeletionModal";
 import { AgGridReact } from "ag-grid-react";
+import { ICategoryRecord, ISubcategoryRecord } from "tbh-shared-types";
 
 type SubCategoryGridProps = {
-  subCategories: SubCategoryInfo[];
-  categories: CategoryInfo[];
+  subCategories: ISubcategoryRecord[];
+  categories: ICategoryRecord[];
 };
 
 export default function SubCategoryGrid({
@@ -57,7 +57,7 @@ export default function SubCategoryGrid({
 
   const handleRowChange = (
     rowId: string,
-    change: Partial<SubCategoryInfo & { hasChanged: boolean }>
+    change: Partial<ISubcategoryRecord & { hasChanged: boolean }>
   ) => {
     setRowData((prevData) =>
       prevData.map((row) =>
@@ -174,7 +174,7 @@ export default function SubCategoryGrid({
           ...prev,
           [cell.data.subCategoryId]: {
             ...prev[cell.data.subCategoryId],
-            [cell.colDef.field as keyof SubCategoryInfo]: cell.newValue,
+            [cell.colDef.field as keyof ISubcategoryRecord]: cell.newValue,
           },
         }));
         handleRowChange(cell.data.subCategoryId, { hasChanged: true });

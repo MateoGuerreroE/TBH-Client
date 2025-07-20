@@ -2,7 +2,7 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import Form from "@/app/components/shared/form/Form";
 import { postResource } from "@/server/fetch";
-import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
+import { IProductRecord, ISubcategoryRecord } from "tbh-shared-types";
 import { InputValues } from "@/types/Form.types";
 import {
   addToast,
@@ -15,8 +15,8 @@ import {
 import React from "react";
 
 type Props = {
-  subCategories: SubCategoryInfo[];
-  setProducts: React.Dispatch<React.SetStateAction<ProductInfo[]>>;
+  subCategories: ISubcategoryRecord[];
+  setProducts: React.Dispatch<React.SetStateAction<IProductRecord[]>>;
 };
 
 type FormValues = {
@@ -85,7 +85,7 @@ export default function ProductCreationModal({
     };
 
     try {
-      const { data } = await postResource<ProductInfo>(
+      const { data } = await postResource<IProductRecord>(
         "product/create",
         productToCreate
       );

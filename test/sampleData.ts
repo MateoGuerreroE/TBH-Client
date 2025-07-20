@@ -1,6 +1,7 @@
 import { ReviewProps } from "@/app/components/static/Review";
 import { CartProduct } from "@/types/Context.types";
-import { HomeSectionInfo, ProductInfo } from "@/types/Data.types";
+import { HomeSectionInfo } from "@/types/Data.types";
+import type { IProductRecord as ProductInfo } from "tbh-shared-types";
 
 export const sampleHomeData: HomeSectionInfo[] = [
   {
@@ -10,105 +11,31 @@ export const sampleHomeData: HomeSectionInfo[] = [
       productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
       productName: "Apple AirPods Max | Sky Blue",
       productImages: [
-        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+        {
+          isPrimary: true,
+          type: "base",
+          url: "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
+        },
       ],
-      productDescription:
-        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
-      productCup: "2",
+      productDescription: {
+        content: "",
+        short:
+          "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
+      },
       productPrice: 134800,
-      productEan: null,
       productVideos: [],
-      isEnabled: false,
       isActive: false,
       createdAt: new Date(),
       updatedAt: new Date(),
       deletedAt: null,
       subCategoryId: "",
-      discount: 0,
-    },
-    buttons: [
-      { text: "Agregar al carrito", type: "primary" },
-      { text: "Ver productos similares", type: "secondary" },
-    ],
-  },
-  {
-    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
-    isProduct: true,
-    product: {
-      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
-      productName: "Apple AirPods Max | Sky Blue",
-      productImages: [
-        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
-      ],
-      productDescription:
-        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
-      productCup: "2",
-      productPrice: 134800,
-      productEan: null,
-      productVideos: [],
-      isEnabled: false,
-      isActive: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: null,
-      subCategoryId: "",
-      discount: 0,
-    },
-    buttons: [
-      { text: "Agregar al carrito", type: "primary" },
-      { text: "Ver productos similares", type: "secondary" },
-    ],
-  },
-  {
-    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
-    isProduct: true,
-    product: {
-      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
-      productName: "Apple AirPods Max | Sky Blue",
-      productImages: [
-        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
-      ],
-      productDescription:
-        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
-      productCup: "2",
-      productPrice: 134800,
-      productEan: null,
-      productVideos: [],
-      isEnabled: false,
-      isActive: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: null,
-      subCategoryId: "",
-      discount: 0,
-    },
-    buttons: [
-      { text: "Agregar al carrito", type: "primary" },
-      { text: "Ver productos similares", type: "secondary" },
-    ],
-  },
-  {
-    title: "Apple AirPods Max | Sky Blue", // TODO THIS SHOULD BE ONLY FOR PROMOS
-    isProduct: true,
-    product: {
-      productId: "a82e72c0-dc23-4986-88b6-dcac17c799c0",
-      productName: "Apple AirPods Max | Sky Blue",
-      productImages: [
-        "https://applecenter.co.ke/wp-content/uploads/2021/05/airpods-max-select-skyblue-202011.png",
-      ],
-      productDescription:
-        "Disfruta de un sonido envolvente con los nuevos AirPods Max en color azul cielo.",
-      productCup: "2",
-      productPrice: 134800,
-      productEan: null,
-      productVideos: [],
-      isEnabled: false,
-      isActive: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: null,
-      subCategoryId: "",
-      discount: 0,
+      discount: "0",
+      productTags: [],
+      stock: 0,
+      externalId: "",
+      createdBy: "",
+      updatedBy: "",
+      discountCampaignId: null,
     },
     buttons: [
       { text: "Agregar al carrito", type: "primary" },
@@ -120,23 +47,33 @@ export const sampleHomeData: HomeSectionInfo[] = [
 export const sampleProductData: ProductInfo[] = [
   {
     productName: "Kit Esencial de prueba",
-    productDescription:
-      "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
+    productDescription: {
+      content: "lorem ipsum dolor sit amet",
+      short:
+        "lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum",
+    },
     productPrice: 38500,
     productImages: [
-      "https://www.pngitem.com/pimgs/m/43-434027_product-beauty-skin-care-personal-care-liquid-tree.png",
+      {
+        isPrimary: true,
+        type: "base",
+        url: "https://www.pngitem.com/pimgs/m/43-434027_product-beauty-skin-care-personal-care-liquid-tree.png",
+      },
     ],
     productId: "378a64c9-0d0c-44df-be20-0c7c36f0b846",
-    productCup: "123",
-    productEan: null,
     productVideos: [],
-    isEnabled: true,
     isActive: true,
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,
     subCategoryId: "841dfd64-dc42-4d05-a785-633bcc35aa42",
-    discount: 0,
+    discount: "0",
+    discountCampaignId: null,
+    productTags: [],
+    stock: 0,
+    externalId: "",
+    createdBy: "",
+    updatedBy: "",
   },
   {
     productName: "Bolso rojo de pasión",

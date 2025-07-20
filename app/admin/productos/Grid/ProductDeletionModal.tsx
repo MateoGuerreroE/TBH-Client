@@ -12,13 +12,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useProdAdminContext } from "../ChangesContext";
 import { serverFetch } from "@/server/fetch";
-import { ProductInfo } from "@/types/Data.types";
+import { IProductRecord } from "tbh-shared-types";
 import LoadingComponent from "@/app/components/shared/LoadingComponent";
 
 type Props = {
   productId: string;
   setRowData: React.Dispatch<
-    React.SetStateAction<Array<ProductInfo & { hasChanged: boolean }>>
+    React.SetStateAction<Array<IProductRecord & { hasChanged: boolean }>>
   >;
 };
 

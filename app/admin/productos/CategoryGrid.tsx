@@ -1,5 +1,4 @@
 "use client";
-import { CategoryInfo } from "@/types/Data.types";
 import {
   AllCommunityModule,
   ColDef,
@@ -13,9 +12,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
 import CategoryDeletionModal from "./Grid/CategoryDeletionModal";
+import { ICategoryRecord } from "tbh-shared-types";
 
 type CategoryGridProps = {
-  categories: CategoryInfo[];
+  categories: ICategoryRecord[];
 };
 
 export default function CategoryGrid({ categories }: CategoryGridProps) {
@@ -54,7 +54,7 @@ export default function CategoryGrid({ categories }: CategoryGridProps) {
 
   const handleRowChange = (
     rowId: string,
-    change: Partial<CategoryInfo & { hasChanged: boolean }>
+    change: Partial<ICategoryRecord & { hasChanged: boolean }>
   ) => {
     setRowData((prevData) =>
       prevData.map((row) =>
@@ -153,7 +153,7 @@ export default function CategoryGrid({ categories }: CategoryGridProps) {
           ...prev,
           [cell.data.categoryId]: {
             ...prev[cell.data.categoryId],
-            [cell.colDef.field as keyof CategoryInfo]: cell.newValue,
+            [cell.colDef.field as keyof ICategoryRecord]: cell.newValue,
           },
         }));
         handleRowChange(cell.data.categoryId, { hasChanged: true });

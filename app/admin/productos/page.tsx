@@ -1,17 +1,17 @@
 import { getResource } from "@/server/fetch";
 import ProductTabs from "./ProductTabs";
-import { CategoryInfo, ProductInfo, SubCategoryInfo } from "@/types/Data.types";
+import {
+  ICategoryRecord,
+  IProductRecord,
+  ISubcategoryRecord,
+} from "tbh-shared-types";
 
 export default async function AdminProduct() {
-  const { data: productList } = await getResource<ProductInfo[]>("product", {});
-  const { data: categoryList } = await getResource<CategoryInfo[]>(
-    "category",
-    {}
-  );
-  const { data: subcategoryList } = await getResource<SubCategoryInfo[]>(
-    "subCategory",
-    {}
-  );
+  const { data: productList } = await getResource<IProductRecord[]>("product");
+  const { data: categoryList } =
+    await getResource<ICategoryRecord[]>("category");
+  const { data: subcategoryList } =
+    await getResource<ISubcategoryRecord[]>("subCategory");
 
   return (
     <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md relative">

@@ -6,14 +6,11 @@ Here lays a list of the general steps for completition of the website
 
 ### Stage 1 (Metting 10 APR)
 
-1. Finish complete home visual preview (desktop & mobile)
-2. Create product page visualization
-3. Connect products from server to product visualization
-4. STOP - Enhancements
+1. Create product page visualization
+2. STOP - Enhancements
    - Complete all TODOs up to this point
    - Enhance & clean code base -> Reuse logic, create variables for regexp, clean components
-5. Create base (opened at first) control dashboard for product & categories creation/update
-6. Investigate automated connection from web products to ML API.
+3. Investigate automated connection from web products to ML API.
 
 ### Stage 2 (Meeting 20 APR)
 
@@ -39,3 +36,8 @@ Here lays a list of the general steps for completition of the website
 
 - Connection to ML API for product refresh -> Centralizes operation. This can be done also from an airtable and create automation tool to webpage + ML API.
 - Metrics & report generation -> Base Metrics using DB values + AI reports using products to create Data analysis like best product, tips, etc.
+
+## CONSIDER:
+
+- Use React Query to minimize fetching on client (mostly boilerplate code as It just does the same)
+- REFACTOR AND CLEAN! So I can keep moving. Feels messy.

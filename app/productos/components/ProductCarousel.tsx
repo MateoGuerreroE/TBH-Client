@@ -1,12 +1,12 @@
 "use client";
 import Carousel from "@/app/components/shared/Carousel/Carousel";
-import { ProductInfo } from "@/types/Data.types";
+import type { IProductRecord } from "tbh-shared-types";
 import React, { useEffect } from "react";
 import ProductCard from "./ProductCard";
 import Image from "next/image";
 
 type Props = {
-  productList: ProductInfo[];
+  productList: IProductRecord[];
   breakPoint?: number;
 };
 
@@ -39,7 +39,7 @@ export default function ProductCarousel({
       {productList.map((product, index) => (
         <ProductCard
           key={`${index}_${product.productName}`}
-          productInfo={product}
+          product={product}
         />
       ))}
       <div className="h-full bg-transparent w-full mr-6 flex flex-col gap-2 items-center justify-center hover:cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out">

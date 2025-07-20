@@ -41,7 +41,9 @@ export default function StartSection() {
                 </div>
                 <div className="h-[280px] md:h-full aspect-square flex items-center justify-center">
                   <Image
-                    src={data.isProduct ? data.product.productImages[0] : ""}
+                    src={
+                      data.isProduct ? data.product.productImages[0].url : ""
+                    }
                     alt="product_image"
                     width={800}
                     height={800}

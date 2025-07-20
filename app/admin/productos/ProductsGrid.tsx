@@ -1,5 +1,4 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
-import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
 import {
   AllCommunityModule,
@@ -17,10 +16,11 @@ import ImagesModal from "./Grid/ImagesModal";
 import { Chip } from "@heroui/react";
 import TagsModal from "./Grid/TagsModal";
 import ProductDeletionModal from "./Grid/ProductDeletionModal";
+import { IProductWithRelations, ISubcategoryRecord } from "tbh-shared-types";
 
 type ProductsGridProps = {
-  products: ProductInfo[];
-  subCategories: SubCategoryInfo[];
+  products: IProductWithRelations[];
+  subCategories: ISubcategoryRecord[];
 };
 
 export default function ProductsGrid({
@@ -61,7 +61,7 @@ export default function ProductsGrid({
 
   const handleRowChange = (
     rowId: string,
-    change: Partial<ProductInfo & { hasChanged: boolean }>
+    change: Partial<IProductWithRelations & { hasChanged: boolean }>
   ) => {
     setRowData((prevData) =>
       prevData.map((row) =>
@@ -304,7 +304,7 @@ export default function ProductsGrid({
             ...prev,
             [cell.data.productId]: {
               ...prev[cell.data.productId],
-              [cell.colDef.field as keyof ProductInfo]: cell.newValue,
+              [cell.colDef.field as keyof IProductWithRelations]: cell.newValue,
             },
           }));
           handleRowChange(cell.data.productId, { hasChanged: true });

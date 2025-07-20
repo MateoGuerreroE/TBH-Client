@@ -12,13 +12,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useProdAdminContext } from "../ChangesContext";
 import { serverFetch } from "@/server/fetch";
-import { CategoryInfo } from "@/types/Data.types";
 import LoadingComponent from "@/app/components/shared/LoadingComponent";
+import { ICategoryRecord } from "tbh-shared-types";
 
 type Props = {
   categoryId: string;
   setRowData: React.Dispatch<
-    React.SetStateAction<Array<CategoryInfo & { hasChanged: boolean }>>
+    React.SetStateAction<Array<ICategoryRecord & { hasChanged: boolean }>>
   >;
 };
 

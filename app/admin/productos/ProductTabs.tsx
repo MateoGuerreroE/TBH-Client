@@ -1,5 +1,4 @@
 "use client";
-import { CategoryInfo, ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 import { addToast, Tab, Tabs } from "@heroui/react";
 import { useState } from "react";
 import ProductsGrid from "./ProductsGrid";
@@ -14,11 +13,16 @@ import CategoryGrid from "./CategoryGrid";
 import CategoryCreationModal from "./Grid/CategoryCreationModal";
 import SubCategoryGrid from "./SubCategoryGrid";
 import SubCategoryCreationModal from "./Grid/SubCategoryCreationModal";
+import type {
+  IProductRecord,
+  ICategoryRecord,
+  ISubcategoryRecord,
+} from "tbh-shared-types";
 
 type TabProps = {
-  productList: ProductInfo[];
-  categories: CategoryInfo[];
-  subCategories: SubCategoryInfo[];
+  productList: IProductRecord[];
+  categories: ICategoryRecord[];
+  subCategories: ISubcategoryRecord[];
 };
 
 export default function ProductTabs({
@@ -31,12 +35,13 @@ export default function ProductTabs({
     "product" | "category" | "subcategory"
   >("product");
   const [changes, setChanges] = useState<
-    Record<string, Partial<ProductInfo | CategoryInfo>>
+    Record<string, Partial<IProductRecord | ICategoryRecord>>
   >({});
-  const [products, setProducts] = useState<ProductInfo[]>(productList);
-  const [categoriesList, setCategories] = useState<CategoryInfo[]>(categories);
+  const [products, setProducts] = useState<IProductRecord[]>(productList);
+  const [categoriesList, setCategories] =
+    useState<ICategoryRecord[]>(categories);
   const [subCategoriesList, setSubCategories] =
-    useState<SubCategoryInfo[]>(subCategories);
+    useState<ISubcategoryRecord[]>(subCategories);
   const router = useRouter();
 
   const handleProductChangesSave = async () => {
@@ -111,7 +116,7 @@ export default function ProductTabs({
 
       setCategories((prev) => {
         const updatedCategories = [...prev];
-        (changesToSave as CategoryInfo[]).forEach((change) => {
+        (changesToSave as ICategoryRecord[]).forEach((change) => {
           const index = updatedCategories.findIndex(
             (p) => p.categoryId === change.categoryId
           );

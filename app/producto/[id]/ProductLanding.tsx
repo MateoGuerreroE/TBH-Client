@@ -1,8 +1,8 @@
-import { ProductInfo } from "@/types/Data.types";
+import type { IProductWithRelations } from "tbh-shared-types";
 import React from "react";
 
 type ProductLandingProps = {
-  product: ProductInfo;
+  product: IProductWithRelations;
 };
 
 export default function ProductLanding({ product }: ProductLandingProps) {

@@ -2,7 +2,6 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import Form from "@/app/components/shared/form/Form";
 import { postResource } from "@/server/fetch";
-import { CategoryInfo } from "@/types/Data.types";
 import { InputValues } from "@/types/Form.types";
 import {
   addToast,
@@ -13,9 +12,10 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import React from "react";
+import { ICategoryRecord } from "tbh-shared-types";
 
 type Props = {
-  setCategories: React.Dispatch<React.SetStateAction<CategoryInfo[]>>;
+  setCategories: React.Dispatch<React.SetStateAction<ICategoryRecord[]>>;
 };
 
 type FormValues = {
@@ -45,7 +45,7 @@ export default function CategoryCreationModal({ setCategories }: Props) {
     };
 
     try {
-      const { data } = await postResource<CategoryInfo>(
+      const { data } = await postResource<ICategoryRecord>(
         "category/create",
         categoryToCreate
       );

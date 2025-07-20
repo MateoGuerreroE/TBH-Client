@@ -7,7 +7,7 @@ import { getResource } from "@/server/fetch";
 import { TrendProduct } from "@/types/Product.types";
 
 export default async function Home() {
-  const { data: trending } = await getResource<TrendProduct[]>("trends", {
+  const { data: trending } = await getResource<TrendProduct[]>("trends", true, {
     cache: "force-cache",
     next: { revalidate: 120 },
   });

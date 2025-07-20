@@ -1,3 +1,5 @@
+import { IProductRecord } from "tbh-shared-types";
+
 type ButtonDefinition = {
   text: string;
   type: "primary" | "secondary";
@@ -6,7 +8,7 @@ type ButtonDefinition = {
 interface ProductSectionInfo {
   title: string;
   isProduct: true;
-  product: ProductInfo;
+  product: IProductRecord;
   buttons: ButtonDefinition[];
 }
 

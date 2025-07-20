@@ -2,7 +2,6 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import Form from "@/app/components/shared/form/Form";
 import { postResource } from "@/server/fetch";
-import { CategoryInfo, SubCategoryInfo } from "@/types/Data.types";
 import { InputValues } from "@/types/Form.types";
 import {
   addToast,
@@ -13,10 +12,11 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import React from "react";
+import { ICategoryRecord, ISubcategoryRecord } from "tbh-shared-types";
 
 type Props = {
-  setSubCategories: React.Dispatch<React.SetStateAction<SubCategoryInfo[]>>;
-  categories: CategoryInfo[];
+  setSubCategories: React.Dispatch<React.SetStateAction<ISubcategoryRecord[]>>;
+  categories: ICategoryRecord[];
 };
 
 type FormValues = {
@@ -61,7 +61,7 @@ export default function SubCategoryCreationModal({
     };
 
     try {
-      const { data } = await postResource<SubCategoryInfo>(
+      const { data } = await postResource<ISubcategoryRecord>(
         "subCategory/create",
         subCategoryToCreate
       );

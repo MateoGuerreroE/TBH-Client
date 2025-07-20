@@ -4,6 +4,7 @@ import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { getResource } from "@/server/fetch";
 import { Input } from "@heroui/react";
 import { useState } from "react";
+import { ICouponRecord } from "tbh-shared-types";
 
 export type CouponSectionProps = {
   setDiscount: (discount: number) => void;
@@ -17,11 +18,11 @@ export default function CouponSection({ setDiscount }: CouponSectionProps) {
   const checkCoupon = async () => {
     setLoading(true);
     try {
-      const { data } = await getResource<any>(
+      const { data } = await getResource<ICouponRecord>(
         `coupon/validate?couponCode=${value}`
       );
 
-      setDiscount(parseFloat(data.discountAmount));
+      setDiscount(data.discountAmount);
       setMessage(value + ` (-${data.discountAmount * 100}%)`);
     } catch {
       setDiscount(0);

@@ -1,5 +1,4 @@
-"use client";
-import { CategoryInfo } from "@/types/Data.types";
+import { CategoryInfo, SubCategoryInfo } from "@/types/Data.types";
 import {
   AllCommunityModule,
   ColDef,
@@ -8,31 +7,35 @@ import {
   ModuleRegistry,
   themeQuartz,
 } from "ag-grid-community";
-import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
-import CategoryDeletionModal from "./Grid/CategoryDeletionModal";
+import SubCategoryDeletionModal from "./Grid/SubCategoryDeletionModal";
+import { AgGridReact } from "ag-grid-react";
 
-type CategoryGridProps = {
+type SubCategoryGridProps = {
+  subCategories: SubCategoryInfo[];
   categories: CategoryInfo[];
 };
 
-export default function CategoryGrid({ categories }: CategoryGridProps) {
+export default function SubCategoryGrid({
+  subCategories,
+  categories,
+}: SubCategoryGridProps) {
   ModuleRegistry.registerModules([AllCommunityModule]);
 
   const [rowData, setRowData] = useState(
-    categories.map((p) => ({
+    subCategories.map((p) => ({
       ...p,
       hasChanged: false,
     }))
   );
-  const initialRowData = useRef(structuredClone(categories));
+  const initialRowData = useRef(structuredClone(subCategories));
   const { setChanges, changeType, changes, type } = useProdAdminContext();
 
   useEffect(() => {
-    if (type !== "category") {
-      changeType("category");
+    if (type !== "subcategory") {
+      changeType("subcategory");
       setChanges({});
     }
   }, []);
@@ -45,53 +48,70 @@ export default function CategoryGrid({ categories }: CategoryGridProps) {
 
   useEffect(() => {
     setRowData(
-      categories.map((p) => ({
+      subCategories.map((p) => ({
         ...p,
         hasChanged: false,
       }))
     );
-  }, [categories]);
+  }, [subCategories]);
 
   const handleRowChange = (
     rowId: string,
-    change: Partial<CategoryInfo & { hasChanged: boolean }>
+    change: Partial<SubCategoryInfo & { hasChanged: boolean }>
   ) => {
     setRowData((prevData) =>
       prevData.map((row) =>
-        row.categoryId === rowId ? { ...row, ...change, hasChanged: true } : row
+        row.subCategoryId === rowId
+          ? { ...row, ...change, hasChanged: true }
+          : row
       )
     );
   };
 
-  const redoChanges = (categoryId: string) => {
+  const redoChanges = (subcategoryId: string) => {
     const originalData = initialRowData.current.find(
-      (p) => p.categoryId === categoryId
+      (p) => p.subCategoryId === subcategoryId
     );
     if (originalData) {
       setRowData((prevData) =>
         prevData.map((row) =>
-          row.categoryId === categoryId
+          row.subCategoryId === subcategoryId
             ? { ...originalData, hasChanged: false }
             : row
         )
       );
       setChanges((prev) => {
-        delete prev[categoryId];
+        delete prev[subcategoryId];
         return { ...prev };
       });
     }
   };
+
   const theme = themeQuartz.withPart(colorSchemeLightCold);
 
   const [colDefs] = useState<ColDef[]>([
     {
-      field: "categoryName",
+      field: "subCategoryName",
       filter: true,
       headerName: "Nombre",
       headerClass: "font-poppins",
       width: 400,
       editable: true,
       cellClass: "font-poppins",
+    },
+    {
+      field: "categoryName",
+      headerName: "Categoria",
+      headerClass: "font-poppins",
+      width: 300,
+      editable: false,
+      cellClass: "font-poppins",
+      valueGetter: (params) => {
+        return (
+          categories.find((c) => c.categoryId === params.data.categoryId)
+            ?.categoryName || "No asignada"
+        );
+      },
     },
     {
       field: "createdAt",
@@ -131,32 +151,33 @@ export default function CategoryGrid({ categories }: CategoryGridProps) {
             alt="rollback"
             onClick={() => {
               if (param.data.hasChanged) {
-                redoChanges(param.data.categoryId);
+                redoChanges(param.data.subCategoryId);
               }
             }}
             className={`${param.data.hasChanged ? "hover:cursor-pointer opacity-100" : "hover:cursor-not-allowed opacity-30"}`}
             width={25}
             height={25}
           />
-          <CategoryDeletionModal
-            categoryId={param.data.categoryId}
+          <SubCategoryDeletionModal
+            subCategoryId={param.data.subCategoryId}
             setRowData={setRowData}
           />
         </div>
       ),
     },
   ]);
+
   return (
     <AgGridReact
       onCellValueChanged={(cell) => {
         setChanges((prev) => ({
           ...prev,
-          [cell.data.categoryId]: {
-            ...prev[cell.data.categoryId],
-            [cell.colDef.field as keyof CategoryInfo]: cell.newValue,
+          [cell.data.subCategoryId]: {
+            ...prev[cell.data.subCategoryId],
+            [cell.colDef.field as keyof SubCategoryInfo]: cell.newValue,
           },
         }));
-        handleRowChange(cell.data.categoryId, { hasChanged: true });
+        handleRowChange(cell.data.subCategoryId, { hasChanged: true });
       }}
       rowData={rowData}
       rowClass={"font-poppins"}

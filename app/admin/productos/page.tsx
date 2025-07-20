@@ -14,7 +14,7 @@ export default async function AdminProduct() {
   );
 
   return (
-    <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md">
+    <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md relative">
       <div className="my-5 flex flex-col gap-2">
         <h1 className="text-3xl font-bold">Administración de productos</h1>
         <p>

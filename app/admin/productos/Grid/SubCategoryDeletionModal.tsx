@@ -12,52 +12,58 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useProdAdminContext } from "../ChangesContext";
 import { serverFetch } from "@/server/fetch";
-import { CategoryInfo } from "@/types/Data.types";
+import { SubCategoryInfo } from "@/types/Data.types";
 import LoadingComponent from "@/app/components/shared/LoadingComponent";
 
 type Props = {
-  categoryId: string;
+  subCategoryId: string;
   setRowData: React.Dispatch<
-    React.SetStateAction<Array<CategoryInfo & { hasChanged: boolean }>>
+    React.SetStateAction<Array<SubCategoryInfo & { hasChanged: boolean }>>
   >;
 };
 
-export default function CategoryDeletionModal({
-  categoryId,
+export default function SubCategoryDeletionModal({
+  subCategoryId,
   setRowData,
 }: Props) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const { setCategories } = useProdAdminContext();
+  const { setSubCategories } = useProdAdminContext();
   const [loading, isLoading] = useState(false);
 
   const handleDeletion = async () => {
     isLoading(true);
     try {
-      const result = await serverFetch<boolean>(`category/${categoryId}`, {
-        method: "DELETE",
-      });
+      const result = await serverFetch<boolean>(
+        `subCategory/${subCategoryId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (result.data) {
-        setCategories((prev) =>
-          prev.filter((p) => p.categoryId !== categoryId)
+        setSubCategories((prev) =>
+          prev.filter((p) => p.subCategoryId !== subCategoryId)
         );
-        setRowData((prev) => prev.filter((p) => p.categoryId !== categoryId));
+        setRowData((prev) =>
+          prev.filter((p) => p.subCategoryId !== subCategoryId)
+        );
         onClose();
         addToast({
-          title: "Categoria eliminado",
-          description: "La categoria ha sido eliminada correctamente.",
+          title: "Sub-Categoria eliminada",
+          description: "La subcategoria ha sido eliminada correctamente.",
           color: "success",
         });
       } else {
         addToast({
-          title: "Error al eliminar categoria",
-          description: "No se pudo eliminar la categoria. Intente nuevamente.",
+          title: "Error al eliminar subcategoria",
+          description:
+            "No se pudo eliminar la subcategoria. Intente nuevamente.",
           color: "danger",
         });
       }
     } catch {
       addToast({
-        title: "Error al eliminar categoria",
-        description: "No se pudo eliminar la categoria. Intente nuevamente.",
+        title: "Error al eliminar subcategoria",
+        description: "No se pudo eliminar la subcategoria. Intente nuevamente.",
         color: "danger",
       });
     } finally {
@@ -79,14 +85,13 @@ export default function CategoryDeletionModal({
         <ModalContent className="font-poppins my-1">
           {loading && <LoadingComponent />}
           <ModalHeader className="font-bold text-lg">
-            Eliminar Categoria
+            Eliminar Sub-Categoria
           </ModalHeader>
           <ModalBody className="relative">
             <div className="flex flex-col gap-3 font-poppins">
               <p className="font-semibold">
-                ¿Está seguro de eliminar esta categoría? Todas las subcategorías
-                y productos asociados serán eliminados. Este cambio no es
-                reversible.
+                ¿Está seguro de eliminar esta sub-categoria? Todas los productos
+                asociados serán eliminados. Este cambio no es reversible.
               </p>
             </div>
           </ModalBody>

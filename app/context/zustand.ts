@@ -1,15 +1,15 @@
-import { GlobalAlertProps } from "@/app/components/shared/GlobalAlert";
 import { testUserCart } from "@/test/sampleData";
 import { UserLogin } from "@/types/Auth.types";
 import { CartProduct } from "@/types/Context.types";
+import { CategoryInfo } from "@/types/Data.types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type GlobalState = {
   user: UserLogin | null;
-  globalAlert: GlobalAlertProps;
-  setGlobalAlert: (vals: GlobalAlertProps) => void;
   setUser: (user: UserLogin | null) => void;
+  productsFeed: (categories: CategoryInfo[]) => void;
+  categoriesFeed: CategoryInfo[] | null;
 };
 
 export type GlobalNPState = {
@@ -24,11 +24,10 @@ export type GlobalNPState = {
 export const useAppStore = create<GlobalState>()(
   persist<GlobalState>(
     (set) => ({
-      globalAlert: { title: "", content: "", timeout: 0, isOpen: false },
-      setGlobalAlert: (vals: GlobalAlertProps) =>
-        set(() => ({ globalAlert: vals })),
       user: null,
+      categoriesFeed: null,
       setUser: (user) => set(() => ({ user })),
+      productsFeed: (categories) => set(() => ({ categoriesFeed: categories })),
     }),
     {
       name: "user-storage",

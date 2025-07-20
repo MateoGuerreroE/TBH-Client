@@ -39,6 +39,8 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
     type: "base",
   });
 
+  const [canSave, setCanSave] = useState(false);
+
   const handleRemoveImage = (imageUrl: string) => {
     setColValues((prev) => prev.filter((img) => img.url !== imageUrl));
   };
@@ -97,12 +99,14 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
           description: "No se pudo subir la imagen al servidor.",
           color: "danger",
         });
+        return;
       }
 
       const data = await result.json();
       newImage.url = data.secure_url;
     }
     setColValues((prev) => [...prev, newImage]);
+    setCanSave(true);
   };
 
   const handleSaveChanges = async () => {
@@ -141,7 +145,6 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
     }
   };
 
-  //! TODO VERIFY SELECT WORKS AS EXPECTED
   return (
     <>
       <ButtonComponent
@@ -236,6 +239,9 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                     <ButtonComponent
                       label="Agregar"
                       action={() => addImageFromForm()}
+                      disabled={
+                        !formValues.file && formValues.url.trim() === ""
+                      }
                     />
                   </div>
                 </div>
@@ -252,6 +258,7 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                 </div>
                 <ButtonComponent
                   label="Guardar"
+                  disabled={!canSave}
                   action={() => handleSaveChanges()}
                 />
               </ModalBody>

@@ -73,6 +73,14 @@ export interface SubCategoryInfo {
   categoryId: string;
 }
 
+export interface SubCategoriesWithProducts extends SubCategoryInfo {
+  products: ProductInfo[];
+}
+
+export interface CategoryRelations extends CategoryInfo {
+  subCategories: SubCategoryInfo[];
+}
+
 export interface CategoryInfo {
   categoryId: string;
   categoryName: string;

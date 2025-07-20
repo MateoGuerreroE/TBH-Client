@@ -1,4 +1,3 @@
-"use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { ProductInfo, SubCategoryInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
@@ -11,7 +10,7 @@ import {
 } from "ag-grid-community";
 import { ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
 import ImagesModal from "./Grid/ImagesModal";
@@ -47,6 +46,7 @@ export default function ProductsGrid({
   useEffect(() => {
     if (type !== "product") {
       changeType("product");
+      setChanges({});
     }
   }, []);
 

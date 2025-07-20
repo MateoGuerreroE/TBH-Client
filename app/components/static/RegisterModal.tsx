@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import Form from "../shared/form/Form";
 import { UserRegister } from "@/types/Auth.types";
 import createUserAction from "@/server/createUser.action";
-import { useAppStore } from "@/app/context/zustand";
 import { RegisterFormData } from "@/utils/authForms.data";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "@/utils/firebase";
@@ -26,7 +25,6 @@ type LoginModalProps = {
 export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
   const [modalOpen, isModalOpen] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
-  const { setGlobalAlert } = useAppStore();
   useEffect(() => {
     if (isOpen) {
       isModalOpen(true);
@@ -41,29 +39,14 @@ export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
   const handleSubmit = async (values: UserRegister) => {
     const result = await createUserAction(values);
     if (result) {
-      setGlobalAlert({
-        isOpen: true,
-        title: "¡Has creado tu cuenta!",
-        timeout: 6000,
-        content: (
-          <div className="flex flex-col gap-3">
-            <p>
-              Para facilitar tu experiencia, ya puedes acceder y actualizar tus
-              datos, o ver tus compras.
-            </p>
-            <p>
-              <b>Se ha enviado un correo de verificación.</b> A la hora del pago
-              o en el próximo inicio de sesión, tu correo debe estar confirmado
-              para poder continuar.
-            </p>
-          </div>
-        ),
+      handleClose();
+      addToast({
+        title: "Bienvenido",
+        description:
+          "Ya puedes acceder a tu cuenta y realizar compras. Se ha enviado un correo de verificación",
+        color: "success",
       });
     }
-    handleClose();
-    addToast({
-      title: "Bienvenido",
-    });
   };
 
   const handleExternalRegister = async () => {
@@ -84,26 +67,11 @@ export default function RegisterModal({ isOpen, onClose }: LoginModalProps) {
         firebase_id: externalResult.user.uid,
       });
       handleClose();
-      setGlobalAlert({
-        isOpen: true,
-        title: "¡Has creado tu cuenta!",
-        timeout: 6000,
-        content: (
-          <div className="flex flex-col gap-3">
-            <p>
-              Para facilitar tu experiencia, ya puedes acceder y actualizar tus
-              datos, o ver tus compras.
-            </p>
-            <p>
-              <b>Se ha enviado un correo de verificación.</b> A la hora del pago
-              o en el próximo inicio de sesión, tu correo debe estar confirmado
-              para poder continuar.
-            </p>
-          </div>
-        ),
-      });
       addToast({
         title: "Bienvenido",
+        description:
+          "Ya puedes acceder a tu cuenta y realizar compras. Se ha enviado un correo de verificación",
+        color: "success",
       });
     } catch (e) {
       addToast({

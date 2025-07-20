@@ -1,3 +1,4 @@
+"use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import Form from "@/app/components/shared/form/Form";
 import { postResource } from "@/server/fetch";

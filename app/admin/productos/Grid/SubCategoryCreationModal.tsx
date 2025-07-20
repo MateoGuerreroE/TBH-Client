@@ -2,7 +2,7 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import Form from "@/app/components/shared/form/Form";
 import { postResource } from "@/server/fetch";
-import { CategoryInfo } from "@/types/Data.types";
+import { CategoryInfo, SubCategoryInfo } from "@/types/Data.types";
 import { InputValues } from "@/types/Form.types";
 import {
   addToast,
@@ -15,47 +15,68 @@ import {
 import React from "react";
 
 type Props = {
-  setCategories: React.Dispatch<React.SetStateAction<CategoryInfo[]>>;
+  setSubCategories: React.Dispatch<React.SetStateAction<SubCategoryInfo[]>>;
+  categories: CategoryInfo[];
 };
 
 type FormValues = {
+  subCategoryName: string;
   categoryName: string;
 };
 
-export default function CategoryCreationModal({ setCategories }: Props) {
+export default function SubCategoryCreationModal({
+  setSubCategories,
+  categories,
+}: Props) {
   const { onOpen, onOpenChange, onClose, isOpen } = useDisclosure();
 
   const formInputs: InputValues[] = [
     {
       type: "text",
       label: "Nombre",
-      attribute: "categoryName",
+      attribute: "subCategoryName",
       inputOptions: {
         isRequired: true,
       },
       validations: [],
     },
+    {
+      type: "select",
+      label: "Categoría",
+      attribute: "categoryName",
+      selections: categories.map((c) => c.categoryName),
+      inputOptions: {
+        isRequired: true,
+      },
+    },
   ];
 
-  const handleCategoryCreation = async (values: FormValues) => {
-    const categoryToCreate = {
-      categoryName: values.categoryName,
+  const handleSubCategoryCreation = async (values: FormValues) => {
+    const subCategoryToCreate = {
+      subCategoryName: values.subCategoryName,
+      categoryId: categories.find((c) => c.categoryName === values.categoryName)
+        ?.categoryId,
       //! TODO CHANGE THIS
       createdBy: "e7bc3690-48ee-424f-9ce3-2572372bdb66",
     };
 
     try {
-      const { data } = await postResource<CategoryInfo>(
-        "category/create",
-        categoryToCreate
+      const { data } = await postResource<SubCategoryInfo>(
+        "subCategory/create",
+        subCategoryToCreate
       );
-      setCategories((prev) => [...prev, data]);
+      setSubCategories((prev) => [...prev, data]);
+      addToast({
+        title: "Subcategoría creada",
+        description: "La subcategoría ha sido creada correctamente.",
+        color: "success",
+      });
       onClose();
     } catch (error) {
-      console.error("Error creating category:", error);
+      console.error("Error creating subCategory:", error);
       addToast({
         title: "Error",
-        description: "No se pudo crear esta categoria",
+        description: "No se pudo crear esta subcategoria",
         color: "danger",
       });
     }
@@ -67,11 +88,11 @@ export default function CategoryCreationModal({ setCategories }: Props) {
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent className="font-poppins relative my-2">
           <ModalHeader className="text-lf font-bold">
-            Crear una nueva categoría
+            Crear una nueva subcategoría
           </ModalHeader>
           <ModalBody className="my-5">
             <Form
-              submitAction={handleCategoryCreation}
+              submitAction={handleSubCategoryCreation}
               submitText="Crear"
               inputs={formInputs}
             />

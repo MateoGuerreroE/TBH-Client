@@ -34,6 +34,7 @@ export async function serverFetch<T>(
   });
   if (!res.ok) {
     const { error } = await res.json();
+    console.error("Error fetching resource:", error || res.statusText);
     if (redirects) {
       redirect("/not-found");
     } else {
@@ -49,9 +50,20 @@ export async function serverFetch<T>(
 export async function getResource<T>(
   uri: string,
   redirects: boolean = false,
-  cacheOptions?: RequestCacheOptions
+  requestOptions: {
+    authorization?: string;
+    cacheOptions?: RequestCacheOptions;
+  }
 ): Promise<ServerResponse<T>> {
-  return serverFetch<T>(uri, { method: "GET", ...cacheOptions }, redirects);
+  return serverFetch<T>(
+    uri,
+    {
+      method: "GET",
+      authorization: requestOptions.authorization,
+      ...requestOptions.cacheOptions,
+    },
+    redirects
+  );
 }
 
 export async function postResource<T>(

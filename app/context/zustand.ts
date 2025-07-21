@@ -10,6 +10,8 @@ export type GlobalState = {
   setUser: (user: UserLogin | null) => void;
   productsFeed: (categories: CategoryInfo[]) => void;
   categoriesFeed: CategoryInfo[] | null;
+  visitorToken: string | null;
+  setVisitorToken: (token: string | null) => void;
 };
 
 export type GlobalNPState = {
@@ -28,6 +30,8 @@ export const useAppStore = create<GlobalState>()(
       categoriesFeed: null,
       setUser: (user) => set(() => ({ user })),
       productsFeed: (categories) => set(() => ({ categoriesFeed: categories })),
+      visitorToken: null,
+      setVisitorToken: (token) => set(() => ({ visitorToken: token })),
     }),
     {
       name: "user-storage",

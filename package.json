@@ -19,6 +19,8 @@
     "embla-carousel-react": "8.6.0",
     "firebase": "^11.6.0",
     "framer-motion": "^12.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.1.5",
     "next": "15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

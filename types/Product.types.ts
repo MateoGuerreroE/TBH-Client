@@ -1,13 +1,5 @@
-import { ProductInfo } from "./Data.types";
+import { IProductRecord, ITrendWithRelations } from "tbh-shared-types";
 
-export interface TrendProduct {
-  trendId: string;
-  productId: string;
-  isVisibleOnGrid: boolean;
-  isVisibleOnCarousel: boolean;
-  trendDiscount: string | null;
-  addedAt: Date;
-  updatedAt: Date;
-  createdBy: string;
-  product: ProductInfo;
+export interface TrendProduct extends ITrendWithRelations {
+  product: IProductRecord;
 }

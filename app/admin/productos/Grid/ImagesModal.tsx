@@ -17,6 +17,7 @@ import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import React, { useState } from "react";
 import { ImageType, ProductImage } from "@/types/Data.types";
+import { useAppStore } from "@/app/context/zustand";
 export interface ImagesModalProps {
   productId: string;
   images: ProductImage[];
@@ -31,6 +32,7 @@ type FormData = {
 
 export default function ImagesModal({ images, productId }: ImagesModalProps) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { visitorToken } = useAppStore();
   const [colValues, setColValues] = useState(images);
   const [formValues, setFormValues] = useState<FormData>({
     file: null,
@@ -120,6 +122,7 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
           }),
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${visitorToken}`,
           },
         }
       );

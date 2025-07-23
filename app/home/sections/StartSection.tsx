@@ -1,12 +1,14 @@
 "use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import Carousel from "@/app/components/shared/Carousel/Carousel";
-import { useNPStore } from "@/app/context/zustand";
+import { useAppStore, useNPStore } from "@/app/context/zustand";
 import { sampleHomeData } from "@/test/sampleData";
 import Image from "next/image";
 
 export default function StartSection() {
   const { addToCart } = useNPStore();
+  const {} = useAppStore();
+
   return (
     <section className="h-[550px] md:h-[600px] lg:h-[640px] 2xl:h-[850px] w-full bg-gradient-to-tl from-[#FFEAE2] to-[#68c2dd] flex justify-center pt-14 relative">
       <div className="flex flex-col items-center justify-center w-full h-full md:p-8 md:px-12 p-4 max-w-[1500px] overflow-hidden">

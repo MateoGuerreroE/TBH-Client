@@ -4,6 +4,7 @@ import { getMpInitialization } from "../mercadopago";
 import { useState, useEffect, useMemo, useRef } from "react";
 import StatusSection from "./StatusSection";
 import React from "react";
+import { useAppStore } from "@/app/context/zustand";
 
 type PaymentSectionProps = {
   orderId: string;
@@ -21,6 +22,7 @@ const PaymentSection = ({
   price,
 }: PaymentSectionProps) => {
   const [paymentResponse, setPaymentResponse] = useState<any>(null);
+  const { visitorToken } = useAppStore();
 
   const resultRef = useRef(setResult);
   const loadingRef = useRef(loadingParent);
@@ -37,9 +39,16 @@ const PaymentSection = ({
 
   const initialization = useMemo(
     () =>
-      getMpInitialization(orderId, price, payer, loadingRef.current, (res) => {
-        resultRef.current(res);
-        setPaymentResponse(res);
+      getMpInitialization({
+        orderId,
+        visitorToken: visitorToken as string,
+        amount: price,
+        payer,
+        loadingFunction: loadingRef.current,
+        setPayment: (res) => {
+          resultRef.current(res);
+          setPaymentResponse(res);
+        },
       }),
     [price, orderId]
   );

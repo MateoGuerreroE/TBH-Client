@@ -1,12 +1,13 @@
 import { TPaymentType } from "@mercadopago/sdk-react/esm/bricks/payment/type";
+import { IPaymentRecord, IShippingData } from "tbh-shared-types";
 
 export interface IMPInitialization {
   orderId: string;
   amount: number;
   visitorToken: string;
-  payer: any;
+  payer: IShippingData;
   loadingFunction: (val: boolean) => void;
-  setPayment: (val: string) => void;
+  setPayment: (val: IPaymentRecord) => void;
 }
 
 export const getMpInitialization = ({

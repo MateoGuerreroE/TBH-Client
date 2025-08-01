@@ -21,7 +21,7 @@ export default function CartUI() {
     useNPStore();
   const [confModalOpen, showConfModal] = React.useState(false);
   const totalPrice = userCart.reduce(
-    (prev, next) => prev + next.product.productPrice * next.amount,
+    (prev, next) => prev + parseFloat(next.product.productPrice) * next.amount,
     0
   );
   return (

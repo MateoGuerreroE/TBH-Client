@@ -5,13 +5,14 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import StatusSection from "./StatusSection";
 import React from "react";
 import { useAppStore } from "@/app/context/zustand";
+import { IPaymentRecord, IShippingData } from "tbh-shared-types";
 
 type PaymentSectionProps = {
   orderId: string;
-  setResult: (val: any) => void;
+  setResult: (val: IPaymentRecord) => void;
   loadingParent: (val: boolean) => void;
   price: number;
-  shipInfo: any;
+  shipInfo: IShippingData;
 };
 
 const PaymentSection = ({
@@ -21,7 +22,9 @@ const PaymentSection = ({
   loadingParent,
   price,
 }: PaymentSectionProps) => {
-  const [paymentResponse, setPaymentResponse] = useState<any>(null);
+  const [paymentResponse, setPaymentResponse] = useState<IPaymentRecord | null>(
+    null
+  );
   const { visitorToken } = useAppStore();
 
   const resultRef = useRef(setResult);

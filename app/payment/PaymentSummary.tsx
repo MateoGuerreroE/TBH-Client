@@ -1,14 +1,15 @@
 "use client";
 
-import { InternalPayment, PaymentStatusEnum } from "@/types/Payment.types";
+import { PaymentStatusEnum } from "@/types/Payment.types";
 import { formatPrice } from "@/utils";
 import { getPaymentStatus } from "@/utils/payment";
 import { Card, CardBody, Divider } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { IPaymentWithRelations } from "tbh-shared-types";
 
 type PaymentSummaryProps = {
-  payment: InternalPayment;
+  payment: IPaymentWithRelations;
 };
 
 export default function PaymentSummary({ payment }: PaymentSummaryProps) {
@@ -33,7 +34,7 @@ export default function PaymentSummary({ payment }: PaymentSummaryProps) {
         <Divider className="my-5" />
         <div className="mb-5 font-poppins text-medium md:text-lg bg-sky-200 py-2 px-4 rounded-full text-center">
           {chip}
-          <b>{payment.order.user?.emailAddress}</b>
+          <b>{payment.order?.user?.emailAddress}</b>
         </div>
         <Card className="w-full max-w-[650px] p-5 mt-2 mb-10 bg-sky-50">
           <CardBody>
@@ -52,11 +53,11 @@ export default function PaymentSummary({ payment }: PaymentSummaryProps) {
                 <label className="text-medium md:text-lg font-bold">
                   Valor:
                 </label>
-                <p>{formatPrice(payment.order.orderProductTotal)}</p>
+                <p>{formatPrice(payment.order?.orderProductTotal)}</p>
               </div>
               <div className="flex flex-row w-full justify-between">
                 <label className="text-lg font-bold">Impuestos:</label>
-                <p>{formatPrice(payment.order.taxes)}</p>
+                <p>{formatPrice(payment.order?.taxes)}</p>
               </div>
               <div className="flex flex-row w-full justify-between">
                 <label className="text-medium md:text-lg font-bold">
@@ -88,15 +89,15 @@ export default function PaymentSummary({ payment }: PaymentSummaryProps) {
                 Productos en la orden
               </h2>
               <div className="flex flex-col gap-3 py-7">
-                {payment.order.items.map((item) => (
+                {payment.order?.items?.map((item) => (
                   <div
-                    key={item.product.productId}
+                    key={item.product?.productId}
                     className="flex flex-row justify-between w-full"
                   >
-                    <p>{item.product.productName}</p>
+                    <p>{item.product?.productName}</p>
                     <div className="flex flex-row gap-2">
                       <p>{item.amount} x</p>
-                      <p>{formatPrice(item.product.productPrice)}</p>
+                      <p>{formatPrice(item.product?.productPrice)}</p>
                     </div>
                   </div>
                 ))}

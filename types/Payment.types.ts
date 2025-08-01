@@ -1,14 +1,4 @@
 import { ProductInfo } from "./Data.types";
-export interface InternalPayment {
-  externalPaymentId: string;
-  externalResponse: Record<string, unknown>;
-  paymentAmount: string;
-  paymentDate: string;
-  paymentId: string;
-  status: PaymentStatusEnum;
-  updatedAt: Date;
-  order: OrderData;
-}
 
 export interface OrderData {
   addressId: string | null;

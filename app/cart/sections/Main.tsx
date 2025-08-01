@@ -19,7 +19,7 @@ export default function Main() {
   const { user } = useAppStore();
 
   const totalPrice = userCart.reduce((prev, next) => {
-    return prev + next.product.productPrice * next.amount;
+    return prev + parseFloat(next.product.productPrice) * next.amount;
   }, 0);
   const taxes = totalPrice * 0.19; // TODO HAVE THIS ENV
 
@@ -63,7 +63,11 @@ export default function Main() {
                   {item.product.productName.slice(0, 20)}...
                 </h5>
 
-                <p>{formatPrice(item.product.productPrice * item.amount)}</p>
+                <p>
+                  {formatPrice(
+                    parseFloat(item.product.productPrice) * item.amount
+                  )}
+                </p>
               </div>
               <div className="flex flex-row items-center justify-between">
                 <p className="text-sm italic max-w-[200px]">

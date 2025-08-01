@@ -6,7 +6,7 @@ type PaymentStatus = {
   chip: string;
 };
 
-export function getPaymentStatus(status: PaymentStatusEnum): PaymentStatus {
+export function getPaymentStatus(status: string): PaymentStatus {
   switch (status) {
     case PaymentStatusEnum.APPROVED:
       return {

@@ -1,15 +1,16 @@
 "use server";
 
-import { LoginForm, UserLogin } from "@/types/Auth.types";
+import { LoginForm } from "@/types/Auth.types";
 import app from "@/utils/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ClientError } from "@/types/Exceptions.types";
 import { postResource } from "./fetch";
+import { IUserLoginData } from "tbh-shared-types";
 
 export async function loginUserAction(
   formData?: LoginForm,
   token?: string
-): Promise<UserLogin> {
+): Promise<IUserLoginData> {
   try {
     let userToken: string;
     if (!token && formData) {
@@ -25,7 +26,7 @@ export async function loginUserAction(
     } else {
       throw new ClientError("No hay sufientes datos para iniciar sesión");
     }
-    const { data: response } = await postResource<UserLogin>(
+    const { data: response } = await postResource<IUserLoginData>(
       `user/login`,
       { token: userToken },
       undefined,

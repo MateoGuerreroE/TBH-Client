@@ -5,6 +5,7 @@ import LoadingComponent from "@/app/components/shared/LoadingComponent";
 
 export type ShipFormProps = {
   isLoading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   parentAction: (state: any) => void;
 };
 

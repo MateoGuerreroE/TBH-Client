@@ -23,7 +23,7 @@ export default async function Home() {
     }
   );
 
-  const carouselItems = trending.filter((t) => t.isVisibleOnCarousel);
+  // const carouselItems = trending.filter((t) => t.isVisibleOnCarousel);
   const gridProducts = trending.filter((t) => t.isVisibleOnGrid);
 
   return (

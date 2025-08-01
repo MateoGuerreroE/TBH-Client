@@ -1,14 +1,10 @@
 "use client";
 
 import SearchBar from "@/app/components/shared/SearchBar";
-import { useAppStore } from "@/app/context/zustand";
 import Image from "next/image";
 import React from "react";
 
 export default function Header() {
-  const { visitorToken, initialPayload } = useAppStore();
-
-  console.log(visitorToken, initialPayload);
   return (
     <div className="flex flex-col w-full relative z-50">
       <div className="flex justify-center w-full bg-[#017392] shadow-lg">

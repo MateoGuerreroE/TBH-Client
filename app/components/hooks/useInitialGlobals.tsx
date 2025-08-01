@@ -92,7 +92,6 @@ const fetchVisitorToken = async (
 
     const data = await response.json();
     setVisitorToken(data.token);
-    console.log("SETTING UP COOKIE");
     document.cookie = `publicToken=${data.token}; path=/; max-age=31536000; secure; SameSite=Lax`;
   } catch (error) {
     console.error("Error fetching visitor token:", error);

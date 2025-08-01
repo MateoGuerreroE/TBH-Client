@@ -9,6 +9,10 @@ export type SearchBarProps = {
 };
 
 export default function SearchBar({ width, size, variant }: SearchBarProps) {
+  const wrapperStyles = ["shadow-md", "shadow-black-300", "border-slate-100"];
+  if (variant === "bordered") {
+    wrapperStyles.push("text-slate-100");
+  }
   return (
     <Input
       placeholder="¿Qué estás buscando?"
@@ -17,11 +21,16 @@ export default function SearchBar({ width, size, variant }: SearchBarProps) {
       variant={variant}
       className={`${width} front-poppins`}
       classNames={{
-        inputWrapper: ["shadow-md", "shadow-black-300", "border-black"],
+        inputWrapper: wrapperStyles,
+        input: variant === "bordered" ? ["placeholder:text-slate-100/70"] : "",
       }}
       endContent={
         <Image
-          src="/icons/search.svg"
+          src={
+            variant === "bordered"
+              ? "/icons/search_white.svg"
+              : "/icons/search.svg"
+          }
           alt="search_icon"
           width={20}
           height={20}

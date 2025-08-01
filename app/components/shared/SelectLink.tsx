@@ -15,7 +15,10 @@ export default function SelectLink({
   customClass,
 }: SelectLinkProps) {
   return (
-    <Link href={uri} className={`text-${fontSize} lg:text-md ${customClass}`}>
+    <Link
+      href={uri}
+      className={`text-${fontSize} lg:text-md hover:scale-105 ${customClass}`}
+    >
       {label}
     </Link>
   );

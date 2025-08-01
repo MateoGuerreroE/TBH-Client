@@ -5,13 +5,41 @@ import {
   IProductRecord,
   ISubcategoryRecord,
 } from "tbh-shared-types";
+import { cookies } from "next/headers";
 
 export default async function AdminProduct() {
-  const { data: productList } = await getResource<IProductRecord[]>("product");
-  const { data: categoryList } =
-    await getResource<ICategoryRecord[]>("category");
-  const { data: subcategoryList } =
-    await getResource<ISubcategoryRecord[]>("subCategory");
+  const cookieStore = await cookies();
+  const visitorToken = cookieStore.get("publicToken")?.value;
+  const { data: productList } = await getResource<IProductRecord[]>(
+    "product",
+    false,
+    {
+      authorization: visitorToken,
+      cacheOptions: {
+        cache: "no-store",
+      },
+    }
+  );
+  const { data: categoryList } = await getResource<ICategoryRecord[]>(
+    "category",
+    false,
+    {
+      authorization: visitorToken,
+      cacheOptions: {
+        cache: "no-store",
+      },
+    }
+  );
+  const { data: subcategoryList } = await getResource<ISubcategoryRecord[]>(
+    "subCategory",
+    false,
+    {
+      authorization: visitorToken,
+      cacheOptions: {
+        cache: "no-store",
+      },
+    }
+  );
 
   return (
     <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md relative">

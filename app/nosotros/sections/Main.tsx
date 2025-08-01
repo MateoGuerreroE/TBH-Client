@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AboutMain() {
   return (
-    <div className="py-5 flex flex-1 w-full justify-center max-w-[1500px] h-full my-14">
+    <div className="py-5 flex flex-1 w-full justify-center max-w-[1500px] h-full my-24">
       <div className="flex w-full">
         <div className="flex flex-col w-full h-full gap-10">
           <h2 className="text-3xl font-bold text-center">

@@ -34,14 +34,14 @@ export default function AuthWrapper({ orientation }: AuthWrapperProps) {
         <Button
           onPress={() => isLoginModalOpen(true)}
           variant="solid"
-          className="hover:cursor-pointer font-poppins font-semibold bg-[#68c2dd] text-slate-800"
+          className="hover:cursor-pointer font-poppins font-semibold bg-secondary text-slate-900"
         >
           Ingresar
         </Button>
         <Button
           variant="ghost"
           onPress={() => isRegisterModalOpen(true)}
-          className="hover:cursor-pointer font-poppins font-semibold border-slate-400"
+          className="hover:cursor-pointer font-poppins font-semibold border-slate-200 text-slate-100"
         >
           Crear cuenta
         </Button>

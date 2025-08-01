@@ -5,7 +5,7 @@ import ContactWhaWrapper from "./ContactWhaWrapper";
 
 export default function ContactMain() {
   return (
-    <div className="py-5 flex flex-1 w-full items-center justify-center max-w-[1500px] h-full my-14">
+    <div className="py-5 flex flex-1 w-full items-center justify-center max-w-[1500px] h-full my-24">
       <div className="flex flex-col md:flex-row p-5 h-full w-full gap-10 md:gap-3">
         <div className="w-full md:w-1/2 flex flex-col justify-center px-5 md:pl-10">
           <div className="flex flex-col gap-4">

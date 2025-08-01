@@ -1,11 +1,11 @@
 "use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
-import { IProductRecord } from "tbh-shared-types";
 import { formatPrice } from "@/utils";
 import { Card, CardFooter } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useNPStore } from "../../context/zustand";
+import { IProductRecord } from "tbh-shared-types";
 
 type TrendCarProps = {
   product: IProductRecord;
@@ -48,7 +48,10 @@ export default function TrendCard({ product }: TrendCarProps) {
           }}
         >
           <p className="text-xs md:text-sm">
-            {product.productDescription.short}
+            {product.productDescription
+              ? (product.productDescription.short ??
+                product.productDescription.content.slice(0, 100) + "...")
+              : "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
           </p>
           <div className="flex flex-row gap-3">
             <ButtonComponent

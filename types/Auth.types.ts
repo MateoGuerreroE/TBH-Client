@@ -3,15 +3,6 @@ export type LoginForm = {
   password: string;
 };
 
-export type UserLogin = {
-  email: string;
-  entityId: string;
-  token: string;
-  role: "user" | "admin";
-  expiration: string;
-  fullName: string;
-};
-
 export type UserRegister = {
   first_name: string;
   last_name: string;

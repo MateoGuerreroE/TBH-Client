@@ -23,21 +23,24 @@ export default function ProductCard({ product }: ProductProps) {
     >
       <Card
         radius="sm"
-        className="font-poppins w-[300px] h-full bg-[#FFFFF0]/30 backdrop-blur-md shadow-black/10 shadow-[0px_0px_14px_0px_rgba(0,_0,_0,_0.1)] my-2"
+        className="font-poppins w-[300px] lg:w-[400px] h-full bg-[#FFFFF0]/30 backdrop-blur-md shadow-black/10 shadow-[0px_0px_14px_0px_rgba(0,_0,_0,_0.1)] my-2"
         shadow="none"
       >
-        <CardHeader className="w-full h-20 flex justify-center items-center">
+        <CardHeader className="w-full h-24 flex justify-center items-center">
           <h6
-            className={`font-semibold text-center ${product.productName.length > 32 ? "text-xl" : "text-2xl"}`}
+            className={`font-semibold text-center ${product.productName.length > 32 ? "text-lg/6" : "text-xl"} `}
           >
             {product.productName}
           </h6>
         </CardHeader>
         <Divider />
         <CardBody className="flex flex-col gap-5 p-0">
-          <div className="h-[250px]">
+          <div className="h-[300px]">
             <Image
-              src={product.productImages[0].url}
+              src={
+                product.productImages[0]?.url ??
+                "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
+              }
               alt="product_main"
               width={300}
               height={300}
@@ -47,10 +50,10 @@ export default function ProductCard({ product }: ProductProps) {
         </CardBody>
         <Divider />
         <CardFooter className="flex flex-row py-5 justify-between">
-          <p className="ml-1 font-bold text-lg text-slate-800">{`${formatPrice(product.productPrice)}`}</p>
+          <p className="ml-1 font-bold text-xl text-slate-800">{`${formatPrice(product.productPrice)}`}</p>
           <ButtonComponent
             label="Agregar al carrito"
-            visualOpts={{ size: "sm" }}
+            visualOpts={{ size: "md" }}
             action={() =>
               addToCart({
                 product: product,

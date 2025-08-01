@@ -33,7 +33,6 @@ export default function ProductCarousel({
         adapt: true,
         dragFree: false,
         arrowButtons: !isMobile,
-        slidesPerView: 3,
       }}
     >
       {productList.map((product, index) => (

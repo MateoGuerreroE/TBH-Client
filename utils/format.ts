@@ -26,3 +26,10 @@ export const cleanEmptyObjects = (baseObject: Record<string, unknown>) => {
 
   return cleanedObject;
 };
+
+export function formatCapsString(str: string) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}

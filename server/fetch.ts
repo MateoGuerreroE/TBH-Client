@@ -19,6 +19,7 @@ export async function serverFetch<T>(
   redirects?: boolean
 ): Promise<ServerResponse<T>> {
   const { cache, next } = options;
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${uri}`, {
     method: options.method,
     body: options.method !== "GET" ? JSON.stringify(options.body) : null,

@@ -16,7 +16,7 @@ export default function Main() {
   const router = useRouter();
   const [loading, isLoading] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
-  const { user } = useAppStore();
+  const { user, visitorToken } = useAppStore();
 
   const totalPrice = userCart.reduce((prev, next) => {
     return prev + parseFloat(next.product.productPrice) * next.amount;
@@ -26,16 +26,20 @@ export default function Main() {
   const handlePaymentRedirect = async () => {
     isLoading(true);
     try {
-      const { data } = await postResource<IOrderWithRelations>("order/create", {
-        userId: user ? user.entityId : undefined,
-        taxes,
-        orderProductTotal: totalPrice,
-        items: userCart.map((item) => ({
-          productId: item.product.productId,
-          amount: item.amount,
-          priceAtPurchase: item.product.productPrice,
-        })),
-      });
+      const { data } = await postResource<IOrderWithRelations>(
+        "order/create",
+        {
+          userId: user ? user.entityId : undefined,
+          taxes,
+          orderProductTotal: totalPrice,
+          items: userCart.map((item) => ({
+            productId: item.product.productId,
+            amount: item.amount,
+            priceAtPurchase: parseFloat(item.product.productPrice),
+          })),
+        },
+        user ? user.token : visitorToken!
+      );
       clearCart();
       router.push(`/checkout?order_id=${data.orderId}`);
     } catch {

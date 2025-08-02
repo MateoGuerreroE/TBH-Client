@@ -94,8 +94,8 @@ export default function PaymentSummary({ payment }: PaymentSummaryProps) {
                     key={item.product?.productId}
                     className="flex flex-row justify-between w-full"
                   >
-                    <p>{item.product?.productName}</p>
-                    <div className="flex flex-row gap-2">
+                    <p className="w-1/2">{item.product?.productName}</p>
+                    <div className="flex flex-row gap-2 items-center w-1/3 justify-between">
                       <p>{item.amount} x</p>
                       <p>{formatPrice(item.product?.productPrice)}</p>
                     </div>

@@ -9,7 +9,7 @@ export default async function Payment({
   searchParams: Promise<{ [key: string]: string }>;
 }) {
   const cookiesStore = await cookies();
-  const visitorToken = cookiesStore.get("visitorToken")?.value;
+  const visitorToken = cookiesStore.get("publicToken")?.value;
 
   const { payment_id } = await searchParams;
   const request = await fetch(
@@ -17,8 +17,13 @@ export default async function Payment({
     { headers: { Authorization: `Bearer ${visitorToken}` } }
   );
 
-  const { data } = await request.json();
-  const payment = data as IPaymentRecord;
+  console.log(visitorToken);
+
+  const info = await request.json();
+
+  console.log(info);
+
+  const payment = info.data as IPaymentRecord;
 
   return (
     <main className="bg-sky-100 pt-14">

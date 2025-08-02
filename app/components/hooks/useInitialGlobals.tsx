@@ -54,7 +54,7 @@ const fetchInitialProducts = async (
       false,
       {
         cacheOptions: {
-          cache: "no-store",
+          cache: "force-cache",
           next: { revalidate: getPersistenceValue() },
         },
       }

@@ -1,12 +1,48 @@
 import { getResource } from "@/server/fetch";
 import ProductTabs from "./ProductTabs";
-import { ProductInfo } from "@/types/Data.types";
+import {
+  ICategoryRecord,
+  IProductRecord,
+  ISubcategoryRecord,
+} from "tbh-shared-types";
+import { cookies } from "next/headers";
 
 export default async function AdminProduct() {
-  const { data } = await getResource<ProductInfo[]>("product", {});
+  const cookieStore = await cookies();
+  const visitorToken = cookieStore.get("publicToken")?.value;
+  const { data: productList } = await getResource<IProductRecord[]>(
+    "product",
+    false,
+    {
+      authorization: visitorToken,
+      cacheOptions: {
+        cache: "no-store",
+      },
+    }
+  );
+  const { data: categoryList } = await getResource<ICategoryRecord[]>(
+    "category",
+    false,
+    {
+      authorization: visitorToken,
+      cacheOptions: {
+        cache: "no-store",
+      },
+    }
+  );
+  const { data: subcategoryList } = await getResource<ISubcategoryRecord[]>(
+    "subCategory",
+    false,
+    {
+      authorization: visitorToken,
+      cacheOptions: {
+        cache: "no-store",
+      },
+    }
+  );
 
   return (
-    <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md">
+    <div className="max-w-[1500px] h-auto w-full bg-sky-50 rounded-xl p-5 shadow-md relative">
       <div className="my-5 flex flex-col gap-2">
         <h1 className="text-3xl font-bold">Administración de productos</h1>
         <p>
@@ -22,7 +58,11 @@ export default async function AdminProduct() {
         </p>
       </div>
       <div className="flex flex-col justify-between">
-        <ProductTabs productList={data} />
+        <ProductTabs
+          categories={categoryList}
+          productList={productList}
+          subCategories={subcategoryList}
+        />
       </div>
     </div>
   );

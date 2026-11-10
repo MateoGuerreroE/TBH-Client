@@ -46,6 +46,7 @@ export default function FormInput({
       label={label}
       placeholder={options.placeholder}
       required={options.isRequired}
+      isRequired={options.isRequired}
       labelPlacement={options.visualType}
       type={options.isHidden ? "password" : "text"}
       variant={options.variant}

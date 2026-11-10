@@ -12,7 +12,7 @@ export default function NavBar() {
       <Header />
       <div className="sticky top-0 z-10">
         <div
-          className={`absolute font-poppins px-2 top-0 h-14 flex  justify-center items-center w-full font-semibold bg-transparent backdrop-blur-md`}
+          className={`absolute font-poppins px-2 top-0 h-14 flex  justify-center items-center w-full font-semibold bg-black/35 backdrop-blur-md`}
         >
           <div className="md:hidden flex justify-center flex-col w-full">
             <div className="flex flex-row justify-between gap-8">
@@ -30,7 +30,7 @@ export default function NavBar() {
                     label={item.label}
                     uri={item.uri}
                     fontSize="sm"
-                    customClass="md:text-md"
+                    customClass="md:text-md text-slate-100"
                   />
                 ))}
               </div>

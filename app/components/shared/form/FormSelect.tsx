@@ -42,6 +42,7 @@ export default function FormSelect({
       key={`select_${label}`}
       label={label}
       variant={options.variant}
+      isRequired={options.isRequired}
       onSelectionChange={handleChange}
       selectedKeys={value}
     >

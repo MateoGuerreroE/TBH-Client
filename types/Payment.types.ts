@@ -1,14 +1,4 @@
-import { ProductInfo } from "./Data.types";
-export interface InternalPayment {
-  externalPaymentId: string;
-  externalResponse: Record<string, unknown>;
-  paymentAmount: string;
-  paymentDate: string;
-  paymentId: string;
-  status: PaymentStatusEnum;
-  updatedAt: Date;
-  order: OrderData;
-}
+import { IProductRecord } from "tbh-shared-types";
 
 export interface OrderData {
   addressId: string | null;
@@ -27,7 +17,7 @@ export interface OrderItemData {
   orderId: string;
   orderItemId: string;
   priceAtPurchase: string;
-  product: ProductInfo;
+  product: IProductRecord;
   productId: string;
 }
 
@@ -36,12 +26,6 @@ export enum PaymentStatusEnum {
   PROCESSING = "in_process",
   REJECTED = "rejected",
   PENDING = "pending",
-}
-
-export interface PaymentData {
-  id: number;
-  taxes_amount: number;
-  [key: string]: unknown;
 }
 
 export interface InternalUser {

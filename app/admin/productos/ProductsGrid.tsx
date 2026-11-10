@@ -1,6 +1,4 @@
-"use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
-import { ProductInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
 import {
   AllCommunityModule,
@@ -11,42 +9,92 @@ import {
 } from "ag-grid-community";
 import { ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import React, { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useProdAdminContext } from "./ChangesContext";
 import Image from "next/image";
 import ImagesModal from "./Grid/ImagesModal";
+import { Chip } from "@heroui/react";
+import TagsModal from "./Grid/TagsModal";
+import ProductDeletionModal from "./Grid/ProductDeletionModal";
+import { IProductWithRelations, ISubcategoryRecord } from "tbh-shared-types";
 
 type ProductsGridProps = {
-  products: ProductInfo[];
+  products: IProductWithRelations[];
+  subCategories: ISubcategoryRecord[];
 };
 
-export default function ProductsGrid({ products }: ProductsGridProps) {
+export default function ProductsGrid({
+  products,
+  subCategories,
+}: ProductsGridProps) {
   ModuleRegistry.registerModules([AllCommunityModule]);
-  const initialRowData = useRef(
-    products.map((p) => ({
-      ...p,
-      subCategoryName: p.subCategory?.subCategoryName || "",
-    }))
-  );
-  const { setChanges, changes } = useProdAdminContext();
-
+  const { setChanges, changes, changeType, type } = useProdAdminContext();
   const [rowData, setRowData] = useState(
     products.map((p) => ({
       ...p,
-      subCategoryName: p.subCategory?.subCategoryName || "",
       hasChanged: false,
     }))
   );
+  const initialRowData = useRef(structuredClone(products));
+
+  useEffect(() => {
+    if (Object.keys(changes).length === 0) {
+      setRowData((p) => p.map((c) => ({ ...c, hasChanged: false })));
+    }
+  }, [changes]);
+
+  useEffect(() => {
+    if (type !== "product") {
+      changeType("product");
+      setChanges({});
+    }
+  }, []);
+
+  useEffect(() => {
+    setRowData(
+      products.map((p) => ({
+        ...p,
+        hasChanged: false,
+      }))
+    );
+  }, [products]);
 
   const handleRowChange = (
     rowId: string,
-    change: Partial<ProductInfo & { hasChanged: boolean }>
+    change: Partial<IProductWithRelations & { hasChanged: boolean }>
   ) => {
     setRowData((prevData) =>
       prevData.map((row) =>
         row.productId === rowId ? { ...row, ...change, hasChanged: true } : row
       )
     );
+  };
+
+  const handleTagCreation = (productId: string, tag: string) => {
+    setRowData((prevData) =>
+      prevData.map((row) =>
+        row.productId === productId
+          ? {
+              ...row,
+              productTags: [...(row.productTags || []), tag],
+              hasChanged: true,
+            }
+          : row
+      )
+    );
+    setChanges((prev) => {
+      const updatedRow = rowData.find((row) => row.productId === productId);
+      const currentTags = updatedRow
+        ? [...(updatedRow.productTags || []), tag]
+        : [tag];
+      return {
+        ...prev,
+        [productId]: {
+          ...prev[productId],
+          productTags: currentTags,
+        },
+      };
+    });
   };
 
   const redoChanges = (productId: string) => {
@@ -61,16 +109,18 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
             : row
         )
       );
-      setChanges((prev) => ({ ...prev, [productId]: {} }));
+      setChanges((prev) => {
+        delete prev[productId];
+        return { ...prev };
+      });
     }
   };
-
-  console.log(changes);
 
   // Column Definitions: Defines the columns to be displayed.
   const [colDefs] = useState<ColDef[]>([
     {
       field: "productName",
+      filter: true,
       headerName: "Nombre",
       headerClass: "font-poppins",
       width: 200,
@@ -83,6 +133,9 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       headerName: "Precio",
       editable: true,
       width: 100,
+      comparator: (valueA, valueB) => {
+        return parseFloat(valueA) - parseFloat(valueB);
+      },
       valueFormatter: (params) => `${formatPrice(params.value)}`,
     },
     {
@@ -90,14 +143,49 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       headerClass: "font-poppins",
       width: 150,
       headerName: "Etiquetas",
-      valueFormatter: (params) => params.value.join(", "),
-      valueParser: (params) =>
-        params.newValue.split(",").map((tag: string) => tag.trim()),
+      cellRenderer: (val: ICellRendererParams) => {
+        return (
+          <div className="flex flex-row gap-2 h-full items-center">
+            {val.value.map((tag: string, index: number) => (
+              <Chip
+                color="secondary"
+                className=""
+                size="sm"
+                key={index}
+                onClose={() => {
+                  handleRowChange(val.data.productId, {
+                    productTags: val.data.productTags.filter(
+                      (t: string) => t !== tag
+                    ),
+                    hasChanged: true,
+                  });
+                  setChanges((prev) => ({
+                    ...prev,
+                    [val.data.productId]: {
+                      ...prev[val.data.productId],
+                      productTags: val.data.productTags.filter(
+                        (t: string) => t !== tag
+                      ),
+                    },
+                  }));
+                }}
+              >
+                {tag}
+              </Chip>
+            ))}
+            <TagsModal
+              productId={val.data.productId}
+              tagSetter={handleTagCreation}
+            />
+          </div>
+        );
+      },
       editable: true,
     },
     {
       field: "isActive",
       headerName: "Activo",
+      filter: true,
       width: 80,
       editable: true,
       headerClass: "font-poppins",
@@ -113,6 +201,8 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       field: "productImages",
       headerClass: "font-poppins",
       headerName: "Imagenes",
+      sortable: false,
+
       cellRenderer: (param: ICellRendererParams) => (
         <ImagesModal
           images={param.data.productImages}
@@ -126,6 +216,8 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       field: "productVideos",
       headerClass: "font-poppins",
       headerName: "Videos",
+      sortable: false,
+
       cellRenderer: () => (
         <ButtonComponent label="Editar" visualOpts={{ size: "sm" }} />
       ),
@@ -136,6 +228,7 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       field: "productDescription",
       headerClass: "font-poppins",
       headerName: "Descripción",
+      sortable: false,
       cellRenderer: () => (
         <ButtonComponent label="Editar" visualOpts={{ size: "sm" }} />
       ),
@@ -143,18 +236,37 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
       width: 120,
     },
     {
-      field: "subCategoryName",
+      field: "subCategory.subCategoryName",
+      filter: true,
       headerClass: "font-poppins",
       headerName: "Categoría",
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
-        values: ["Electronics", "Clothing", "Books", "Home Appliances"],
+        values: subCategories.map((sub) => sub.subCategoryName),
+      },
+      onCellValueChanged: (cell) => {
+        const targetSubCategory = subCategories.find(
+          (sub) => sub.subCategoryName === cell.newValue
+        );
+        setChanges((prev) => ({
+          ...prev,
+          [cell.data.productId]: {
+            ...prev[cell.data.productId],
+            subCategoryId: targetSubCategory?.subCategoryId,
+          },
+        }));
+        handleRowChange(cell.data.productId, {
+          subCategory: targetSubCategory,
+          hasChanged: true,
+        });
       },
       editable: true,
       width: 120,
     },
     {
       field: "Changes",
+      sortable: false,
+
       headerClass: "font-poppins",
       headerName: "Cambios",
       width: 100,
@@ -173,12 +285,9 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
             width={25}
             height={25}
           />
-          <Image
-            src="/icons/trash.svg"
-            className="hover:cursor-pointer"
-            alt="delete"
-            width={25}
-            height={25}
+          <ProductDeletionModal
+            productId={param.data.productId}
+            setRowData={setRowData}
           />
         </div>
       ),
@@ -187,15 +296,19 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
   const theme = themeQuartz.withPart(colorSchemeLightCold);
   return (
     <AgGridReact
+      pagination={true}
+      paginationPageSize={20}
       onCellValueChanged={(cell) => {
-        setChanges((prev) => ({
-          ...prev,
-          [cell.data.productId]: {
-            ...prev[cell.data.productId],
-            [cell.colDef.field as keyof ProductInfo]: cell.newValue,
-          },
-        }));
-        handleRowChange(cell.data.productId, { hasChanged: true });
+        if (cell.colDef.field !== "subCategory.subCategoryName") {
+          setChanges((prev) => ({
+            ...prev,
+            [cell.data.productId]: {
+              ...prev[cell.data.productId],
+              [cell.colDef.field as keyof IProductWithRelations]: cell.newValue,
+            },
+          }));
+          handleRowChange(cell.data.productId, { hasChanged: true });
+        }
       }}
       rowData={rowData}
       rowClass={"font-poppins"}

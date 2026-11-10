@@ -1,14 +1,14 @@
 "use client";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
-import { ProductInfo } from "@/types/Data.types";
 import { formatPrice } from "@/utils";
 import { Card, CardFooter } from "@heroui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useNPStore } from "../../context/zustand";
+import { IProductRecord } from "tbh-shared-types";
 
 type TrendCarProps = {
-  product: ProductInfo;
+  product: IProductRecord;
 };
 
 export default function TrendCard({ product }: TrendCarProps) {
@@ -24,7 +24,7 @@ export default function TrendCard({ product }: TrendCarProps) {
       className="border-none w-full h-full relative flex flex-col hover:cursor-pointer hover:scale-[1.03] lg:hover:scale-105 overflow-hidden"
     >
       <Image
-        src={product.productImages[0]}
+        src={product.productImages[0].url}
         alt={product.productName}
         className="object-cover w-full h-full"
         width={1000}
@@ -47,7 +47,12 @@ export default function TrendCard({ product }: TrendCarProps) {
             maxHeight: descVisible ? "120px" : "0",
           }}
         >
-          <p className="text-xs md:text-sm">{product.productDescription}</p>
+          <p className="text-xs md:text-sm">
+            {product.productDescription
+              ? (product.productDescription.short ??
+                product.productDescription.content.slice(0, 100) + "...")
+              : "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+          </p>
           <div className="flex flex-row gap-3">
             <ButtonComponent
               label="Agregar"

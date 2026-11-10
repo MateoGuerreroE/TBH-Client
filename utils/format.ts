@@ -1,4 +1,8 @@
-export const formatPrice = (price: number | string) => {
+export const formatPrice = (price: number | string | undefined) => {
+  if (price === undefined || price === null) {
+    return "$0";
+  }
+
   if (typeof price === "string") {
     price = parseFloat(price);
   }
@@ -26,3 +30,10 @@ export const cleanEmptyObjects = (baseObject: Record<string, unknown>) => {
 
   return cleanedObject;
 };
+
+export function formatCapsString(str: string) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}

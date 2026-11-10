@@ -1,12 +1,23 @@
 import { TPaymentType } from "@mercadopago/sdk-react/esm/bricks/payment/type";
+import { IPaymentRecord, IShippingData } from "tbh-shared-types";
 
-export const getMpInitialization = (
-  orderId: string,
-  amount: number,
-  payer: any,
-  loadingFunction: (val: boolean) => void,
-  setPayment: (val: string) => void
-): TPaymentType => {
+export interface IMPInitialization {
+  orderId: string;
+  amount: number;
+  visitorToken: string;
+  payer: IShippingData;
+  loadingFunction: (val: boolean) => void;
+  setPayment: (val: IPaymentRecord) => void;
+}
+
+export const getMpInitialization = ({
+  orderId,
+  amount,
+  payer,
+  visitorToken,
+  loadingFunction,
+  setPayment,
+}: IMPInitialization): TPaymentType => {
   return {
     initialization: {
       amount,
@@ -24,6 +35,7 @@ export const getMpInitialization = (
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${visitorToken}`,
           },
           body: JSON.stringify({
             payment: formData,

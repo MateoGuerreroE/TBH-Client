@@ -7,6 +7,7 @@ import { useState } from "react";
 import CouponSection from "../components/CouponSection";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import { postResource } from "@/server/fetch";
+import { IOrderWithRelations } from "tbh-shared-types";
 
 export default function Main() {
   const { userCart, incrementProduct, decrementProduct, clearCart } =
@@ -15,26 +16,30 @@ export default function Main() {
   const router = useRouter();
   const [loading, isLoading] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
-  const { user } = useAppStore();
+  const { user, visitorToken } = useAppStore();
 
   const totalPrice = userCart.reduce((prev, next) => {
-    return prev + next.product.productPrice * next.amount;
+    return prev + parseFloat(next.product.productPrice) * next.amount;
   }, 0);
   const taxes = totalPrice * 0.19; // TODO HAVE THIS ENV
 
   const handlePaymentRedirect = async () => {
     isLoading(true);
     try {
-      const { data } = await postResource<any>("order/create", {
-        userId: user ? user.entityId : undefined,
-        taxes,
-        orderProductTotal: totalPrice,
-        items: userCart.map((item) => ({
-          productId: item.product.productId,
-          amount: item.amount,
-          priceAtPurchase: item.product.productPrice,
-        })),
-      });
+      const { data } = await postResource<IOrderWithRelations>(
+        "order/create",
+        {
+          userId: user ? user.entityId : undefined,
+          taxes,
+          orderProductTotal: totalPrice,
+          items: userCart.map((item) => ({
+            productId: item.product.productId,
+            amount: item.amount,
+            priceAtPurchase: parseFloat(item.product.productPrice),
+          })),
+        },
+        user ? user.token : visitorToken!
+      );
       clearCart();
       router.push(`/checkout?order_id=${data.orderId}`);
     } catch {
@@ -62,7 +67,11 @@ export default function Main() {
                   {item.product.productName.slice(0, 20)}...
                 </h5>
 
-                <p>{formatPrice(item.product.productPrice * item.amount)}</p>
+                <p>
+                  {formatPrice(
+                    parseFloat(item.product.productPrice) * item.amount
+                  )}
+                </p>
               </div>
               <div className="flex flex-row items-center justify-between">
                 <p className="text-sm italic max-w-[200px]">

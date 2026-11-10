@@ -1,12 +1,19 @@
 "use client";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useInitialGlobals } from "./components/hooks/useInitialGlobals";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+  useInitialGlobals();
+
   return (
-    <HeroUIProvider>
-      <ToastProvider />
-      {children}
-    </HeroUIProvider>
+    <QueryClientProvider client={queryClient}>
+      <HeroUIProvider>
+        <ToastProvider />
+        {children}
+      </HeroUIProvider>
+    </QueryClientProvider>
   );
 }

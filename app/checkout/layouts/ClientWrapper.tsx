@@ -6,12 +6,9 @@ import { Card, CardBody, CardFooter, CardHeader, Divider } from "@heroui/react";
 import LoadingComponent from "@/app/components/shared/LoadingComponent";
 import { formatPrice } from "@/utils";
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
-import {
-  InternalPayment,
-  OrderData,
-  PaymentStatusEnum,
-} from "@/types/Payment.types";
+import { OrderData } from "@/types/Payment.types";
 import { useRouter } from "next/navigation";
+import { IPaymentRecord } from "tbh-shared-types";
 
 type ClientWrapperProps = {
   order: OrderData;
@@ -20,8 +17,9 @@ type ClientWrapperProps = {
 export default function ClientWrapper({ order }: ClientWrapperProps) {
   const [loading, isLoading] = useState<boolean>(false);
   const [step, setStep] = useState<1 | 2>(1);
-  const [paymentResponse, setPaymentResponse] =
-    useState<InternalPayment | null>(null);
+  const [paymentResponse, setPaymentResponse] = useState<IPaymentRecord | null>(
+    null
+  );
   const [shipInfo, setShipInfo] = useState(null);
 
   const router = useRouter();
@@ -103,7 +101,7 @@ export default function ClientWrapper({ order }: ClientWrapperProps) {
             )}
             <ShipForm
               isLoading={false}
-              parentAction={(val: any) => {
+              parentAction={(val) => {
                 setShipInfo(val);
                 handleStepChange(2);
               }}
@@ -129,7 +127,7 @@ export default function ClientWrapper({ order }: ClientWrapperProps) {
                 )}
                 <PaymentSection
                   loadingParent={isLoading}
-                  shipInfo={shipInfo}
+                  shipInfo={shipInfo!}
                   orderId={order.orderId}
                   setResult={setPaymentResponse}
                   price={parseInt(order.orderProductTotal)}

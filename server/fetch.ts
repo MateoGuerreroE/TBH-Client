@@ -1,5 +1,6 @@
 import { ClientError } from "@/types/Exceptions.types";
 import { ServerResponse } from "@/types/Data.types";
+import { redirect } from "next/navigation";
 
 export type RequestCacheOptions = {
   next?: { revalidate: number };
@@ -14,9 +15,11 @@ export type FetchOptions = {
 
 export async function serverFetch<T>(
   uri: string,
-  options: FetchOptions
+  options: FetchOptions,
+  redirects?: boolean
 ): Promise<ServerResponse<T>> {
   const { cache, next } = options;
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${uri}`, {
     method: options.method,
     body: options.method !== "GET" ? JSON.stringify(options.body) : null,
@@ -32,20 +35,36 @@ export async function serverFetch<T>(
   });
   if (!res.ok) {
     const { error } = await res.json();
-    console.log(error);
-    throw new ClientError(
-      "Error del servidor. Intente nuevamente más tarde",
-      error || res.statusText
-    );
+    console.error("Error fetching resource:", error || res.statusText);
+    if (redirects) {
+      redirect("/not-found");
+    } else {
+      throw new ClientError(
+        "Error del servidor. Intente nuevamente más tarde",
+        error || res.statusText
+      );
+    }
   }
   return (await res.json()) as ServerResponse<T>;
 }
 
 export async function getResource<T>(
   uri: string,
-  cacheOptions?: RequestCacheOptions
+  redirects: boolean = false,
+  requestOptions: {
+    authorization?: string;
+    cacheOptions?: RequestCacheOptions;
+  }
 ): Promise<ServerResponse<T>> {
-  return serverFetch<T>(uri, { method: "GET", ...cacheOptions });
+  return serverFetch<T>(
+    uri,
+    {
+      method: "GET",
+      authorization: requestOptions.authorization,
+      ...requestOptions.cacheOptions,
+    },
+    redirects
+  );
 }
 
 export async function postResource<T>(

@@ -1,39 +1,55 @@
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
 import {
   addToast,
+  Checkbox,
   Divider,
   Input,
   Modal,
   ModalBody,
   ModalContent,
   ModalHeader,
+  Select,
+  SelectItem,
+  Tooltip,
   useDisclosure,
 } from "@heroui/react";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import React, { useState } from "react";
-
+import { ImageType, ProductImage } from "@/types/Data.types";
+import { useAppStore } from "@/app/context/zustand";
 export interface ImagesModalProps {
   productId: string;
-  images: any[];
+  images: ProductImage[];
 }
+
+type FormData = {
+  file: File | null;
+  url: string;
+  isPrimary: boolean;
+  type: ImageType;
+};
 
 export default function ImagesModal({ images, productId }: ImagesModalProps) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { visitorToken } = useAppStore();
   const [colValues, setColValues] = useState(images);
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormData>({
+    file: null,
     url: "",
-    color: "",
+    isPrimary: false,
+    type: "base",
   });
 
+  const [canSave, setCanSave] = useState(false);
+
   const handleRemoveImage = (imageUrl: string) => {
-    console.log(imageUrl);
     setColValues((prev) => prev.filter((img) => img.url !== imageUrl));
   };
   const [colDefs] = useState<ColDef[]>([
     { field: "url", headerName: "Imagen", width: 200 },
-    { field: "color", headerName: "Color", width: 120 },
-    { field: "status", headerName: "Estado", width: 110 },
+    { field: "type", headerName: "Tipo", width: 120 },
+    { field: "isPrimary", headerName: "Principal", width: 110 },
     {
       field: "action",
       headerName: "Eliminar",
@@ -55,12 +71,44 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
     },
   ]);
 
-  const addImageFromForm = () => {
-    const newImage = {
-      ...formValues,
-      status: "active", // Default status, can be changed as needed
+  const addImageFromForm = async () => {
+    const { file, ...values } = formValues;
+    const newImage: ProductImage = {
+      ...values,
     };
+
+    if (file !== null) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "tbh-uploads");
+      formData.append(
+        "api_key",
+        process.env.NEXT_PUBLIC_CLOUDINARY_SECRET || ""
+      );
+
+      const result = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!result.ok) {
+        console.error("Error uploading image:", result.statusText);
+        addToast({
+          title: "Error al subir imagen",
+          description: "No se pudo subir la imagen al servidor.",
+          color: "danger",
+        });
+        return;
+      }
+
+      const data = await result.json();
+      newImage.url = data.secure_url;
+    }
     setColValues((prev) => [...prev, newImage]);
+    setCanSave(true);
   };
 
   const handleSaveChanges = async () => {
@@ -74,6 +122,7 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
           }),
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${visitorToken}`,
           },
         }
       );
@@ -120,23 +169,27 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                   <h4 className="text-xl font-bold my-2">Agregar una imagen</h4>
                   <div className="w-full flex flex-col gap-4">
                     <div className="flex flex-col gap-3">
-                      <Input
+                      <Select
                         isRequired
-                        onChange={(e) =>
-                          setFormValues({
-                            ...formValues,
-                            color: e.target.value,
-                          })
-                        }
-                        label="Color"
+                        selectedKeys={[formValues.type]}
+                        onSelectionChange={(selection) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            type: selection.currentKey as ImageType,
+                          }));
+                        }}
+                        label="Tipo de imagen"
                         labelPlacement="outside-left"
                         classNames={{
-                          inputWrapper: "bg-white",
+                          trigger: "bg-white",
                           mainWrapper: "w-full",
                           label: "font-semibold",
                         }}
                         fullWidth={true}
-                      />
+                      >
+                        <SelectItem key={"base"}>Base</SelectItem>
+                        <SelectItem key={"sizing"}>Medidas</SelectItem>
+                      </Select>
                       <Input
                         type="file"
                         label="Subir archivo"
@@ -147,7 +200,26 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                           label: "font-semibold",
                         }}
                         fullWidth={true}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0] || null;
+                          setFormValues((prev) => ({ ...prev, file }));
+                        }}
                       />
+                      <div className="flex flex-row gap-3">
+                        <Checkbox
+                          isSelected={formValues.isPrimary}
+                          onValueChange={(value) =>
+                            setFormValues((p) => ({ ...p, isPrimary: value }))
+                          }
+                        >
+                          Imagen Principal
+                        </Checkbox>
+                        <Tooltip content="Si existe otra imagen marcada como principal, esta se reemplazará.">
+                          <div className="font-semibold font-poppins hover:cursor-pointer rounded-full aspect-square w-5 flex items-center justify-center h-5 bg-transparent border-2 border-slate-600 text-slate-600">
+                            ?
+                          </div>
+                        </Tooltip>
+                      </div>
 
                       <Input
                         label="Enlace externo"
@@ -170,6 +242,9 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                     <ButtonComponent
                       label="Agregar"
                       action={() => addImageFromForm()}
+                      disabled={
+                        !formValues.file && formValues.url.trim() === ""
+                      }
                     />
                   </div>
                 </div>
@@ -186,6 +261,7 @@ export default function ImagesModal({ images, productId }: ImagesModalProps) {
                 </div>
                 <ButtonComponent
                   label="Guardar"
+                  disabled={!canSave}
                   action={() => handleSaveChanges()}
                 />
               </ModalBody>

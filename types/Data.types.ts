@@ -1,3 +1,5 @@
+import { IProductRecord } from "tbh-shared-types";
+
 type ButtonDefinition = {
   text: string;
   type: "primary" | "secondary";
@@ -6,7 +8,7 @@ type ButtonDefinition = {
 interface ProductSectionInfo {
   title: string;
   isProduct: true;
-  product: ProductInfo;
+  product: IProductRecord;
   buttons: ButtonDefinition[];
 }
 
@@ -20,23 +22,13 @@ interface PromoSectionInfo {
 
 export type HomeSectionInfo = ProductSectionInfo | PromoSectionInfo;
 
-export interface ProductInfo {
-  productId: string;
-  productCup: string;
-  productName: string;
-  productDescription: string;
-  productPrice: number;
-  productEan: string | null;
-  productImages: string[];
-  productVideos: string[];
-  isEnabled: boolean;
-  isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date | null;
-  subCategoryId: string;
-  discount: number;
-  subCategory: any; //! TODO TYPE THIS
+export type ImageType = "base" | "sizing";
+
+export interface ProductImage {
+  url: string;
+  isPrimary: boolean;
+  altText?: string;
+  type: ImageType;
 }
 
 export interface ServerResponse<T> {

@@ -1,15 +1,30 @@
-import { GlobalAlertProps } from "@/app/components/shared/GlobalAlert";
 import { testUserCart } from "@/test/sampleData";
-import { UserLogin } from "@/types/Auth.types";
 import { CartProduct } from "@/types/Context.types";
+import {
+  IAdminLoginData,
+  ICategoriesWithProducts,
+  IUserLoginData,
+} from "tbh-shared-types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+export interface InitialPayload {
+  data: ICategoriesWithProducts[] | null;
+  ttl: number;
+}
+
 export type GlobalState = {
-  user: UserLogin | null;
-  globalAlert: GlobalAlertProps;
-  setGlobalAlert: (vals: GlobalAlertProps) => void;
-  setUser: (user: UserLogin | null) => void;
+  user: IUserLoginData | IAdminLoginData | null;
+  setUser: (user: IUserLoginData | IAdminLoginData | null) => void;
+  visitorToken: string | null;
+  setVisitorToken: (token: string | null) => void;
+  isAsyncLoading: boolean;
+  setIsAsyncLoading: (loading: boolean) => void;
+  initialPayload: InitialPayload;
+  setInitialPayload: (
+    data: ICategoriesWithProducts[] | null,
+    ttl: number
+  ) => void;
 };
 
 export type GlobalNPState = {
@@ -24,11 +39,18 @@ export type GlobalNPState = {
 export const useAppStore = create<GlobalState>()(
   persist<GlobalState>(
     (set) => ({
-      globalAlert: { title: "", content: "", timeout: 0, isOpen: false },
-      setGlobalAlert: (vals: GlobalAlertProps) =>
-        set(() => ({ globalAlert: vals })),
       user: null,
+      isAsyncLoading: false,
+      setIsAsyncLoading: (loading) => set(() => ({ isAsyncLoading: loading })),
       setUser: (user) => set(() => ({ user })),
+      visitorToken: null,
+      setVisitorToken: (token) => set(() => ({ visitorToken: token })),
+      initialPayload: {
+        ttl: 0,
+        data: null,
+      },
+      setInitialPayload: (data, ttl) =>
+        set(() => ({ initialPayload: { data, ttl } })),
     }),
     {
       name: "user-storage",

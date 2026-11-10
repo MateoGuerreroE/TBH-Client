@@ -1,6 +1,6 @@
-import { ProductInfo } from "./Data.types";
+import { IProductRecord } from "tbh-shared-types";
 
 export type CartProduct = {
   amount: number;
-  product: ProductInfo;
+  product: IProductRecord;
 };

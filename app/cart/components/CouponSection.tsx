@@ -1,9 +1,11 @@
 "use client";
 
 import ButtonComponent from "@/app/components/shared/ButtonComponent";
+import { useAppStore } from "@/app/context/zustand";
 import { getResource } from "@/server/fetch";
 import { Input } from "@heroui/react";
 import { useState } from "react";
+import { ICouponRecord } from "tbh-shared-types";
 
 export type CouponSectionProps = {
   setDiscount: (discount: number) => void;
@@ -14,15 +16,24 @@ export default function CouponSection({ setDiscount }: CouponSectionProps) {
   const [value, setValue] = useState<string>("");
   const [message, setMessage] = useState<string>("");
 
+  const { visitorToken } = useAppStore();
+
   const checkCoupon = async () => {
     setLoading(true);
     try {
-      const { data } = await getResource<any>(
-        `coupon/validate?couponCode=${value}`
+      const { data } = await getResource<ICouponRecord>(
+        `coupon/validate?couponCode=${value}`,
+        false,
+        {
+          cacheOptions: {
+            cache: "no-store",
+          },
+          authorization: visitorToken!,
+        }
       );
 
       setDiscount(parseFloat(data.discountAmount));
-      setMessage(value + ` (-${data.discountAmount * 100}%)`);
+      setMessage(value + ` (-${parseFloat(data.discountAmount) * 100}%)`);
     } catch {
       setDiscount(0);
       setMessage("ERROR: Cupón invalido");
